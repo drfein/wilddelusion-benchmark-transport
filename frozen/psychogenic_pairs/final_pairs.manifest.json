@@ -1,0 +1,9 @@
+{
+  "attempted_targets": 522,
+  "strictly_valid_targets": 327,
+  "accepted_by_round": {
+    "0": 139,
+    "1": 113,
+    "2": 75
+  }
+}

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wilddelusion-benchmark-transport"
+version = "0.1.0"
+description = "Auditable reproduction of synthetic-to-natural WildDelusion benchmark transport results"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "Daniel Fein" }]
+dependencies = [
+  "datasets>=4.0,<6",
+  "huggingface-hub>=0.34,<2",
+  "matplotlib>=3.9,<4",
+  "numpy>=2.0,<3",
+  "openai>=2.0,<3",
+  "pandas>=2.2,<4",
+  "scipy>=1.14,<2",
+  "transformers>=4.50,<6",
+  "tqdm>=4.66,<5",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.4,<10", "ruff>=0.12,<1"]
+
+[project.scripts]
+wd-reproduce = "wilddelusion_repro.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/wilddelusion_repro"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"

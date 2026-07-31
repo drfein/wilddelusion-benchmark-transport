@@ -1,0 +1,6 @@
+source,rows,clusters,outside_rows,outside_share,in_ontology_rows,in_ontology_share
+sharechat_chatgpt,405,216,202,0.49876543209876545,79,0.19506172839506172
+wildchat_full,68,68,45,0.6617647058823529,10,0.14705882352941177
+sharechat_grok,42,30,22,0.5238095238095238,9,0.21428571428571427
+sharechat_gemini,5,5,3,0.6,0,0.0
+sharechat_claude,2,2,2,1.0,0,0.0

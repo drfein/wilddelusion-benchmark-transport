@@ -1,0 +1,8 @@
+{
+  "candidate_targets": 522,
+  "successful_labels": 522,
+  "model": "gpt-5.4-mini",
+  "new_input_tokens": 976722,
+  "new_output_tokens": 59079,
+  "new_errors": 0
+}

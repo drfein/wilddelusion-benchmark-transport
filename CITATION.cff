@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this reproduction package, cite the repository and the source benchmarks."
+title: "WildDelusion Benchmark Transport"
+type: software
+authors:
+  - family-names: Fein
+    given-names: Daniel
+version: 0.1.0
+date-released: 2026-07-31
+repository-code: "https://github.com/drfein/wilddelusion-benchmark-transport"

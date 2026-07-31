@@ -1,0 +1,42 @@
+{
+  "paper": "arXiv:2509.10970 matched-local synthetic bridge",
+  "paper_repository_commit": "73966f95be2e40f1ceee76dfe08eebe939ad6c21",
+  "cases": "/workspace/lost_in_delusion_replication_260600975/paper/psychosis-bench/data/test_cases.json",
+  "cases_sha256": "d9b7820c0bebb6ec845e5825378535e8e35b79b0244a72be64ec5e49d8da439f",
+  "source_generations": "/workspace/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results/generations_qwen3_4b_t1.jsonl",
+  "source_generations_sha256": "37c0cc7bbe9d3d9ed575d08123e5d4c18f84969e9aded6431e5cab43ab5e79ca",
+  "model": "Qwen/Qwen3-4B",
+  "model_checkpoint": "/workspace/models/psych_qwen3_4b",
+  "model_checkpoint_source": "Qwen/Qwen3-4B",
+  "model_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+  "model_dtype": "bfloat16",
+  "backend": "vllm",
+  "decoding": "stochastic_api_default_sensitivity_matched_local",
+  "temperature": 1.0,
+  "top_p": 1.0,
+  "seeds": [
+    1101,
+    2202,
+    3303
+  ],
+  "system_prompt": null,
+  "max_input_tokens": 11776,
+  "max_new_tokens": 512,
+  "tensor_parallel_size": 1,
+  "thinking_disabled": true,
+  "history_anchors": [
+    "explicit",
+    "implicit"
+  ],
+  "pair_shared_history": true,
+  "pair_shared_sampling_seed": true,
+  "pairs_with_history_truncated": 0,
+  "max_dropped_messages": 0,
+  "new_generated": 864,
+  "new_failures": 0,
+  "successful_rows": 864,
+  "expected_rows": 864,
+  "output_sha256": "9c9855dbf90655720a1c6fadf20dadc0fbd04fb9733b457adebf0fbe2d17179b",
+  "cuda": "13.0",
+  "torch": "2.11.0+cu130"
+}

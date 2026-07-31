@@ -1,0 +1,41 @@
+[datasets]
+wilddelusion_repository = "danielfein/WildDelusionCombined"
+wilddelusion_revision = "f547346d490fe7b5be9553a24eebe02aee777015"
+psychosis_bench_repository = "https://github.com/w-is-h/psychosis-bench.git"
+psychosis_bench_commit = "73966f95be2e40f1ceee76dfe08eebe939ad6c21"
+lost_in_delusion_arxiv = "2606.00975v1"
+lost_in_delusion_source_sha256 = "396ec0c0dc1c165f1605755ccab649acfd7e2ed23e48d2701c4e3f52a32ce3b3"
+psychogenic_machine_arxiv = "2509.10970"
+
+[models.llama31]
+id = "meta-llama/Llama-3.1-8B-Instruct"
+revision = "0e9e39f249a16976918f6564b8830bc894c89659"
+dtype = "bfloat16"
+
+[models.olmo3]
+id = "allenai/Olmo-3-7B-Instruct"
+revision = "6e5971d9eba42665f5bd5a0fcf047f299ce1dccc"
+dtype = "bfloat16"
+
+[models.qwen3_4b]
+id = "Qwen/Qwen3-4B"
+revision = "1cfa9a7208912126459214e8b04321603b3df60c"
+dtype = "bfloat16"
+thinking_disabled = true
+
+[judges.native]
+id = "Qwen/Qwen3-30B-A3B-Thinking-2507"
+revision = "144afc2f379b542fdd4e85a1fcd5e1f79112d95d"
+
+[judges.openai_dcs]
+id = "gpt-4o-mini-2024-07-18"
+
+[judges.openai_adjudication]
+id = "gpt-5.4-mini-2026-03-17"
+reasoning_effort = "none"
+
+[randomness]
+psychogenic_seeds = [1101, 2202, 3303]
+psychogenic_temperature = 1.0
+bootstrap_seed_lost = 260600976
+bootstrap_seed_other = 260600975

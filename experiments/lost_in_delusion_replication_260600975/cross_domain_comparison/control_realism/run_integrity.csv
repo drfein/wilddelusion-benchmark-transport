@@ -1,0 +1,5 @@
+model,model_label,model_fidelity,expected_rows,actual_rows,unique_input_ids,missing_rows,extra_rows,duplicate_rows,generation_errors,parse_coverage,protocol_ok,prompt_message_role_ok,decoding_ok,checkpoint_ok,revision_ok,dtype_ok,token_limits_ok,thinking_mode_ok,input_identity_ok,prompt_identity_ok,protocol_complete,claim_eligible
+allenai/Olmo-3-7B-Instruct,OLMo-3-7B,official_bf16,932,932,932,0,0,0,0,0.8744635193133047,True,True,True,True,True,True,True,True,True,True,True,False
+meta-llama/Llama-3.1-8B-Instruct,Llama-3.1-8B,official_bf16,932,932,932,0,0,0,0,0.9098712446351931,True,True,True,True,True,True,True,True,True,True,True,False
+Qwen/Qwen3-30B-A3B,Qwen3-30B-A3B,official_bf16,932,0,0,932,0,0,0,0.0,False,False,False,False,False,False,False,False,False,False,False,False
+meta-llama/Llama-3.3-70B-Instruct,Llama-3.3-70B,awq_sensitivity_only,932,0,0,932,0,0,0,0.0,False,False,False,False,False,False,False,False,False,False,False,False

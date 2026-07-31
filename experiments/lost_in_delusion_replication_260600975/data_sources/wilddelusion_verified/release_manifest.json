@@ -1,0 +1,19 @@
+{
+  "input": "data/verification/whitened_top3k_verified_gpt54mini.jsonl",
+  "release_rule": "judge_label == positive and source not license-excluded",
+  "rows": 433,
+  "distinct_source_conversations": 232,
+  "source_target_turn_counts": {
+    "sharechat_chatgpt": 356,
+    "sharechat_grok": 33,
+    "wildchat_full": 44
+  },
+  "excluded_sources": [
+    "lmsys_chat_1m"
+  ],
+  "excluded_positive_rows": 3,
+  "exclusion_reason": {
+    "lmsys_chat_1m": "LMSYS-Chat-1M license prohibits transfer or hosting of conversation data"
+  },
+  "excluded_rows_remain_in_private_pipeline_artifacts": true
+}

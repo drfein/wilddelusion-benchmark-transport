@@ -1,0 +1,148 @@
+{
+  "lost_real": {
+    "targets": 522,
+    "source_clusters": 321,
+    "themes": {
+      "grandiose": 140,
+      "religious_or_spiritual": 49,
+      "persecutory": 148,
+      "mixed": 46,
+      "bizarre": 83,
+      "unclear_or_no_delusional_theme": 11,
+      "thought_broadcasting": 13,
+      "referential": 13,
+      "somatic": 10,
+      "nihilistic": 3,
+      "thought_insertion": 5,
+      "delusional_jealousy": 1
+    },
+    "target_words": {
+      "mean": 157.39080459770116,
+      "median": 81.5,
+      "q1": 44.0,
+      "q3": 181.0,
+      "min": 0.0,
+      "max": 2438.0
+    },
+    "retained_messages": {
+      "mean": 3.89272030651341,
+      "median": 4.0,
+      "q1": 4.0,
+      "q3": 4.0,
+      "min": 1.0,
+      "max": 7.0
+    },
+    "source_user_turns_through_target": {
+      "mean": 20.952107279693486,
+      "median": 12.0,
+      "q1": 4.0,
+      "q3": 24.0,
+      "min": 1.0,
+      "max": 935.0
+    },
+    "single_message_histories": 73
+  },
+  "psychogenic_synthetic": {
+    "scenario_pairs": 8,
+    "conversations": 16,
+    "turns_per_conversation": 12,
+    "themes": {
+      "Grandiose Delusions": 6,
+      "Attachment / Erotic Delusions": 3,
+      "Grandiose/Referential Delusions": 2,
+      "Grandiose/Attachment Delusions": 2,
+      "Referential/Anthropomorphic Delusions": 2,
+      "Erotic Attachment Delusions and Self-Isolation": 1
+    },
+    "prompt_words": {
+      "mean": 22.057291666666668,
+      "median": 21.0,
+      "q1": 16.0,
+      "q3": 26.0,
+      "min": 11.0,
+      "max": 45.0
+    },
+    "phase_2_to_4_pair_jaccard": {
+      "mean": 0.16332319203582094,
+      "median": 0.11942959001782531,
+      "q1": 0.06899224806201551,
+      "q3": 0.1702127659574468,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "phase_2_to_4_sequence_ratio": {
+      "mean": 0.33454106633581276,
+      "median": 0.29883855981416957,
+      "q1": 0.24612089865847747,
+      "q3": 0.3837252706233669,
+      "min": 0.01020408163265306,
+      "max": 1.0
+    },
+    "sincerely_believe_prompts": 0
+  },
+  "psychogenic_real": {
+    "pairs": 327,
+    "source_clusters": 229,
+    "themes": {
+      "grandiose": 85,
+      "persecutory": 90,
+      "mixed": 27,
+      "unclear_or_no_delusional_theme": 7,
+      "bizarre": 55,
+      "religious_or_spiritual": 32,
+      "referential": 10,
+      "somatic": 4,
+      "nihilistic": 3,
+      "thought_broadcasting": 10,
+      "thought_insertion": 4
+    },
+    "original_harm": {
+      "possible": 217,
+      "none": 95,
+      "clear": 15
+    },
+    "original_distress": {
+      "moderate": 120,
+      "none": 92,
+      "mild": 96,
+      "severe": 19
+    },
+    "high_stakes_actions": 28,
+    "target_words": {
+      "mean": 168.06422018348624,
+      "median": 76.0,
+      "q1": 43.0,
+      "q3": 173.0,
+      "min": 0.0,
+      "max": 2438.0
+    },
+    "history_messages": {
+      "mean": 26.779816513761467,
+      "median": 13.0,
+      "q1": 3.0,
+      "q3": 27.0,
+      "min": 1.0,
+      "max": 1861.0
+    },
+    "rewrite_jaccard": {
+      "mean": 0.6359120200959248,
+      "median": 0.6326530612244898,
+      "q1": 0.5113695090439276,
+      "q3": 0.7766439909297052,
+      "min": 0.14893617021276595,
+      "max": 1.0
+    },
+    "explicit_sincerely_believe": 278,
+    "implicit_sincerely_believe": 1,
+    "natural_pairs": 27,
+    "natural_rewrite_jaccard": {
+      "mean": 0.41008050427832676,
+      "median": 0.42105263157894735,
+      "q1": 0.283401325854156,
+      "q3": 0.5417441014867486,
+      "min": 0.0,
+      "max": 0.9444444444444444
+    },
+    "natural_explicit_sincerely_believe": 0
+  }
+}

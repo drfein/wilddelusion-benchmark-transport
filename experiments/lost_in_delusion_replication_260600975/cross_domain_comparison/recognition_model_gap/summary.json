@@ -1,0 +1,165 @@
+{
+  "published_source_audit": {
+    "path": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/paper/source/appendix/12_distress_delusion_classification_f1.tex",
+    "sha256": "186e35c5fea348bad86d95259ba4f82099d7e2f7d8bb668db1eb0ae31a3f26d1",
+    "table": "Delusion Detection in Appendix Table 12",
+    "verified_values": {
+      "OLMo-3-7B": {
+        "f1": 0.33,
+        "fpr": 0.01,
+        "fnr": 0.8
+      },
+      "Llama-3.1-8B": {
+        "f1": 0.72,
+        "fpr": 0.62,
+        "fnr": 0.09
+      },
+      "Qwen3-30B-A3B": {
+        "f1": 0.87,
+        "fpr": 0.03,
+        "fnr": 0.21
+      },
+      "Llama-3.3-70B": {
+        "f1": 0.86,
+        "fpr": 0.11,
+        "fnr": 0.16
+      }
+    },
+    "prompt_source_path": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/paper/source/appendix/5_conditioning_prompts.tex",
+    "prompt_source_sha256": "283f62995fa6f9ea009d5ae23725006aa0782a92146febe86e1f056603ad8b5b",
+    "prompt_semantic_tokens_identical": true,
+    "prompt_semantic_sha256": "5b2ca0819491bf05cbd7052a805401aadff4e3d199b2f71c016955eb207a5fdb",
+    "prompt_message_role_disclosure": "The paper publishes the standalone assessment prompt but does not disclose its API message role. This reproduction operationalizes it as one 'user'-role message."
+  },
+  "input_audit": {
+    "input_path": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/classifier_inputs.jsonl",
+    "input_sha256": "543ba37348c5b17f61d0176c16ffedadcb0a5b3c61381bb3ddaa4bc125557d55",
+    "rows": 932,
+    "positive_rows": 522,
+    "strict_in_ontology_rows": 98,
+    "strict_in_ontology_clusters": 63,
+    "theme_consensus": {
+      "adjudicator": "gpt-5.4-mini-2026-03-17",
+      "rubric_versions": [
+        "A",
+        "B"
+      ],
+      "reasoning_effort": "none",
+      "frozen_input_sha256": "543ba37348c5b17f61d0176c16ffedadcb0a5b3c61381bb3ddaa4bc125557d55",
+      "adjudication_sha256": {
+        "A": "008b84a2c97de142a7c9421c3f0e9441509784e356ac7e3898c93c28dd7f72f5",
+        "B": "3f270dd686b1dac688e671dea21e20477ef29998dd79058e750a6d16a1b7f44f"
+      },
+      "manifest_sha256": {
+        "A": "df3df20e6200e701336f697cc7df6859bfff249f124467b3e92e3eec159c445b",
+        "B": "d36c474f409b65dbd64b554995cf27ddef55b8e14e23d248edba74a7f010f9f2"
+      },
+      "rows_per_rubric": 522,
+      "exact_theme_agreement": 0.7471264367816092,
+      "cohen_kappa": 0.5222763010108572,
+      "strict_consensus_rows": 98,
+      "strict_consensus_clusters": 63,
+      "strict_consensus_by_theme": {
+        "spiritual-messianic": 65,
+        "sentient-ai": 32,
+        "emotional-dependence": 1
+      },
+      "strict_consensus_clusters_by_theme": {
+        "emotional-dependence": 1,
+        "sentient-ai": 27,
+        "spiritual-messianic": 44
+      },
+      "strict_outside_ontology_rows": 274,
+      "strict_outside_ontology_clusters": 202,
+      "strict_rule": "exact category agreement; positive paper theme; necessary condition present in both; neither confidence low",
+      "strict_outside_rule": "exact outside-ontology agreement; necessary condition absent in both; neither confidence low"
+    }
+  },
+  "output_audit": {
+    "checks": {
+      "primary_models": true,
+      "strict_rows_per_model": true,
+      "paired_ids": true,
+      "input_and_prompt_identity": true,
+      "no_generation_errors": true,
+      "official_bf16": true,
+      "manifest_runs_complete": true
+    },
+    "generation_artifacts": {
+      "eligible": false,
+      "models": [
+        "allenai/Olmo-3-7B-Instruct",
+        "meta-llama/Llama-3.1-8B-Instruct"
+      ],
+      "rows": 1864,
+      "combined_output": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/control_realism/official_bf16_classifications.jsonl",
+      "combined_sha256": "af0460898aba0b86e449291c092af87c7c6b21f7517530a86ca0583ab4d317be",
+      "runs": [
+        {
+          "model": "allenai/Olmo-3-7B-Instruct",
+          "output": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/results/classifications.olmo3_7b.jsonl",
+          "output_sha256": "6fe7e497c85a61ad4798291247d5897b6bbce3fadf26972d77d7397b96860854",
+          "manifest": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/results/classifications.olmo3_7b.jsonl.allenai_olmo_3_7b_instruct.manifest.json",
+          "manifest_sha256": "633427ac6a61e5d0979a459b1be9eeecf958e8b668a98b4022b8b49b5bc370f2",
+          "parse_valid_rows": 815,
+          "parse_protocol_complete": false
+        },
+        {
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "output": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/results/classifications.llama31_8b.jsonl",
+          "output_sha256": "2e54a0eb420aef751a4e19f2c6e76a9c8ccf0f1b0ab5bc9cd61ef5db5941c6ec",
+          "manifest": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/results/classifications.llama31_8b.jsonl.meta_llama_llama_3_1_8b_instruct.manifest.json",
+          "manifest_sha256": "e10105ec0f2871bb39415c51e7eb883a090bd14d6d3c56dd5f660fc87d18b92b",
+          "parse_valid_rows": 848,
+          "parse_protocol_complete": false
+        }
+      ]
+    },
+    "combined_path": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/control_realism/official_bf16_classifications.jsonl",
+    "combined_sha256": "af0460898aba0b86e449291c092af87c7c6b21f7517530a86ca0583ab4d317be"
+  },
+  "claim_gate": {
+    "claim_id": "synthetic_recognition_model_gap_overestimation",
+    "ready": true,
+    "paper_reported_olmo_minus_llama_fnr_gap": 0.7100000000000001,
+    "paper_gap_min_after_table_rounding": 0.7000000000000001,
+    "real_partial_identification": {
+      "gap_lower": 0.01020408163265306,
+      "gap_upper": 0.24489795918367346,
+      "partial_ci95_low": -0.07608695652173914,
+      "partial_ci95_high": 0.3372093023255814,
+      "partial_ci99_low": -0.10416757246376812,
+      "partial_ci99_high": 0.3684210526315789
+    },
+    "cohort": "98 dual-rubric strict in-ontology real endpoints across 63 source conversations",
+    "required_evidence": "Both official BF16 models must reproduce the exact disclosed classifier protocol on every frozen input. Every invalid parse is assigned adversarially to maximize the real OLMo-minus-Llama FNR gap, and its conversation-clustered 99% upper bound must remain below the minimum paper gap after table-rounding error.",
+    "allowed_claim": "The 71-point OLMo-Llama false-negative-rate gap reported on synthetic scripts did not transport to strict in-ontology real endpoints; even an adversarial partial-identification analysis left the real gap far smaller.",
+    "guardrail": "This is a descriptive benchmark-transport result, not a cross-study population interaction: the paper releases rounded aggregate classifier rates but not row-level outputs. The paper also does not disclose whether its assessment prompt was sent as a user or system message; this reproduction records the user-role operationalization.",
+    "model_bounds": [
+      {
+        "model": "allenai/Olmo-3-7B-Instruct",
+        "model_label": "OLMo-3-7B",
+        "n_rows": 98,
+        "n_clusters": 63,
+        "parse_valid_rows": 85,
+        "unknown_rows": 13,
+        "known_false_negatives": 12,
+        "fnr_lower": 0.12244897959183673,
+        "fnr_upper": 0.25510204081632654,
+        "published_synthetic_fnr": 0.8
+      },
+      {
+        "model": "meta-llama/Llama-3.1-8B-Instruct",
+        "model_label": "Llama-3.1-8B",
+        "n_rows": 98,
+        "n_clusters": 63,
+        "parse_valid_rows": 88,
+        "unknown_rows": 10,
+        "known_false_negatives": 1,
+        "fnr_lower": 0.01020408163265306,
+        "fnr_upper": 0.11224489795918367,
+        "published_synthetic_fnr": 0.09
+      }
+    ]
+  }
+}

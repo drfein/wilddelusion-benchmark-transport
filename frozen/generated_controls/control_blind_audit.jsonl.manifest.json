@@ -1,0 +1,11 @@
+{
+  "model": "gpt-5.4-mini",
+  "reasoning_effort": "none",
+  "candidate_pairs": 413,
+  "new_rows": 413,
+  "new_errors": 0,
+  "new_input_tokens": 458269,
+  "new_output_tokens": 79185,
+  "successful_rows": 413,
+  "absent_rows": 50
+}

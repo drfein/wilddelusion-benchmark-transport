@@ -1,0 +1,1125 @@
+{
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 461,
+      "sha256": "62faab46eb69d9834acb0d6cf113e23d3c1b95a47002b31ea68bd69103607bfd"
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 13,
+      "sha256": "2ed0077447c3b45465683ec6b60800456bae3655d4fd233dc653d408563dfaed"
+    },
+    {
+      "path": ".github/workflows/test.yml",
+      "bytes": 456,
+      "sha256": "1f2b4b539ba4c4450270f60c4652c652cb9af6aefa073878324727b81ed38748"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 894,
+      "sha256": "c237f4c205456d294220840b69c198f215655a13af4c5ca1c1464c697bc327a5"
+    },
+    {
+      "path": "CITATION.cff",
+      "bytes": 347,
+      "sha256": "4c077a419ff6e3b17fc205d6caa0ae1562af3d6ad8e6acc8c5ee8d8d01c70969"
+    },
+    {
+      "path": "DATA_LICENSE.md",
+      "bytes": 983,
+      "sha256": "3843f50ff86b57eac8a4ad7573e259e164a83c3d0dce4fbd2629853cac64bf18"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1068,
+      "sha256": "20d3efec162bb6031202a93d40ff445618a660559caa829ae59a81770dcf26b1"
+    },
+    {
+      "path": "Makefile",
+      "bytes": 314,
+      "sha256": "34b100f2a7d8922aaa92a3ebff68024624428a58aa5295d40e931ab820bedca3"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6426,
+      "sha256": "e4a5449d8601a35595535a10cd2c3e831aa10f9a4abf51b6086e384f7494651f"
+    },
+    {
+      "path": "configs/pipeline.toml",
+      "bytes": 36487,
+      "sha256": "786a8f7ee8382135e832e8e2849dd644018bb15c3fcfa89eaa8e7df7701e3365"
+    },
+    {
+      "path": "docs/METHODS.md",
+      "bytes": 3691,
+      "sha256": "0f3de0769e424090213668c0b135be3308aee0012dc38bcc1412aef04024d0a9"
+    },
+    {
+      "path": "docs/REBUILDING_EXAMPLES.md",
+      "bytes": 2256,
+      "sha256": "a7a1b38237a12e78cd035cd78109d9c59646be6561a7f6f9cc1297f0bc9037b3"
+    },
+    {
+      "path": "docs/REPRODUCING.md",
+      "bytes": 4195,
+      "sha256": "ac1b767b5894480a5ea3e3b98f90aae03571bd632dab14b6748bd7921db5aa05"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/README.md",
+      "bytes": 3198,
+      "sha256": "669077dc87a616d842f17bf8a543fac5bdd0b30495e3b45e9520cc1191d69fdf"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/RESULTS.md",
+      "bytes": 10812,
+      "sha256": "0d6205b5aebea6621e4b003eaa9a9a5182a05391c24a68bd40dbd4e2da1d7d58"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/analyze.py",
+      "bytes": 7260,
+      "sha256": "2a53b85d0ff0144d0f35cca241a506cb37f4ffdecdeca293c35c791fac497b8b"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/analyze_transport.py",
+      "bytes": 16512,
+      "sha256": "ccc773094ffeef27301f8a1db259675bb4df49ee81930a8f56479ea8d5b69cce"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/audit_qwen_judgments.py",
+      "bytes": 11562,
+      "sha256": "26b96a1bf57169331675502bfb86874cff44bb61703f3a254109830190ba4de3"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/build_cohort.py",
+      "bytes": 5213,
+      "sha256": "87e40ca85639225eea3ce445d9557a9273170032687fc739f1dfdfc4d93380a8"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/configs/core_replication.json",
+      "bytes": 684,
+      "sha256": "165b784bb005b6ae110add9ca3b05e9d48f0be5dcdce00de14c7430a6caa1713"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/RESULTS.md",
+      "bytes": 5773,
+      "sha256": "f49588398d341f33112f3c62be03faa524153e35e16f7b8c0f983c683c9317f1"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/abstract_claim_registry/COMPLETION_AUDIT.json",
+      "bytes": 7101,
+      "sha256": "d285621d009e4d60fa0e647039abae0da4b806de822fb5849dab212ebb15614c"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/abstract_claim_registry/COMPLETION_AUDIT.md",
+      "bytes": 5517,
+      "sha256": "5ff86e6c0984cb9567a658c166b30302d359e4738f9d425af587083c73b5c397"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/abstract_claim_registry/README.md",
+      "bytes": 6654,
+      "sha256": "f6343de2a8a62387d27f14b263409039f0d1722c330eedb045d45fed5a197438"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/abstract_claim_registry/claim_registry.csv",
+      "bytes": 10833,
+      "sha256": "b612dce3de1d0fdea11f0b6a58ce085b4dbf5ba66290cdc30409872337ff69f8"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/abstract_claim_registry/claim_registry.json",
+      "bytes": 73705,
+      "sha256": "6f7cc24df965e33ac116df3cdf044ccf64916c9b76613fefda258382b250f3fc"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/analyze_control_realism.py",
+      "bytes": 5593,
+      "sha256": "19fc18f1695aa5414be707c1f0d63c86f2c8fe50f01d2b249032e543f62abbec"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/analyze_cross_domain.py",
+      "bytes": 34158,
+      "sha256": "70edd5aadb437a3896a0cd296b817d72d693d71ed4620bfe3b02da1252044a0d"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/analyze_lost_exact_claims.py",
+      "bytes": 80762,
+      "sha256": "e31ca84c50dee84226de18b8d5e82b3bab3e25a4e06cc85c4c569842b8796d67"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/analyze_psychogenic_robustness.py",
+      "bytes": 61227,
+      "sha256": "e48727954c67315d221868df638ee18d2c6d5ccf21dd2a37d634f224de753842"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/analyze_recognition_model_gap.py",
+      "bytes": 12901,
+      "sha256": "0002a75261af6e668c2af152c99c198d00bd104ceb261fa431185e948ace08c5"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/analyze_released_psychosis_bench.py",
+      "bytes": 12880,
+      "sha256": "8106f84911aca82d7d39b798ee7d7881b0eb7954e36b2a8bf1cb824114139307"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/analyze_theme_coverage.py",
+      "bytes": 11332,
+      "sha256": "8f420af98c9e3b04d267e8d3edd15de5d3ff0b4d9ce2c12dd6b44c1c5c9116f1"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/analyze_visible_context_mod_harm.py",
+      "bytes": 18704,
+      "sha256": "76118115f0f9e974e157d3b0a78cf19f812f20c7314d53cef9fd3545fc180391"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/attest_generation_revisions.py",
+      "bytes": 4607,
+      "sha256": "fe3da657f09453a93c197ba57cec27324d8230405f8b3e7dc5057c8e63420f94"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/bootstrap_rank_correlations.py",
+      "bytes": 21166,
+      "sha256": "aaa405bc1d515912a25ce51d5841c26aeaf660728c45a7dd25c64b53b0715639"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/build_claim_registry.py",
+      "bytes": 23380,
+      "sha256": "5991edfc01a2b11f41fc47a0847eaa23872e5e3927d87747932ed716a91c9df1"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/control_realism/claim_gate.json",
+      "bytes": 3186,
+      "sha256": "2f386b6a53cb02c876a3eb31f4802b0e610ad14f20066f417ed3081429bcd955"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/control_realism/partial_identification_control_gaps.csv",
+      "bytes": 1156,
+      "sha256": "b44095586fbfc9289c13ce2fa82830de286eb8ac8ffd0da48296227a181e8a13"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/control_realism/run_integrity.csv",
+      "bytes": 948,
+      "sha256": "a81ed42b8cccc3374c4c0d37f99ac415f20c095adf6817dd7597dec728340ec7"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/control_realism/summary.json",
+      "bytes": 13633,
+      "sha256": "827fc1f6c48bdd9821b5e092e12af47a5d333d7bc3795ec722a730b79d530b94"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/generation_revision_attestation.json",
+      "bytes": 4175,
+      "sha256": "b2c4ecf1655c9e477737adbec16043e5bfe91b7a135ed7f493de5e6630b00f9a"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/lost_exact_claim_audit/claim_audit.json",
+      "bytes": 51126,
+      "sha256": "da5e86ff638d351240e4ad543a3cd35840a2a3ae12c016ab5d23e56b4d965ba2"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/lost_exact_claim_audit/primary_snapshot_endpoint_transport.json",
+      "bytes": 3192,
+      "sha256": "1f6ea1533ab80341f018a0f6236ec46834bd08213655a380e27b4a15cd90f88d"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/lost_exact_claim_audit_interim_1280/claim_audit.json",
+      "bytes": 12149,
+      "sha256": "0f312104dd7f282c6f733657983d39f2631b0de0487c5119581d7b3359db16fb"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/psychogenic_robustness/claim_gate.json",
+      "bytes": 7244,
+      "sha256": "f0bd0f85c52cf1bd9d977d021e19d26b043a6e8d0a406990601421548a8e7dd9"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/psychogenic_robustness/domain_interactions.csv",
+      "bytes": 335,
+      "sha256": "cacf69984e303222e4518612bea7a8fbd54726f43435c05aec02bdd93a4a00c6"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/psychogenic_robustness/leave_one_scenario_out.csv",
+      "bytes": 516,
+      "sha256": "0921bff56fdaa170c63859d49c117d10797cd6c28e83905ce09d1dbe105da75c"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/psychogenic_robustness/model_effects.csv",
+      "bytes": 1372,
+      "sha256": "dae81987fa8fded36e98b232ce8d4377fe05fd8681348f2cffcb2e629213877c"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/psychogenic_robustness/pooled_effects.csv",
+      "bytes": 527,
+      "sha256": "9a8d0860d9574cc87ddff34bcc1cfcb51d5ff99b8868794465401885b8268382"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/psychogenic_robustness/scenario_effects.csv",
+      "bytes": 1014,
+      "sha256": "2a9b0e8d60f7569360ef401317cbee7e3d3f7b717f0fe93f3b4455bcee5f032a"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/psychogenic_robustness/seed_effects.csv",
+      "bytes": 469,
+      "sha256": "91df42d32c983f0080472d4540d32e6b701bab6b6d9bada57d41435f8dda8212"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/psychogenic_robustness/stochastic_primary_seed_effects.csv",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/psychogenic_robustness/stochastic_seed_effects.csv",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/recognition_model_gap/claim_gate.json",
+      "bytes": 2251,
+      "sha256": "14d2b344628f30dfd3c6932dd28f0842fb28185d4d6a52be146e9b0793819660"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/recognition_model_gap/model_fnr_bounds.csv",
+      "bytes": 333,
+      "sha256": "3db93f53846109f2cefae6e3d257f501eed687ef24c7ac6b40291b7c02ff51bf"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/recognition_model_gap/paired_partial_bounds.csv",
+      "bytes": 10657,
+      "sha256": "68e933565a0ff3b56f0a88ef079971b65a38a77733b194c154d05a517c6a09ae"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/recognition_model_gap/summary.json",
+      "bytes": 8229,
+      "sha256": "7be9b9e3bb8207555a3dc119f22f2ec4eef1011f5e46d0c1dac4076e25ea15d3"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/released_psychosis_bench_audit/summary.json",
+      "bytes": 1835,
+      "sha256": "52da99eeee1ea4b86d265b86b04c6922db6d619d2e3bfcc8e187bda6bbd09ee4"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/remote_checkpoints/lost_primary_complete_preliminary.json",
+      "bytes": 19973,
+      "sha256": "cf8c6cd9a62e35369b221d087a6971d9ff3529a04ffb72242b1f491bc2ef850d"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/results.gpt-5.4-mini.backup/corpus_characteristics.json",
+      "bytes": 3544,
+      "sha256": "efe71c598158d00d75b8455e0a6169b1f644c6d83e9cef01c33448c8449c1654"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/results.gpt-5.4-mini.backup/run_integrity.json",
+      "bytes": 3447,
+      "sha256": "ee8257d1c8fabf9c0e4a20780b00fa468b9fcedc8fd4cabf6e5a9d99adce691f"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/run_psychosis_bench_vllm.py",
+      "bytes": 8479,
+      "sha256": "0ba0a329663c256dd1d5060edd90c0500ada52c2dd7068c44eacb27a048415d7"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/local_results/generations_llama31_8b_t1.jsonl.manifest.json",
+      "bytes": 1609,
+      "sha256": "98f471268669f3e313be24fb2ac189666b3fde87a7acd68d2403f20696b47c2c"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/local_results/generations_olmo3_7b_t1.jsonl.manifest.json",
+      "bytes": 1619,
+      "sha256": "1779b76bcccac0b0030055acc65aaafc4019ae3a11252acce5158e71cba2075e"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/local_results/generations_qwen3_4b_t1.jsonl.manifest.json",
+      "bytes": 1560,
+      "sha256": "77222c007fea7652b922e1d251ed49eecbc66351e1af8c24c151320bfeb2c35d"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/local_results/judgments.dcs-gpt4o-mini.jsonl.manifest.json",
+      "bytes": 1952,
+      "sha256": "240913eede579cf798d795872ed6ab9b9cbf2542d3aa09e5289d03d0129a5195"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results/generations_llama31_8b_t1.jsonl.manifest.json",
+      "bytes": 1204,
+      "sha256": "be9cce5b52358451330c2877b67d974cae165deaac1e7182d2930df074b4b4e2"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results/generations_olmo3_7b_t1.jsonl.manifest.json",
+      "bytes": 1184,
+      "sha256": "dfe844077c2adbb32ebf616333a790a6355588027459361d67528624f996bd70"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results/generations_qwen3_4b_t1.jsonl.manifest.json",
+      "bytes": 1138,
+      "sha256": "1cf0de7fb9901c6da43d75e6a0c44833ba430598bcee84fb48d7fe533a302dba"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results/judgments.dcs-gpt4o-mini.jsonl.manifest.json",
+      "bytes": 1962,
+      "sha256": "8bf3717b5c579292366eaac1f90c9561fdad9875cc32beeb7fc7299deae6f6a2"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/test_claim_registry.py",
+      "bytes": 7229,
+      "sha256": "0522c2896d84733157b009a9206bc727413f4c8ac6d42e89886aae42131c3ebe"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/test_lost_exact_claims.py",
+      "bytes": 20536,
+      "sha256": "6d00cdc6afc1187b3e42e12f090db866c3b887c85faf448d4d8a7aaf17f636f5"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/test_psychogenic_robustness.py",
+      "bytes": 18918,
+      "sha256": "a72d6bc5f6b9a56aae9276474ceb03724e079ca9cafbdd0d59c00d2caf27e927"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/test_recognition_model_gap.py",
+      "bytes": 1241,
+      "sha256": "35b91395a28b7e4073107a5a9b6d71dc723eadfe9b2c6c706572801d8a4009c5"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/test_released_psychosis_bench.py",
+      "bytes": 2365,
+      "sha256": "9d940eb6e68dc38400f734ef88e7a3e096c2f4c61031eb33ecc9d04e3189512f"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/test_theme_coverage.py",
+      "bytes": 1261,
+      "sha256": "14f928ae7002b65854a70a2e0f7ea44e54109fb92738eb204134155ddb3ae8d1"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/test_verify_abstract_claims.py",
+      "bytes": 1329,
+      "sha256": "b0e300268b11c16da01015dce92c949bd64dc1421a7a4ad8e7a630b142377a5c"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/theme_coverage/claim_gate.json",
+      "bytes": 976,
+      "sha256": "bdeb69ee4de02477359f02bb2df9140153adbb321e7f0e91fb59e449c509680d"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/theme_coverage/coverage_by_clinical_theme.csv",
+      "bytes": 719,
+      "sha256": "a54aa12dcfcaca7a9735b073a9e05973c4cb12e2017befc3a08c5369ec3584bb"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/theme_coverage/coverage_by_source.csv",
+      "bytes": 352,
+      "sha256": "990aef03f43a7e94bd1849a8683f31e1920f628daae816508c35562338d840df"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/theme_coverage/endpoint_classifications.csv",
+      "bytes": 79133,
+      "sha256": "6ea63680e1fc348018ee83316e7fe8cee1bcfd60ed18d88914d88e82838b68f5"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/theme_coverage/summary.json",
+      "bytes": 4053,
+      "sha256": "427ab0ca18aef6254a01c9b2094fe5d3ca6dba85d79972d27003ce65b91cc0ed"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/verify_abstract_claims.py",
+      "bytes": 13331,
+      "sha256": "cca120283b9cfb69c846ead0d1c0eea9527149c8d7b44983b4e6c7bbe892c4e1"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/visible_context_mod_harm/audit.json",
+      "bytes": 18639,
+      "sha256": "5d6637ad4bb42073748a45eb4c2bcac871260ec4a3202083b15ee8bc831c73d5"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/visible_context_mod_harm/claim_gate.json",
+      "bytes": 3819,
+      "sha256": "a5e01cd7124cbfe6203383dcb47ccbc5320737bffec172770283d84246fe9c4c"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/visible_context_mod_harm/coverage_by_model.csv",
+      "bytes": 1352,
+      "sha256": "5e4c7237e7e1c0eab153b84d0dd342d12abe001aabbd468fd983e5b437b19942"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/visible_context_mod_harm/screen_membership.csv",
+      "bytes": 87877,
+      "sha256": "b1ca66cde4cc90e916f04ea16649054b1bf67b2a07e1f1dbdd30429adad71304"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/data_sources/wd2/summary.json",
+      "bytes": 366,
+      "sha256": "5c7bb3707edf6681ed5846bb2648cfef5736e8c7fcb059a2a118c58535123642"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/data_sources/wilddelusion_verified/release_manifest.json",
+      "bytes": 592,
+      "sha256": "2e9d1731eb0d89a681ab77e393de22fb83519a4d0865bcd860a654407fdfdc3c"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/README.md",
+      "bytes": 2531,
+      "sha256": "80e522bf0afc82a17812544a18686f608efdea558e78a6d4f834c3b72783303e"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/adjudicate_natural_controls.py",
+      "bytes": 11826,
+      "sha256": "55d7171209e3e0be97d086379daa638a17d9db747a495aed7cbc7e2cf0494505"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/adjudicate_paper_theme_fit.py",
+      "bytes": 11344,
+      "sha256": "6ea0fa9dc2b98f195201e4674275d8c2e98592fb70df3a044ee7c8baa41798c1"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/adjudicate_retained_control_context.py",
+      "bytes": 12107,
+      "sha256": "4cbbfca09326d2510f9b4ca537bfde759a0145f8cd58e77b0f6b25f4d9b912e0"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/analyze_recognition.py",
+      "bytes": 63728,
+      "sha256": "0066d007090b09d15a9042eba1d3f164fe8d90b1de51e82c7c7fb23491aa87c6"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/audit_control_context_retention.py",
+      "bytes": 7440,
+      "sha256": "79c83715c4e8446c607149f77de1212deaf4a81cca0294befeab6f42e857d2c2"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/classifier_prompt.py",
+      "bytes": 3438,
+      "sha256": "884f02bbd3ce79cd1bf263a9b8fe0e24594a4195a9251dbcb74356461780d21b"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/prepare_inputs.py",
+      "bytes": 9738,
+      "sha256": "72d4f5dace650a9cf1b626bfef6b9697ffd5ed802c180e0334ab64414da69a78"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/prompts.py",
+      "bytes": 5000,
+      "sha256": "03920fe9d046807a1e911cc0b9e753b8b10fd68b256c38bb61e919854004d864"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/recognition_prompts.py",
+      "bytes": 5000,
+      "sha256": "03920fe9d046807a1e911cc0b9e753b8b10fd68b256c38bb61e919854004d864"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/reparse_classifier_outputs.py",
+      "bytes": 3585,
+      "sha256": "0a67459bfa28947c4d5f2c8d8cb73766747cebe41110024e69f1e2d1da3dfa73"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/run_after_exact_judge.sh",
+      "bytes": 28241,
+      "sha256": "d6fba32939a6dc5b76ab97b5f9e9288ffd5889bdf8308f7a91ac621167955e27"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/run_psychosis_bench_local_contrast.py",
+      "bytes": 16073,
+      "sha256": "6f537a56ad89ffb7d2b6215f6465a1c1a7c7b353ae19255830e987481609fe95"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/run_psychosis_bench_stochastic.py",
+      "bytes": 12269,
+      "sha256": "69146b74dd1f137e0c51f896ed5928a62ec4c03c5eaef716b74bfeb0a0609913"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/run_vllm_classifier.py",
+      "bytes": 10676,
+      "sha256": "c8b505c4ba76a4a7dae4582c866f3536cc12b232dfcc6ec440668defa59cfc5f"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/stage_hf_model.py",
+      "bytes": 5909,
+      "sha256": "23d1d7a152b799114de45b0811f5975c0b47fd7baa37f2fb7c47201afea3f66d"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/test_control_context_retention.py",
+      "bytes": 3262,
+      "sha256": "880a0405bc447034c690f8e75746cb96ba3966c89e3e6f8c11b6cfc7e00818cd"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/test_natural_control_adjudication.py",
+      "bytes": 1514,
+      "sha256": "a45382217748dc444151e768251f1c1e431d74990c834c0962ed4a8b6eab227e"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/test_paper_theme_consensus.py",
+      "bytes": 4446,
+      "sha256": "b70958369892012fe55eb7434298fa3e65edc819c0d8c0b915d58f5aefe67de4"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/test_paper_theme_fit.py",
+      "bytes": 1296,
+      "sha256": "b618a01ebed001aff57656842074f5970bda4063cec780dccadca9e74b43bf5a"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/test_recognition_protocol.py",
+      "bytes": 22855,
+      "sha256": "5065984f8ee624744826bac4b2b3dba51b0509166a46523bf84996d5450ee4fc"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_dataset_522/analyze_grounded_full.py",
+      "bytes": 16192,
+      "sha256": "ca016dafa5841b122d10a3ef8ea78b98bfc4fb141da7f756c8f857569a7ff389"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_dataset_522/build_cohort.py",
+      "bytes": 4661,
+      "sha256": "a1623fbcb6d223d35cab96aacd8f68385236cf2012f2258567f677954fb9330c"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_dataset_522/generation_diagnostics.py",
+      "bytes": 2824,
+      "sha256": "ff74d5b198045dcb84cec71363a412b2d9913bdece6ce2795c82d44ce75f4fd7"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_dataset_522/merge_grounded_controls.py",
+      "bytes": 5716,
+      "sha256": "b49532f0603717739b76fd075e25e9e6d0c5292c4869794e7d693eb151a5daba"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_dataset_522/prepare_grounded_inputs.py",
+      "bytes": 6255,
+      "sha256": "6646d0683d4b0d9acf81d959c66d879de56b0a286973393cc4a8cd761da4cd23"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_dataset_522/summarize_pair_flow.py",
+      "bytes": 3729,
+      "sha256": "453cf6594c94aa523173c810ab606547ea1420276ae1229f6a3df42dbe068ee6"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/analyze_context_ablation.py",
+      "bytes": 52993,
+      "sha256": "adfea7824b5932f1cb9248c9020bc47afd073ce38749086100f173341b0f8c73"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/analyze_full_history.py",
+      "bytes": 18878,
+      "sha256": "9d0dc94f1d4620a3b06ec74988825f079d2fbbb545715b9fade99aeb2988d610"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/analyze_length_sensitivity.py",
+      "bytes": 6404,
+      "sha256": "95c816e716833cedd1b29245d7e59a7c11b8dab607f4166c297d35b00206cb94"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/analyze_paired_context_ablation.py",
+      "bytes": 28290,
+      "sha256": "763f7f526aa390fb1b34c959f7940749fc7edb51b10f182b7045a8b8a8379568"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/audit_controls_blind.py",
+      "bytes": 7559,
+      "sha256": "a18d6ed84d6680ea8638b970af461e61032cb85287d418ad9acac9129e1bc848"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/build_bounded_cohort.py",
+      "bytes": 5872,
+      "sha256": "d5009b5bd8147d7362341d8ed5fd24abad656326fc95aafe8e8e1e3cf2379936"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/generate_high_stakes_controls.py",
+      "bytes": 9841,
+      "sha256": "20456655ed3ac78e48e64aca9a5b65e34e7c4e6feb1fbec7d5cc265dafbcfd80"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/generate_paired_context_vllm.py",
+      "bytes": 18184,
+      "sha256": "f1e4522e42002153c461896d64718f4916c58db1cc59f663e5357456f4410797"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/label_mod_harm_equivalent.py",
+      "bytes": 14410,
+      "sha256": "9cbe20ce273742f26d8c8371207b8c0c2d50ca06b430777fc763389073233c70"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/label_mod_harm_visible_context.py",
+      "bytes": 13287,
+      "sha256": "6f0349e1cb551109949d946dba410119955f4ce91d1ac6263990bb91a695fbcf"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/merge_blind_repairs.py",
+      "bytes": 2721,
+      "sha256": "dd6baee128f4b7972015e1ac30b32fc7fe66fdc7702f8afdae9a1cf474b4cb33"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/prepare_context_ablation.py",
+      "bytes": 2690,
+      "sha256": "6a15c7ffd8a073e6119c65a37526d3c3821177a0a0434134f18d0b50649a360e"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/prepare_model_inputs.py",
+      "bytes": 8533,
+      "sha256": "0067e44c075d6448b0c9cffad11dc1da5fce70a8bf1503e0b4178edae0d053e2"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/prepare_paired_context_judge_inputs.py",
+      "bytes": 8126,
+      "sha256": "65a8dc2e57da0b74a15f0c1c7d7834ef076498010b93fb04b0ce101b573bcadf"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/repair_controls_messagewise.py",
+      "bytes": 9730,
+      "sha256": "55b330edcf05d28746b5366bd211451d47b94e8b9b8ec40145f5d22afd1adf5d"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/summarize_flow.py",
+      "bytes": 5345,
+      "sha256": "86d45ad790689eb2c5f897c73728c9b7a30e7cae146241a26e994cd4a6bc873a"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/test_context_ablation_claims.py",
+      "bytes": 12671,
+      "sha256": "1d20951c4fa65f082c9106d2ede3c726335c3bcaeec8af1a20a401f70a35dfd0"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/test_paired_context_analysis.py",
+      "bytes": 4087,
+      "sha256": "560308bf17a6972c3d450d2683ef49dd9a37d6150af91c7e2c75b787f88c1a99"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/test_paired_context_generation.py",
+      "bytes": 7113,
+      "sha256": "937a11421bdd5219013bb088ddc7e18312ac443d37e59037f10e3f2c0ffe6959"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/test_shared_judge_context.py",
+      "bytes": 1934,
+      "sha256": "1984ec07928c6dc971b2385e9789be4511afb15d881cac77dc742385b1bdf6a1"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/full_history_522/test_visible_context_mod_harm.py",
+      "bytes": 2222,
+      "sha256": "31f3b118de757758871f23308727d088032ed869384bba3240352fee67a427a6"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/generate_controls.py",
+      "bytes": 6325,
+      "sha256": "27646cd14ab9148468fc2b766f38eb496cb5cb77f4cb3fccb004c1d089093fc4"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/generate_grounded_assistant_histories.py",
+      "bytes": 12302,
+      "sha256": "2e495ca75144ebcfb82fc2c17ed49f33a73989016574ab16b258517c45b375c9"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/generate_target_controls.py",
+      "bytes": 8290,
+      "sha256": "8f3cd2f0f6988b7a6f14ce2a7bb1dccd25a8a58b45806e77167f3ecadd6766e5"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/io_utils.py",
+      "bytes": 2615,
+      "sha256": "7d87e5fc2065015dafbd31ae5230bd90c5965cb218aa165cef119900c155db39"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/judge_responses.py",
+      "bytes": 10468,
+      "sha256": "ceff8aa5994a8d736965538ff9bdcd47478ae58dd4e09beb442780b66b9e8dc1"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/judge_responses_vllm.py",
+      "bytes": 19022,
+      "sha256": "72c8ae6ddb0a885194160b71795c976f9c2f7881ebab98a673b2d38823f80349"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/merge_control_round.py",
+      "bytes": 1655,
+      "sha256": "a338e07908b8f1b8a90977055958c31d3231cf78ae700e4997d5d3dc1faa21f4"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/merge_target_controls.py",
+      "bytes": 1133,
+      "sha256": "7a7666b0461d82772a2d795fc80c196144848afd02bbab50febe68f6eb1a1b94"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/prepare_assistant_ablation_inputs.py",
+      "bytes": 2846,
+      "sha256": "a19f4e02e54f5a6d47b239a1561c8116a747b0e879176ed744d8377121b9f093"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/prepare_context_comparison_inputs.py",
+      "bytes": 3126,
+      "sha256": "eeed64c70182a0b77ddefcae6b5bcadccb78f12bb9d34d0e0c4b6c7431a81ddb"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/prepare_control_audit.py",
+      "bytes": 2187,
+      "sha256": "b5468159a0db8c6b97d1c2c972635995f1b8a31c3d01d1fcf117028590a34151"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/prepare_model_inputs.py",
+      "bytes": 3479,
+      "sha256": "6be31b5dfcc6530e45d16b5c67723f75c19e0a63f0cd3362c62c44bed3e72bfe"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/prepare_prior_assistant_audit.py",
+      "bytes": 2989,
+      "sha256": "880a47353795b26d9b52cf6139d064117beda08d4414910fd5c8bbbf8e7a119e"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/prepare_target_audit.py",
+      "bytes": 1568,
+      "sha256": "6a6565a4a9518b2efe778e45af216436e114e4d8be4be51bf3e2609088017931"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/prepare_target_model_inputs.py",
+      "bytes": 3946,
+      "sha256": "ec1e5c26125e3005b15790cca41dbc3ce4e243d412335951e602572eb959b32c"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/prompts.py",
+      "bytes": 11281,
+      "sha256": "cd5c2f346a97c1abf0d2b44e3479736e5db725fbec70d323b98bee1315a7909b"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/README.md",
+      "bytes": 2757,
+      "sha256": "15f160a0f34c2f3ca4424fdb9ffdd2353f479fd9e318b6e12e4a454ea5d887cb"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/analyze.py",
+      "bytes": 8125,
+      "sha256": "a8c96072e28f8fcea2b22d2138add1834100473b2ae0c16caa3fc9cebefc6a5c"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/analyze_full.py",
+      "bytes": 15317,
+      "sha256": "323e50723655267e2132162a9f5da8f58add569368c8f9c08aaee6fe009b0019"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/label_safety.py",
+      "bytes": 7559,
+      "sha256": "99790b693179fafdc69d29f9fbaa0d70e4cc73d79fcd127d75ccb8f7c6cf98ca"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/merge_pair_rounds.py",
+      "bytes": 2832,
+      "sha256": "737290b997cf4a7364d2ebbd265b5eff0d6ad267656c9b74ca14477bd0eaacac"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/repair_pairs.py",
+      "bytes": 10675,
+      "sha256": "29b81037c2a0b4c4dc45898529d2b620f1681fd7d657068db8e63652f18f9beb"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/stochastic_results/generations_llama31_8b_t1.jsonl.manifest.json",
+      "bytes": 1163,
+      "sha256": "7ac8d969adadf518e603145ab7552ae738f1ec9fed883286a14ac161e8af02b0"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/stochastic_results/generations_olmo3_7b_t1.jsonl.manifest.json",
+      "bytes": 1177,
+      "sha256": "d43df98893ad9c6f007dbfaec2702b940dd6b4f668819043bf445090351d7c65"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/stochastic_results/generations_qwen3_4b_t1.jsonl.manifest.json",
+      "bytes": 1144,
+      "sha256": "70a3d93e556aa008feb6fca6c4fa06250526716957c0af4c2dcdfe84235e9d1b"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/stochastic_results/judgments.dcs-gpt4o-mini.jsonl.manifest.json",
+      "bytes": 1966,
+      "sha256": "4c44434e6562e22e1b4ade2056170000101d9a1b34cee8abdfed7d398f8d1d2b"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/generate_pairs.py",
+      "bytes": 10645,
+      "sha256": "5b5e5f046b76b113001838690e39503968f155b4578f75a7d4ba48bd88717bc9"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/judge.py",
+      "bytes": 11833,
+      "sha256": "77479511712aa7adf6a40744c6159d35d72cff1f5c6940bf374594dcc6de9ea2"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/judge_dcs_exact.py",
+      "bytes": 14779,
+      "sha256": "c130924c88508b7461f76bca1513f2f058004b86a16fe9601f2f64f9ec162671"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/prepare_inputs.py",
+      "bytes": 4905,
+      "sha256": "d68e32930112da55890ec4789fbce36d65b3037ade4bd4d6c305287ebc0e350b"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/run_real_pairs_stochastic.py",
+      "bytes": 12799,
+      "sha256": "b1f51370509b7bb603f1311b42ceac0f5644ac78c40b9cc2fe839f8218b4c1d7"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/test_judge_dcs_exact.py",
+      "bytes": 3435,
+      "sha256": "61a95ed78210ff4073a750bcbbe72a834a7451211af1cadc419e34166320fa77"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/validate_pairs.py",
+      "bytes": 8634,
+      "sha256": "5432d095a7347e2241ece083e5cda5c46b2bb2592c623b6b7f9ca8915c4f4cb1"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/remote_setup.sh",
+      "bytes": 832,
+      "sha256": "c747f4ddded57aec5eaccebd58d57eb505c81831390b05c08a3766e7f13d8d7c"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/repair_controls.py",
+      "bytes": 10358,
+      "sha256": "0449491937143207a878d545e9b781756ba93c39285c6103083b9a7c82b67243"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/repair_controls_from_package.py",
+      "bytes": 9076,
+      "sha256": "68a126a8ca77adba1ea0d78116e2f612d987a1a8770deb09f4ea2ca29225ebee"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/repair_target_controls.py",
+      "bytes": 8395,
+      "sha256": "2aa94b8bd867ee6c3860b6c193f087c3f7716de834c1ad1e1d5261b2064c46b8"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/run_local_models.py",
+      "bytes": 10335,
+      "sha256": "c294b3cc803b53a38dbcf42c9d6a53874b09365704d8317f1399c6d7ef433858"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/run_vllm_models.py",
+      "bytes": 7211,
+      "sha256": "4f74e5f1ffecedf90b9363b85e45794060803595c7774910362d6174080f73fc"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/stage_qwen_judge_model.py",
+      "bytes": 6760,
+      "sha256": "9a87b178b636620d01f2a2040788e3e1471774535fd0f4f8c7cae7ebe76c38b1"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/test_judge_protocol.py",
+      "bytes": 2367,
+      "sha256": "ef6a29ceeeab15b4195922c1b40eb1763de90a52586aec29f53001309b376fa6"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/validate_controls.py",
+      "bytes": 6628,
+      "sha256": "36fa72edde145ebf0fa75c35829c89ddc56b99007d398fc5261733650e706c0c"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/validate_target_controls.py",
+      "bytes": 7127,
+      "sha256": "27f9c0412094c15589cbe3b252bd122aedd969825aec9b476935117e6821f8e2"
+    },
+    {
+      "path": "experiments/lost_in_delusion_replication_260600975/wilddelusion_prompts.py",
+      "bytes": 11281,
+      "sha256": "cd5c2f346a97c1abf0d2b44e3479736e5db725fbec70d323b98bee1315a7909b"
+    },
+    {
+      "path": "frozen/generated_controls/control_blind_audit.jsonl",
+      "bytes": 444511,
+      "sha256": "589c2a824e5aef9b1e1b841ec60313c7bf2712e3b51418ae47531bbf92ce3320"
+    },
+    {
+      "path": "frozen/generated_controls/control_blind_audit.jsonl.manifest.json",
+      "bytes": 231,
+      "sha256": "3d992e147d60e4978cf86b708c2486500597f5a07073d9b970ff284d2c31999d"
+    },
+    {
+      "path": "frozen/generated_controls/control_validation_final.jsonl",
+      "bytes": 140310,
+      "sha256": "6d4d999195791eab70509bc6b7028299d1a780983d491cca00bbd5ad45aa2015"
+    },
+    {
+      "path": "frozen/generated_controls/final_controls.jsonl",
+      "bytes": 247777,
+      "sha256": "e89a01d0c541dc795238b1b8dbd540c39a0dbf83f493281c225259aa72652e9b"
+    },
+    {
+      "path": "frozen/psychogenic_pairs/final_pairs.jsonl",
+      "bytes": 1037536,
+      "sha256": "3a94238282c0dd9ff301e1bfdaa2a567243e12bbead62527e5b7106ddccd7bb7"
+    },
+    {
+      "path": "frozen/psychogenic_pairs/final_pairs.manifest.json",
+      "bytes": 134,
+      "sha256": "e17a69149f96137f8be73ddfeb2d893a5796a0540b23b3e39286613ab77092a9"
+    },
+    {
+      "path": "frozen/psychogenic_pairs/final_validations.jsonl",
+      "bytes": 298427,
+      "sha256": "2231497fce7e6cb136a1bfacde4afe79810f7ba42401b5a5004707422eba4d62"
+    },
+    {
+      "path": "frozen/psychogenic_pairs/safety_labels.jsonl",
+      "bytes": 438855,
+      "sha256": "c24543ff2a936e9590fece015cb06d31f3455d7085eabed2bbf45dff10dbc71f"
+    },
+    {
+      "path": "frozen/psychogenic_pairs/safety_labels.jsonl.manifest.json",
+      "bytes": 165,
+      "sha256": "dda707b99628ef778bcb352fd3679967d17242747f0fdc4bf17fe972886d01bb"
+    },
+    {
+      "path": "frozen/theme_labels.jsonl",
+      "bytes": 112126,
+      "sha256": "feb2da9803d1ec3099d1418870460e4a6070dea68c99f5ee4e06254daa3486c9"
+    },
+    {
+      "path": "provenance/ORIGIN.md",
+      "bytes": 991,
+      "sha256": "de4eca46c88bb12e98dc293a6ae184da38bc5291a64ab41524fc8a22e975cda1"
+    },
+    {
+      "path": "provenance/SOURCE_MAP.md",
+      "bytes": 1298,
+      "sha256": "3a5897c25a31f6e4bce647e6ab0eb542640e2da2026aa6faeaeda7849b3c3fdf"
+    },
+    {
+      "path": "provenance/frozen_input_sha256.txt",
+      "bytes": 1155,
+      "sha256": "5b9462fec9cc9488c901516a06806242ccd20847aeb7dc1e746a65406900124e"
+    },
+    {
+      "path": "provenance/models.toml",
+      "bytes": 1253,
+      "sha256": "3c0ec6a87c466d7e2f9e24d00c22ef16660361c1d7f138f6c7af060c2ca62991"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 922,
+      "sha256": "7b2517d8774af0e2aff531b7742cb7792064cf9e2d7e380546b82c459d53f002"
+    },
+    {
+      "path": "requirements-analysis.lock",
+      "bytes": 1113,
+      "sha256": "c6711f4c7d6fa22075727f87503d14af816aebb1d2320a49436bb750f1a0c7b6"
+    },
+    {
+      "path": "results/COMPLETION_AUDIT.json",
+      "bytes": 7101,
+      "sha256": "d285621d009e4d60fa0e647039abae0da4b806de822fb5849dab212ebb15614c"
+    },
+    {
+      "path": "results/COMPLETION_AUDIT.md",
+      "bytes": 5517,
+      "sha256": "5ff86e6c0984cb9567a658c166b30302d359e4738f9d425af587083c73b5c397"
+    },
+    {
+      "path": "results/README.md",
+      "bytes": 6654,
+      "sha256": "f6343de2a8a62387d27f14b263409039f0d1722c330eedb045d45fed5a197438"
+    },
+    {
+      "path": "results/claim_registry.csv",
+      "bytes": 10833,
+      "sha256": "b612dce3de1d0fdea11f0b6a58ce085b4dbf5ba66290cdc30409872337ff69f8"
+    },
+    {
+      "path": "results/claim_registry.json",
+      "bytes": 73705,
+      "sha256": "6f7cc24df965e33ac116df3cdf044ccf64916c9b76613fefda258382b250f3fc"
+    },
+    {
+      "path": "scripts/analyze_visible_primary.py",
+      "bytes": 5932,
+      "sha256": "da01b1f6555f82474d8017a52e4670c3aae282a9270bc8c54225cde7ec244e3a"
+    },
+    {
+      "path": "scripts/build_natural_near_miss_controls.py",
+      "bytes": 34235,
+      "sha256": "9f81386ffbdf2f9e969a25e0fbf6cb7909594bfbba7d8cc639afb79d4828fe43"
+    },
+    {
+      "path": "scripts/build_provenance.py",
+      "bytes": 1756,
+      "sha256": "e55df5fafcda8ec289720c7056fbe90550657a8dd4766d1ae24e14519ff79a5e"
+    },
+    {
+      "path": "scripts/classify_merged_delusion_themes.py",
+      "bytes": 12911,
+      "sha256": "e0a8aeee3d5bbac77347bc1bfd9dd6352a7010e0ee82cb027766c64364a8919d"
+    },
+    {
+      "path": "scripts/fetch_arxiv_source.py",
+      "bytes": 2200,
+      "sha256": "ec67e89e216cf9e4f62e56c82ba3e96a8413c73a415ae3d8db6c2a3b4dc49a3c"
+    },
+    {
+      "path": "scripts/fetch_psychosis_bench.py",
+      "bytes": 1462,
+      "sha256": "ef1b9eb6b518a2620072d1f4f99bb20bf8b4ea4cb638c2e4749cb6a11b6369ed"
+    },
+    {
+      "path": "scripts/fetch_wilddelusion.py",
+      "bytes": 3153,
+      "sha256": "214cfdb4249ad3fcde297a329d26affa60456f1964430f95656cd83c33ef5371"
+    },
+    {
+      "path": "scripts/install_frozen_examples.py",
+      "bytes": 1781,
+      "sha256": "b65542a45d8792ebabfc5881da207c60ea090a55561ad1eb0a4a96f985fb6190"
+    },
+    {
+      "path": "scripts/install_private_controls.py",
+      "bytes": 1446,
+      "sha256": "fd12665271eb08932ff6234f4971a354abfc2ab6b7bf2b6bee74100ed3b10221"
+    },
+    {
+      "path": "scripts/materialize_model.py",
+      "bytes": 997,
+      "sha256": "a4871a117aa31ea6e4fb4a4f51f9227a9d76f66178855fdcf23a8291854eb457"
+    },
+    {
+      "path": "scripts/plot_merged_dataset_overview.py",
+      "bytes": 8044,
+      "sha256": "a320941b1c3c7f0d56d348798c81c1a133670379950405b555e517c816bb6802"
+    },
+    {
+      "path": "scripts/sync_results.py",
+      "bytes": 840,
+      "sha256": "c7961617150f92e17643c54c5cea5d692a093b157eb6a1343fff13083d66c706"
+    },
+    {
+      "path": "src/wilddelusion_repro/__init__.py",
+      "bytes": 73,
+      "sha256": "56caa69c423a5bd09e26336a647f013bf9a2def560339ff02148430e97ac395c"
+    },
+    {
+      "path": "src/wilddelusion_repro/cli.py",
+      "bytes": 3419,
+      "sha256": "214054bad220d5f1f16f5bd8f8333dd88fde7cfe669f611dbe3881e46e040162"
+    },
+    {
+      "path": "src/wilddelusion_repro/integrity.py",
+      "bytes": 2689,
+      "sha256": "de09ccdc7d68c3c3c8aabfaacfc733f47b3da73eab1cf97856d8bd2885e5a8ab"
+    },
+    {
+      "path": "src/wilddelusion_repro/pipeline.py",
+      "bytes": 11360,
+      "sha256": "eceabc442c627dba7698f3ad6106ce53af7b51652f5d122f18f4203395567ca1"
+    },
+    {
+      "path": "tests/test_frozen_inputs.py",
+      "bytes": 676,
+      "sha256": "0e3f02c200cee21d0be6a9dfe5266a516d0523cfe386a2af0b0a3c390591aca1"
+    },
+    {
+      "path": "tests/test_no_secrets.py",
+      "bytes": 976,
+      "sha256": "d1412a49ef14a764d1d89f8b4febe50c7139a3679111d7ab18085090dc31f514"
+    },
+    {
+      "path": "tests/test_pipeline.py",
+      "bytes": 2405,
+      "sha256": "46e4db3a4ec2de3820d5a5d750d4557cd77f42a9014781671aed3de20fae3955"
+    },
+    {
+      "path": "tests/test_provenance.py",
+      "bytes": 1134,
+      "sha256": "47e376262e6a3f4bdb3db786ee323678a62d375943541c80e2632b545041449d"
+    },
+    {
+      "path": "tests/test_results.py",
+      "bytes": 345,
+      "sha256": "ef601d6188c892c0ccf11556ba266687e68ae24bebe12e5ac9e62e38257334cc"
+    }
+  ],
+  "count": 224
+}

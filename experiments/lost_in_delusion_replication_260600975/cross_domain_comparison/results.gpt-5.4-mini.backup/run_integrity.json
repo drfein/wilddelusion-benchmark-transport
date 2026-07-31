@@ -1,0 +1,157 @@
+{
+  "expected_total_generations": 8814,
+  "cohorts": {
+    "lost_real": {
+      "expected_per_model": 623,
+      "rows": 3738,
+      "unique_ids": 3738,
+      "models": {
+        "llama31_8b": {
+          "rows": 623,
+          "unique_ids": 623,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "llama33_70b": {
+          "rows": 623,
+          "unique_ids": 623,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "olmo": {
+          "rows": 623,
+          "unique_ids": 623,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "qwen3_4b": {
+          "rows": 623,
+          "unique_ids": 623,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "qwen3_14b": {
+          "rows": 623,
+          "unique_ids": 623,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "qwen3_30b": {
+          "rows": 623,
+          "unique_ids": 623,
+          "empty_responses": 0,
+          "errors": 0
+        }
+      }
+    },
+    "psychogenic_real": {
+      "expected_per_model": 654,
+      "rows": 3924,
+      "unique_ids": 3924,
+      "models": {
+        "llama31_8b": {
+          "rows": 654,
+          "unique_ids": 654,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "llama33_70b": {
+          "rows": 654,
+          "unique_ids": 654,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "olmo": {
+          "rows": 654,
+          "unique_ids": 654,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "qwen3_4b": {
+          "rows": 654,
+          "unique_ids": 654,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "qwen3_14b": {
+          "rows": 654,
+          "unique_ids": 654,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "qwen3_30b": {
+          "rows": 654,
+          "unique_ids": 654,
+          "empty_responses": 0,
+          "errors": 0
+        }
+      }
+    },
+    "psychogenic_synthetic": {
+      "expected_per_model": 192,
+      "rows": 1152,
+      "unique_ids": 1152,
+      "models": {
+        "llama31_8b": {
+          "rows": 192,
+          "unique_ids": 192,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "llama33_70b": {
+          "rows": 192,
+          "unique_ids": 192,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "olmo": {
+          "rows": 192,
+          "unique_ids": 192,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "qwen3_4b": {
+          "rows": 192,
+          "unique_ids": 192,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "qwen3_14b": {
+          "rows": 192,
+          "unique_ids": 192,
+          "empty_responses": 0,
+          "errors": 0
+        },
+        "qwen3_30b": {
+          "rows": 192,
+          "unique_ids": 192,
+          "empty_responses": 0,
+          "errors": 0
+        }
+      }
+    }
+  },
+  "judgments": {
+    "lost_real": {
+      "rows": 3738,
+      "unique_ids": 3738,
+      "errors": 0,
+      "missing_scores": 0
+    },
+    "psychogenic_real": {
+      "rows": 3924,
+      "unique_ids": 3924,
+      "errors": 0,
+      "missing_scores": 0
+    },
+    "psychogenic_synthetic": {
+      "rows": 1152,
+      "unique_ids": 1152,
+      "errors": 0,
+      "missing_scores": 0
+    }
+  },
+  "total_generations": 8814,
+  "total_judgments": 8814,
+  "status": "pass"
+}

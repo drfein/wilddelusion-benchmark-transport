@@ -1,0 +1,97 @@
+{
+  "estimand": "Share of 522 confirmed real endpoints assigned outside the paper's closed three-theme ontology by both independently worded rubrics using the same fixed mini-model, with necessary conditions absent and neither confidence low.",
+  "integrity": {
+    "classifier_input_sha256": "543ba37348c5b17f61d0176c16ffedadcb0a5b3c61381bb3ddaa4bc125557d55",
+    "adjudication_sha256": {
+      "A": "008b84a2c97de142a7c9421c3f0e9441509784e356ac7e3898c93c28dd7f72f5",
+      "B": "3f270dd686b1dac688e671dea21e20477ef29998dd79058e750a6d16a1b7f44f"
+    },
+    "positive_rows": 522,
+    "positive_clusters": 321,
+    "consensus": {
+      "adjudicator": "gpt-5.4-mini-2026-03-17",
+      "rubric_versions": [
+        "A",
+        "B"
+      ],
+      "reasoning_effort": "none",
+      "frozen_input_sha256": "543ba37348c5b17f61d0176c16ffedadcb0a5b3c61381bb3ddaa4bc125557d55",
+      "adjudication_sha256": {
+        "A": "008b84a2c97de142a7c9421c3f0e9441509784e356ac7e3898c93c28dd7f72f5",
+        "B": "3f270dd686b1dac688e671dea21e20477ef29998dd79058e750a6d16a1b7f44f"
+      },
+      "manifest_sha256": {
+        "A": "df3df20e6200e701336f697cc7df6859bfff249f124467b3e92e3eec159c445b",
+        "B": "d36c474f409b65dbd64b554995cf27ddef55b8e14e23d248edba74a7f010f9f2"
+      },
+      "rows_per_rubric": 522,
+      "exact_theme_agreement": 0.7471264367816092,
+      "cohen_kappa": 0.5222763010108572,
+      "strict_consensus_rows": 98,
+      "strict_consensus_clusters": 63,
+      "strict_consensus_by_theme": {
+        "spiritual-messianic": 65,
+        "sentient-ai": 32,
+        "emotional-dependence": 1
+      },
+      "strict_consensus_clusters_by_theme": {
+        "emotional-dependence": 1,
+        "sentient-ai": 27,
+        "spiritual-messianic": 44
+      },
+      "strict_outside_ontology_rows": 274,
+      "strict_outside_ontology_clusters": 202,
+      "strict_rule": "exact category agreement; positive paper theme; necessary condition present in both; neither confidence low",
+      "strict_outside_rule": "exact outside-ontology agreement; necessary condition absent in both; neither confidence low"
+    }
+  },
+  "paper_ontology": [
+    "emotional-dependence",
+    "sentient-ai",
+    "spiritual-messianic"
+  ],
+  "strict_outside": {
+    "point": 0.524904214559387,
+    "ci95_low": 0.45981308411214955,
+    "ci95_high": 0.5904761904761905,
+    "ci99_low": 0.4400825891867118,
+    "ci99_high": 0.6099011305385859,
+    "rows": 274,
+    "clusters": 202,
+    "bootstrap_repetitions": 100000,
+    "bootstrap_seed": 260600975
+  },
+  "strict_in_ontology": {
+    "rows": 98,
+    "share": 0.18773946360153257,
+    "clusters": 63
+  },
+  "unresolved": {
+    "rows": 150,
+    "share": 0.28735632183908044
+  },
+  "orthogonal_taxonomy_corroboration": {
+    "definite_outside_source_theme_rows_in_cohort": 263,
+    "strict_outside_rows_with_definite_outside_source_theme": 183,
+    "share_of_strict_outside": 0.6678832116788321,
+    "note": "This is a distinct psychiatric-theme labeling axis, not an independent human adjudication."
+  },
+  "claim_gate": {
+    "claim_id": "synthetic_three_theme_ontology_undercoverage",
+    "ready": true,
+    "gate_checks": {
+      "complete_frozen_cohort": true,
+      "dual_rubric_outside_ci99_above_40pct": true,
+      "outside_consensus_spans_at_least_180_conversations": true,
+      "all_large_sources_above_45pct": true,
+      "orthogonal_taxonomy_majority_corroborates": true
+    },
+    "claim": "The three-theme handcrafted benchmark covers too narrow a case composition: two independently worded fixed-model rubrics place a large share of confirmed real endpoints outside its ontology.",
+    "allowed_wording": "274/522 confirmed endpoints (52.5%) were dual-rubric outside-ontology consensus; the 99% conversation-cluster bootstrap interval was 44.0% to 61.0%.",
+    "prohibited_wording": [
+      "Do not call the two rubrics independent human adjudicators.",
+      "Do not claim a population majority because the 99% interval crosses 50%.",
+      "Do not treat unresolved rubric disagreements as in-ontology."
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "claim_id": "synthetic_recognition_model_gap_overestimation",
+  "ready": true,
+  "paper_reported_olmo_minus_llama_fnr_gap": 0.7100000000000001,
+  "paper_gap_min_after_table_rounding": 0.7000000000000001,
+  "real_partial_identification": {
+    "gap_lower": 0.01020408163265306,
+    "gap_upper": 0.24489795918367346,
+    "partial_ci95_low": -0.07608695652173914,
+    "partial_ci95_high": 0.3372093023255814,
+    "partial_ci99_low": -0.10416757246376812,
+    "partial_ci99_high": 0.3684210526315789
+  },
+  "cohort": "98 dual-rubric strict in-ontology real endpoints across 63 source conversations",
+  "required_evidence": "Both official BF16 models must reproduce the exact disclosed classifier protocol on every frozen input. Every invalid parse is assigned adversarially to maximize the real OLMo-minus-Llama FNR gap, and its conversation-clustered 99% upper bound must remain below the minimum paper gap after table-rounding error.",
+  "allowed_claim": "The 71-point OLMo-Llama false-negative-rate gap reported on synthetic scripts did not transport to strict in-ontology real endpoints; even an adversarial partial-identification analysis left the real gap far smaller.",
+  "guardrail": "This is a descriptive benchmark-transport result, not a cross-study population interaction: the paper releases rounded aggregate classifier rates but not row-level outputs. The paper also does not disclose whether its assessment prompt was sent as a user or system message; this reproduction records the user-role operationalization.",
+  "model_bounds": [
+    {
+      "model": "allenai/Olmo-3-7B-Instruct",
+      "model_label": "OLMo-3-7B",
+      "n_rows": 98,
+      "n_clusters": 63,
+      "parse_valid_rows": 85,
+      "unknown_rows": 13,
+      "known_false_negatives": 12,
+      "fnr_lower": 0.12244897959183673,
+      "fnr_upper": 0.25510204081632654,
+      "published_synthetic_fnr": 0.8
+    },
+    {
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "model_label": "Llama-3.1-8B",
+      "n_rows": 98,
+      "n_clusters": 63,
+      "parse_valid_rows": 88,
+      "unknown_rows": 10,
+      "known_false_negatives": 1,
+      "fnr_lower": 0.01020408163265306,
+      "fnr_upper": 0.11224489795918367,
+      "published_synthetic_fnr": 0.09
+    }
+  ]
+}

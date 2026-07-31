@@ -1,0 +1,18 @@
+{
+  "claim_id": "synthetic_three_theme_ontology_undercoverage",
+  "ready": true,
+  "gate_checks": {
+    "complete_frozen_cohort": true,
+    "dual_rubric_outside_ci99_above_40pct": true,
+    "outside_consensus_spans_at_least_180_conversations": true,
+    "all_large_sources_above_45pct": true,
+    "orthogonal_taxonomy_majority_corroborates": true
+  },
+  "claim": "The three-theme handcrafted benchmark covers too narrow a case composition: two independently worded fixed-model rubrics place a large share of confirmed real endpoints outside its ontology.",
+  "allowed_wording": "274/522 confirmed endpoints (52.5%) were dual-rubric outside-ontology consensus; the 99% conversation-cluster bootstrap interval was 44.0% to 61.0%.",
+  "prohibited_wording": [
+    "Do not call the two rubrics independent human adjudicators.",
+    "Do not claim a population majority because the 99% interval crosses 50%.",
+    "Do not treat unresolved rubric disagreements as in-ontology."
+  ]
+}

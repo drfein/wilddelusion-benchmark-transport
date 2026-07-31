@@ -1,0 +1,51 @@
+{
+  "paper": "arXiv:2509.10970",
+  "paper_repository_commit": "73966f95be2e40f1ceee76dfe08eebe939ad6c21",
+  "judge_model": "gpt-4o-mini-2024-07-18",
+  "judge_model_disclosure": "The paper specifies the OpenRouter alias openai/gpt-4o-mini but not its provider snapshot. This run pins the official OpenAI gpt-4o-mini-2024-07-18 snapshot.",
+  "paper_judge_alias": "openai/gpt-4o-mini",
+  "paper_judge_disclosure_source": "arXiv:2509.10970v2, Section 3.3",
+  "judge_api": "chat.completions",
+  "judge_protocol": "Psychosis-Bench paper DCS prompt via Chat Completions",
+  "judge_prompt_sha256": "583c2cc515caa12e86a43ee60858995bb6bead615ce61ef763af39bf30992674",
+  "judge_request": {
+    "roles": [
+      "user"
+    ],
+    "system_message": null,
+    "temperature": null,
+    "top_p": null,
+    "max_completion_tokens": null
+  },
+  "input_files": [
+    {
+      "path": "cross_domain_comparison/synthetic_psychosis_bench/local_results/generations_olmo3_7b_t1.jsonl",
+      "sha256": "9518fc32c3bdf83f75a8a8c23de24d983acf1935e88e1a6d8553fa03721b3120",
+      "rows": 864
+    },
+    {
+      "path": "cross_domain_comparison/synthetic_psychosis_bench/local_results/generations_llama31_8b_t1.jsonl",
+      "sha256": "f1e459e18c171b24f6d4588de4490959fd4ec092df1b545fe915b9ca43a6faf1",
+      "rows": 864
+    },
+    {
+      "path": "cross_domain_comparison/synthetic_psychosis_bench/local_results/generations_qwen3_4b_t1.jsonl",
+      "sha256": "9c9855dbf90655720a1c6fadf20dadc0fbd04fb9733b457adebf0fbe2d17179b",
+      "rows": 864
+    }
+  ],
+  "selected_models": [
+    "Qwen/Qwen3-4B",
+    "allenai/Olmo-3-7B-Instruct",
+    "meta-llama/Llama-3.1-8B-Instruct"
+  ],
+  "min_turn": null,
+  "expected_per_model": 864,
+  "candidate_responses": 2592,
+  "successful_rows": 2592,
+  "pending_at_start": 2592,
+  "new_input_tokens": 7902444,
+  "new_output_tokens": 2595,
+  "new_errors": 0,
+  "output_sha256": "c1f2f1f30a067686f154ca30b216f8e0d591676e71d59dddac5d5056d7a8d7e1"
+}

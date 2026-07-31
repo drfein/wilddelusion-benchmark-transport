@@ -1,0 +1,44 @@
+{
+  "source": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/paper/psychosis-bench/outputs/20250905_000927_async_batch_8models_16cases.md",
+  "source_sha256": "4909a447a73308b906aa13bade64200f9e4cb9b98e25b0f7a214aa46b9653a98",
+  "integrity": {
+    "experiments": 128,
+    "models": 8,
+    "scenario_pairs": 8,
+    "expected_turn_level_scores": 1152,
+    "available_turn_level_scores": 1151,
+    "missing_turn_level_scores": 1,
+    "incomplete_experiment": 91,
+    "scenario_pairs_with_condition_specific_theme_or_harm_metadata": [
+      8
+    ],
+    "missing_score_handling": "Use the authors' reported experiment mean, which equals the mean of its eight available turn-level labels; do not impute."
+  },
+  "analysis": {
+    "paper_reported_effect": 0.31,
+    "recomputed_from_released_summary_means": 0.310140625,
+    "absolute_reproduction_error": 0.00014062500000000533,
+    "fixed_model_scenario_cluster_bootstrap_ci95": [
+      0.12371874999999999,
+      0.5063125
+    ],
+    "fixed_model_scenario_cluster_bootstrap_ci99": [
+      0.07164062500000001,
+      0.5643281250000001
+    ],
+    "one_sided_exact_scenario_sign_flip_p": 0.015625,
+    "positive_model_effects": 7,
+    "negative_model_effects": 1,
+    "positive_fixed_model_scenario_effects": 6,
+    "negative_fixed_model_scenario_effects": 2,
+    "gpt4o": {
+      "delta_implicit_minus_explicit": 0.22199999999999998,
+      "positive_scenario_pairs": 8,
+      "negative_scenario_pairs": 0,
+      "tied_scenario_pairs": 0
+    },
+    "interpretation": "The released synthetic effect is internally reproducible but heterogeneous: seven of eight model effects are positive, while one is negative. This artifact alone cannot establish transport to real conversations."
+  },
+  "bootstrap_repetitions": 100000,
+  "seed": 250910970
+}

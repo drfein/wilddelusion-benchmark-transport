@@ -1,0 +1,538 @@
+[meta]
+name = "WildDelusion benchmark transport"
+experiment = "experiments/lost_in_delusion_replication_260600975"
+
+[stages.fetch_wilddelusion]
+description = "Fetch the 522-row WildDelusionCombined release at its immutable HF revision."
+kind = "network"
+outputs = [
+  "data/source/wilddelusion_combined.jsonl",
+  "data/source/wilddelusion_combined.jsonl.manifest.json",
+]
+expected_sha256 = { "data/source/wilddelusion_combined.jsonl" = "75bf9c5cfaefedacebbabac2d1068298375e53b9dd5fef5577f93ce948f34e09" }
+command = """
+{python} {repo}/scripts/fetch_wilddelusion.py \
+  --revision f547346d490fe7b5be9553a24eebe02aee777015 \
+  --theme-labels {repo}/frozen/theme_labels.jsonl \
+  --output {repo}/data/source/wilddelusion_combined.jsonl
+"""
+
+[stages.fetch_psychosis_bench]
+description = "Fetch the released Psychosis-Bench cases at commit 73966f9."
+kind = "network"
+outputs = [
+  "vendor/psychosis-bench/data/test_cases.json",
+  "experiments/lost_in_delusion_replication_260600975/paper/psychosis-bench/data/test_cases.json",
+  "experiments/lost_in_delusion_replication_260600975/paper/psychosis-bench/outputs/20250905_000927_async_batch_8models_16cases.md",
+]
+command = """
+{python} {repo}/scripts/fetch_psychosis_bench.py --output {repo}/vendor/psychosis-bench
+mkdir -p {experiment}/paper/psychosis-bench/data
+mkdir -p {experiment}/paper/psychosis-bench/outputs
+cp {repo}/vendor/psychosis-bench/data/test_cases.json {experiment}/paper/psychosis-bench/data/test_cases.json
+cp {repo}/vendor/psychosis-bench/outputs/20250905_000927_async_batch_8models_16cases.md \
+  {experiment}/paper/psychosis-bench/outputs/20250905_000927_async_batch_8models_16cases.md
+"""
+
+[stages.fetch_lost_source]
+description = "Fetch the Lost in Delusion arXiv source used to lock prompts and published aggregates."
+kind = "network"
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/paper/source/.wilddelusion-source.json",
+  "experiments/lost_in_delusion_replication_260600975/paper/source/appendix/2_user_simulator_prompts.tex",
+  "experiments/lost_in_delusion_replication_260600975/paper/source/appendix/5_conditioning_prompts.tex",
+  "experiments/lost_in_delusion_replication_260600975/paper/source/appendix/6_eval_prompts.tex",
+  "experiments/lost_in_delusion_replication_260600975/paper/source/appendix/8_judge_robustness.tex",
+  "experiments/lost_in_delusion_replication_260600975/paper/source/appendix/12_distress_delusion_classification_f1.tex",
+]
+command = """
+{python} {repo}/scripts/fetch_arxiv_source.py \
+  --paper 2606.00975v1 \
+  --expected-sha256 396ec0c0dc1c165f1605755ccab649acfd7e2ed23e48d2701c4e3f52a32ce3b3 \
+  --output {experiment}/paper/source
+"""
+
+[stages.fetch_lost_source.expected_sha256]
+"experiments/lost_in_delusion_replication_260600975/paper/source/appendix/2_user_simulator_prompts.tex" = "ed239767a556eed0c6e025f94dceff654cf8d498f1e704d2bd02a9492dce0b9c"
+"experiments/lost_in_delusion_replication_260600975/paper/source/appendix/5_conditioning_prompts.tex" = "283f62995fa6f9ea009d5ae23725006aa0782a92146febe86e1f056603ad8b5b"
+"experiments/lost_in_delusion_replication_260600975/paper/source/appendix/6_eval_prompts.tex" = "17333706f09b697ae72795679cfefce623b60bd2f68c6e104df00488db382033"
+"experiments/lost_in_delusion_replication_260600975/paper/source/appendix/8_judge_robustness.tex" = "13da8e1c64cf9bfe86818195ea5389add7888404f3b9c5f74cd29e8185ea0676"
+"experiments/lost_in_delusion_replication_260600975/paper/source/appendix/12_distress_delusion_classification_f1.tex" = "186e35c5fea348bad86d95259ba4f82099d7e2f7d8bb668db1eb0ae31a3f26d1"
+
+[stages.build_cohort]
+description = "Build the canonical 522-target cohort and verify target/message integrity."
+deps = ["fetch_wilddelusion"]
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/full_dataset_522/artifacts/cohort_full522.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/full_dataset_522/artifacts/cohort_full522.jsonl.manifest.json",
+]
+expected_sha256 = { "experiments/lost_in_delusion_replication_260600975/full_dataset_522/artifacts/cohort_full522.jsonl" = "ae854680ea92e58e3bebac5bddb5395d0d756670ec657bb4f8a71b614a84e07a" }
+command = """
+mkdir -p {experiment}/full_dataset_522/artifacts
+{python} {experiment}/full_dataset_522/build_cohort.py \
+  --input {repo}/data/source/wilddelusion_combined.jsonl \
+  --output {experiment}/full_dataset_522/artifacts/cohort_full522.jsonl
+"""
+
+[stages.build_bounded_history]
+description = "Construct the exact final-four-user-turn context shown to target models."
+deps = ["build_cohort"]
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/cohort_original.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/cohort_original.jsonl.manifest.json",
+]
+expected_sha256 = { "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/cohort_original.jsonl" = "4a2e5a2b5eccea7a1c029926a63c9ace8bb3ec090300adbb6a2db2199aeca63b" }
+command = """
+mkdir -p {experiment}/full_history_522/artifacts
+{python} {experiment}/full_history_522/build_bounded_cohort.py \
+  --input {experiment}/full_dataset_522/artifacts/cohort_full522.jsonl \
+  --output {experiment}/full_history_522/artifacts/cohort_original.jsonl
+"""
+
+[stages.install_frozen_examples]
+description = "Install the immutable, validated generated controls and implicit/explicit pairs."
+deps = ["build_bounded_history"]
+outputs = [
+  ".repro/frozen_examples.json",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/control_blind_audit.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/control_blind_audit.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/control_validation_final.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/final_controls.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/artifacts/final_pairs.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/artifacts/final_pairs.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/artifacts/final_validations.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/artifacts/safety_labels.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/artifacts/safety_labels.jsonl.manifest.json",
+]
+command = """
+{python} {repo}/scripts/install_frozen_examples.py --repo {repo}
+"""
+
+[stages.install_private_controls]
+description = "Hydrate licensed natural near-miss controls from a local, user-authorized bundle."
+deps = ["build_cohort"]
+required_env = ["WD_NATURAL_CONTROL_DIR"]
+outputs = [
+  "data/controls/natural_near_miss_controls_20260730/install.manifest.json",
+  "data/controls/natural_near_miss_controls_20260730/strict_nonsincere_controls.jsonl",
+  "data/controls/natural_near_miss_controls_20260730/high_confidence_strict_controls.jsonl",
+  "data/controls/natural_near_miss_controls_20260730/human_confirmed_controls.jsonl",
+  "data/controls/natural_near_miss_controls_20260730/human_verifier_disagreements.jsonl",
+]
+command = """
+{python} {repo}/scripts/install_private_controls.py \
+  --source "$WD_NATURAL_CONTROL_DIR" \
+  --destination {repo}/data/controls/natural_near_miss_controls_20260730
+"""
+
+[stages.install_private_controls.expected_sha256]
+"data/controls/natural_near_miss_controls_20260730/strict_nonsincere_controls.jsonl" = "1f023f343519243cd2c295a2b9b48f656f215b06bb9135d77a4f5fdc4c6f7eca"
+"data/controls/natural_near_miss_controls_20260730/high_confidence_strict_controls.jsonl" = "e7953153a3788f017e99080a07888905e159b1deba40ea23873cb280f2a881f4"
+"data/controls/natural_near_miss_controls_20260730/human_confirmed_controls.jsonl" = "5216a24878a9fe3b50f45c5d299ca441d00eae42b9f32fa4fbd2aac8cafac613"
+"data/controls/natural_near_miss_controls_20260730/human_verifier_disagreements.jsonl" = "0198fd893cbdeb5449e655801a207cad3553007bd5ffc6490ba39e1c4813005a"
+
+[stages.prepare_lost_inputs]
+description = "Combine all real targets with the 101 frozen validated grounded controls."
+deps = ["install_frozen_examples"]
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/model_inputs.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/model_inputs.jsonl.manifest.json",
+]
+expected_sha256 = { "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/model_inputs.jsonl" = "18aff72537297c5d2d6bd23a9d95617bab4e08d442906ed3a886b5b5fb24b38a" }
+command = """
+{python} {experiment}/full_history_522/prepare_model_inputs.py \
+  --originals {experiment}/full_history_522/artifacts/cohort_original.jsonl \
+  --controls {experiment}/full_history_522/artifacts/final_controls.jsonl \
+  --validation {experiment}/full_history_522/artifacts/control_validation_final.jsonl \
+  --blind-audit {experiment}/full_history_522/artifacts/control_blind_audit.jsonl \
+  --safety-labels {experiment}/psychogenic_machine_transport_250910970/full522/artifacts/safety_labels.jsonl \
+  --output {experiment}/full_history_522/artifacts/model_inputs.jsonl
+"""
+
+[stages.prepare_psychogenic_inputs]
+description = "Insert each frozen explicit/implicit rewrite into its unchanged real history."
+deps = ["install_frozen_examples"]
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/artifacts/model_inputs.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/artifacts/model_inputs.manifest.json",
+]
+expected_sha256 = { "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/artifacts/model_inputs.jsonl" = "5a1c53673fe7563f5bc2626c5fcb150175e9bcc93844c829e10034ebf7c04a6c" }
+command = """
+mkdir -p {experiment}/psychogenic_machine_transport_250910970/full522/artifacts
+{python} {experiment}/psychogenic_machine_transport_250910970/prepare_inputs.py \
+  --cohort {experiment}/full_dataset_522/artifacts/cohort_full522.jsonl \
+  --pairs {experiment}/psychogenic_machine_transport_250910970/full522/artifacts/final_pairs.jsonl \
+  --validation {experiment}/psychogenic_machine_transport_250910970/full522/artifacts/final_validations.jsonl \
+  --output {experiment}/psychogenic_machine_transport_250910970/full522/artifacts/model_inputs.jsonl
+"""
+
+[stages.prepare_recognition_inputs]
+description = "Build the 932-row direct-recognition cohort from positives and both negative cohorts."
+deps = ["prepare_lost_inputs", "install_private_controls"]
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/classifier_inputs.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/classifier_inputs.manifest.json",
+]
+expected_sha256 = { "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/classifier_inputs.jsonl" = "543ba37348c5b17f61d0176c16ffedadcb0a5b3c61381bb3ddaa4bc125557d55" }
+command = """
+mkdir -p {experiment}/delusion_recognition_transport/artifacts
+{python} {experiment}/delusion_recognition_transport/prepare_inputs.py \
+  --positives {experiment}/full_dataset_522/artifacts/cohort_full522.jsonl \
+  --natural-negatives {repo}/data/controls/natural_near_miss_controls_20260730/strict_nonsincere_controls.jsonl \
+  --high-confidence-negatives {repo}/data/controls/natural_near_miss_controls_20260730/high_confidence_strict_controls.jsonl \
+  --human-confirmed-negatives {repo}/data/controls/natural_near_miss_controls_20260730/human_confirmed_controls.jsonl \
+  --human-disagreements {repo}/data/controls/natural_near_miss_controls_20260730/human_verifier_disagreements.jsonl \
+  --generated-negatives {experiment}/full_history_522/artifacts/model_inputs.jsonl \
+  --output {experiment}/delusion_recognition_transport/artifacts/classifier_inputs.jsonl
+"""
+
+[stages.label_visible_harm]
+description = "Run the three target and two exact-visible-context Mod+Harm screens."
+deps = ["prepare_lost_inputs"]
+kind = "api"
+required_env = ["OPENAI_API_KEY"]
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/mod_harm_labels_a.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/mod_harm_labels_b.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/mod_harm_labels_c.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/mod_harm_visible_context_a.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/mod_harm_visible_context_b.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/mod_harm_labels_a.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/mod_harm_labels_b.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/mod_harm_labels_c.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/mod_harm_visible_context_a.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/artifacts/mod_harm_visible_context_b.jsonl.manifest.json",
+]
+command = """
+for rubric in A B C; do
+  lower=$(printf '%s' "$rubric" | tr '[:upper:]' '[:lower:]')
+  {python} {experiment}/full_history_522/label_mod_harm_equivalent.py \
+    --input {experiment}/full_dataset_522/artifacts/cohort_full522.jsonl \
+    --rubric "$rubric" \
+    --output {experiment}/full_history_522/artifacts/mod_harm_labels_"$lower".jsonl
+done
+for rubric in A B; do
+  lower=$(printf '%s' "$rubric" | tr '[:upper:]' '[:lower:]')
+  {python} {experiment}/full_history_522/label_mod_harm_visible_context.py \
+    --input {experiment}/full_history_522/artifacts/model_inputs.jsonl \
+    --rubric "$rubric" \
+    --output {experiment}/full_history_522/artifacts/mod_harm_visible_context_"$lower".jsonl
+done
+"""
+
+[stages.model_llama31]
+description = "Cache Llama-3.1-8B-Instruct at the exact evaluated revision."
+kind = "network"
+required_env = ["HF_TOKEN"]
+outputs = [".cache/models/llama31-8b/.wilddelusion-model.json"]
+command = """
+{python} {repo}/scripts/materialize_model.py \
+  --model meta-llama/Llama-3.1-8B-Instruct \
+  --revision 0e9e39f249a16976918f6564b8830bc894c89659 \
+  --output {repo}/.cache/models/llama31-8b
+"""
+
+[stages.model_olmo3]
+description = "Cache OLMo-3-7B-Instruct at the exact evaluated revision."
+kind = "network"
+outputs = [".cache/models/olmo3-7b/.wilddelusion-model.json"]
+command = """
+{python} {repo}/scripts/materialize_model.py \
+  --model allenai/Olmo-3-7B-Instruct \
+  --revision 6e5971d9eba42665f5bd5a0fcf047f299ce1dccc \
+  --output {repo}/.cache/models/olmo3-7b
+"""
+
+[stages.model_qwen3_4b]
+description = "Cache Qwen3-4B at the exact evaluated revision."
+kind = "network"
+outputs = [".cache/models/qwen3-4b/.wilddelusion-model.json"]
+command = """
+{python} {repo}/scripts/materialize_model.py \
+  --model Qwen/Qwen3-4B \
+  --revision 1cfa9a7208912126459214e8b04321603b3df60c \
+  --output {repo}/.cache/models/qwen3-4b
+"""
+
+[stages.model_qwen_judge]
+description = "Cache the exact Qwen3-30B thinking judge revision."
+kind = "network"
+outputs = [".cache/models/qwen3-30b-thinking/.wilddelusion-model.json"]
+command = """
+{python} {repo}/scripts/materialize_model.py \
+  --model Qwen/Qwen3-30B-A3B-Thinking-2507 \
+  --revision 144afc2f379b542fdd4e85a1fcd5e1f79112d95d \
+  --output {repo}/.cache/models/qwen3-30b-thinking
+"""
+
+[stages.generate_lost_primary]
+description = "Generate greedy next responses from the two official-BF16 primary models."
+deps = ["prepare_lost_inputs", "model_llama31", "model_olmo3"]
+kind = "gpu"
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/results/generations_llama31_8b.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/results/generations_olmo.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/results/generations_llama31_8b.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/results/generations_olmo.jsonl.manifest.json",
+]
+command = """
+mkdir -p {experiment}/full_history_522/results
+{python} {experiment}/run_vllm_models.py \
+  --input {experiment}/full_history_522/artifacts/model_inputs.jsonl \
+  --output {experiment}/full_history_522/results/generations_llama31_8b.jsonl \
+  --model {repo}/.cache/models/llama31-8b \
+  --reported-model meta-llama/Llama-3.1-8B-Instruct
+{python} {experiment}/run_vllm_models.py \
+  --input {experiment}/full_history_522/artifacts/model_inputs.jsonl \
+  --output {experiment}/full_history_522/results/generations_olmo.jsonl \
+  --model {repo}/.cache/models/olmo3-7b \
+  --reported-model allenai/Olmo-3-7B-Instruct
+"""
+
+[stages.judge_lost_primary]
+description = "Apply the exact native Qwen DCS/HES/SIS rubric to both primary-model outputs."
+deps = ["generate_lost_primary", "model_qwen_judge"]
+kind = "gpu"
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/results/judgments.qwen3-30b-thinking.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/full_history_522/results/judgments.qwen3-30b-thinking.jsonl.manifest.json",
+]
+command = """
+{python} {experiment}/judge_responses_vllm.py \
+  --inputs \
+    {experiment}/full_history_522/results/generations_llama31_8b.jsonl \
+    {experiment}/full_history_522/results/generations_olmo.jsonl \
+  --output {experiment}/full_history_522/results/judgments.qwen3-30b-thinking.jsonl \
+  --model {repo}/.cache/models/qwen3-30b-thinking \
+  --model-id Qwen/Qwen3-30B-A3B-Thinking-2507 \
+  --revision 144afc2f379b542fdd4e85a1fcd5e1f79112d95d \
+  --tensor-parallel-size 1
+"""
+
+[stages.analyze_visible_harm]
+description = "Recompute the 26.5-30.0% visible-context coverage claim with clustered 99% intervals."
+deps = ["label_visible_harm", "judge_lost_primary"]
+outputs = ["experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/visible_context_mod_harm/claim_gate.json"]
+command = """
+{python} {repo}/scripts/analyze_visible_primary.py \
+  --experiment {experiment} \
+  --output-dir {experiment}/cross_domain_comparison/visible_context_mod_harm
+"""
+
+[stages.audit_natural_controls]
+description = "Re-adjudicate natural controls, derive tokenizer-common suffixes, and verify explicit evidence."
+deps = ["prepare_recognition_inputs", "model_llama31", "model_olmo3"]
+kind = "api"
+required_env = ["OPENAI_API_KEY"]
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/natural_controls_independent_adjudication_mini.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/natural_control_context_retention.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/natural_controls_retained_context_adjudication.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/natural_controls_independent_adjudication_mini.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/natural_control_context_retention.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/natural_controls_retained_context_adjudication.jsonl.manifest.json",
+]
+command = """
+{python} {experiment}/delusion_recognition_transport/adjudicate_natural_controls.py \
+  --input {repo}/data/controls/natural_near_miss_controls_20260730/high_confidence_strict_controls.jsonl \
+  --output {experiment}/delusion_recognition_transport/artifacts/natural_controls_independent_adjudication_mini.jsonl \
+  --model gpt-5.4-mini-2026-03-17
+{python} {experiment}/delusion_recognition_transport/audit_control_context_retention.py \
+  --inputs {experiment}/delusion_recognition_transport/artifacts/classifier_inputs.jsonl \
+  --source-controls {repo}/data/controls/natural_near_miss_controls_20260730/strict_nonsincere_controls.jsonl \
+  --output {experiment}/delusion_recognition_transport/artifacts/natural_control_context_retention.jsonl
+{python} {experiment}/delusion_recognition_transport/adjudicate_retained_control_context.py \
+  --input {experiment}/delusion_recognition_transport/artifacts/natural_control_context_retention.jsonl \
+  --output {experiment}/delusion_recognition_transport/artifacts/natural_controls_retained_context_adjudication.jsonl \
+  --model gpt-5.4-mini-2026-03-17
+"""
+
+[stages.classify_recognition]
+description = "Run the paper's exact direct-delusion classifier on all 932 inputs with both primary models."
+deps = ["prepare_recognition_inputs", "model_llama31", "model_olmo3"]
+kind = "gpu"
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/results/classifications.llama31_8b.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/results/classifications.olmo3_7b.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/results/classifications.llama31_8b.jsonl.meta_llama_llama_3_1_8b_instruct.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/results/classifications.olmo3_7b.jsonl.allenai_olmo_3_7b_instruct.manifest.json",
+]
+command = """
+mkdir -p {experiment}/delusion_recognition_transport/results
+{python} {experiment}/delusion_recognition_transport/run_vllm_classifier.py \
+  --input {experiment}/delusion_recognition_transport/artifacts/classifier_inputs.jsonl \
+  --output {experiment}/delusion_recognition_transport/results/classifications.llama31_8b.jsonl \
+  --model {repo}/.cache/models/llama31-8b \
+  --reported-model meta-llama/Llama-3.1-8B-Instruct \
+  --checkpoint-source meta-llama/Llama-3.1-8B-Instruct \
+  --revision 0e9e39f249a16976918f6564b8830bc894c89659
+{python} {experiment}/delusion_recognition_transport/run_vllm_classifier.py \
+  --input {experiment}/delusion_recognition_transport/artifacts/classifier_inputs.jsonl \
+  --output {experiment}/delusion_recognition_transport/results/classifications.olmo3_7b.jsonl \
+  --model {repo}/.cache/models/olmo3-7b \
+  --reported-model allenai/Olmo-3-7B-Instruct \
+  --checkpoint-source allenai/Olmo-3-7B-Instruct \
+  --revision 6e5971d9eba42665f5bd5a0fcf047f299ce1dccc
+"""
+
+[stages.adjudicate_themes]
+description = "Apply two independently worded closed-ontology rubrics to all 522 positive endpoints."
+deps = ["prepare_recognition_inputs"]
+kind = "api"
+required_env = ["OPENAI_API_KEY"]
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/paper_theme_fit_a.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/paper_theme_fit_b.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/paper_theme_fit_a.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/delusion_recognition_transport/artifacts/paper_theme_fit_b.jsonl.manifest.json",
+]
+command = """
+for rubric in A B; do
+  lower=$(printf '%s' "$rubric" | tr '[:upper:]' '[:lower:]')
+  {python} {experiment}/delusion_recognition_transport/adjudicate_paper_theme_fit.py \
+    --input {experiment}/delusion_recognition_transport/artifacts/classifier_inputs.jsonl \
+    --output {experiment}/delusion_recognition_transport/artifacts/paper_theme_fit_"$lower".jsonl \
+    --rubric-version "$rubric" \
+    --model gpt-5.4-mini-2026-03-17
+done
+"""
+
+[stages.analyze_control_realism]
+description = "Estimate natural-minus-generated FPR gaps with adversarial parse bounds and clustered 99% intervals."
+deps = ["audit_natural_controls", "classify_recognition"]
+outputs = ["experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/control_realism/claim_gate.json"]
+command = """
+{python} {experiment}/cross_domain_comparison/analyze_control_realism.py
+"""
+
+[stages.analyze_theme_coverage]
+description = "Estimate strict outside-ontology coverage with source-conversation clustered uncertainty."
+deps = ["adjudicate_themes"]
+outputs = ["experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/theme_coverage/claim_gate.json"]
+command = """
+{python} {experiment}/cross_domain_comparison/analyze_theme_coverage.py
+"""
+
+[stages.analyze_recognition_gap]
+description = "Partially identify the real OLMo-Llama FNR gap under adversarial malformed-output assignments."
+deps = ["adjudicate_themes", "classify_recognition", "fetch_lost_source"]
+outputs = ["experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/recognition_model_gap/claim_gate.json"]
+command = """
+{python} {experiment}/cross_domain_comparison/analyze_recognition_model_gap.py
+"""
+
+[stages.generate_psychogenic]
+description = "Generate three seeded full synthetic trajectories, matched-local contrasts, and 327 real pairs for three models."
+deps = ["prepare_psychogenic_inputs", "fetch_psychosis_bench", "model_llama31", "model_olmo3", "model_qwen3_4b"]
+kind = "gpu"
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results/generations_llama31_8b_t1.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results/generations_olmo3_7b_t1.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results/generations_qwen3_4b_t1.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/local_results/generations_llama31_8b_t1.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/local_results/generations_olmo3_7b_t1.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/local_results/generations_qwen3_4b_t1.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/stochastic_results/generations_llama31_8b_t1.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/stochastic_results/generations_olmo3_7b_t1.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/stochastic_results/generations_qwen3_4b_t1.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results/generations_llama31_8b_t1.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results/generations_olmo3_7b_t1.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results/generations_qwen3_4b_t1.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/local_results/generations_llama31_8b_t1.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/local_results/generations_olmo3_7b_t1.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/local_results/generations_qwen3_4b_t1.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/stochastic_results/generations_llama31_8b_t1.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/stochastic_results/generations_olmo3_7b_t1.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/stochastic_results/generations_qwen3_4b_t1.jsonl.manifest.json",
+]
+command = """
+cases={experiment}/paper/psychosis-bench/data/test_cases.json
+synth={experiment}/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results
+local={experiment}/cross_domain_comparison/synthetic_psychosis_bench/local_results
+real={experiment}/psychogenic_machine_transport_250910970/full522/stochastic_results
+mkdir -p "$synth" "$local" "$real"
+
+{python} {experiment}/delusion_recognition_transport/run_psychosis_bench_stochastic.py --cases "$cases" --output "$synth/generations_llama31_8b_t1.jsonl" --model {repo}/.cache/models/llama31-8b --reported-model meta-llama/Llama-3.1-8B-Instruct --checkpoint-source meta-llama/Llama-3.1-8B-Instruct --revision 0e9e39f249a16976918f6564b8830bc894c89659
+{python} {experiment}/delusion_recognition_transport/run_psychosis_bench_stochastic.py --cases "$cases" --output "$synth/generations_olmo3_7b_t1.jsonl" --model {repo}/.cache/models/olmo3-7b --reported-model allenai/Olmo-3-7B-Instruct --checkpoint-source allenai/Olmo-3-7B-Instruct --revision 6e5971d9eba42665f5bd5a0fcf047f299ce1dccc
+{python} {experiment}/delusion_recognition_transport/run_psychosis_bench_stochastic.py --cases "$cases" --output "$synth/generations_qwen3_4b_t1.jsonl" --model {repo}/.cache/models/qwen3-4b --reported-model Qwen/Qwen3-4B --checkpoint-source Qwen/Qwen3-4B --revision 1cfa9a7208912126459214e8b04321603b3df60c --disable-thinking
+
+{python} {experiment}/delusion_recognition_transport/run_psychosis_bench_local_contrast.py --cases "$cases" --source-generations "$synth/generations_llama31_8b_t1.jsonl" --output "$local/generations_llama31_8b_t1.jsonl" --model {repo}/.cache/models/llama31-8b --reported-model meta-llama/Llama-3.1-8B-Instruct --checkpoint-source meta-llama/Llama-3.1-8B-Instruct --revision 0e9e39f249a16976918f6564b8830bc894c89659
+{python} {experiment}/delusion_recognition_transport/run_psychosis_bench_local_contrast.py --cases "$cases" --source-generations "$synth/generations_olmo3_7b_t1.jsonl" --output "$local/generations_olmo3_7b_t1.jsonl" --model {repo}/.cache/models/olmo3-7b --reported-model allenai/Olmo-3-7B-Instruct --checkpoint-source allenai/Olmo-3-7B-Instruct --revision 6e5971d9eba42665f5bd5a0fcf047f299ce1dccc
+{python} {experiment}/delusion_recognition_transport/run_psychosis_bench_local_contrast.py --cases "$cases" --source-generations "$synth/generations_qwen3_4b_t1.jsonl" --output "$local/generations_qwen3_4b_t1.jsonl" --model {repo}/.cache/models/qwen3-4b --reported-model Qwen/Qwen3-4B --checkpoint-source Qwen/Qwen3-4B --revision 1cfa9a7208912126459214e8b04321603b3df60c --disable-thinking
+
+inputs={experiment}/psychogenic_machine_transport_250910970/full522/artifacts/model_inputs.jsonl
+{python} {experiment}/psychogenic_machine_transport_250910970/run_real_pairs_stochastic.py --input "$inputs" --output "$real/generations_llama31_8b_t1.jsonl" --model {repo}/.cache/models/llama31-8b --reported-model meta-llama/Llama-3.1-8B-Instruct --checkpoint-source meta-llama/Llama-3.1-8B-Instruct --revision 0e9e39f249a16976918f6564b8830bc894c89659
+{python} {experiment}/psychogenic_machine_transport_250910970/run_real_pairs_stochastic.py --input "$inputs" --output "$real/generations_olmo3_7b_t1.jsonl" --model {repo}/.cache/models/olmo3-7b --reported-model allenai/Olmo-3-7B-Instruct --checkpoint-source allenai/Olmo-3-7B-Instruct --revision 6e5971d9eba42665f5bd5a0fcf047f299ce1dccc
+{python} {experiment}/psychogenic_machine_transport_250910970/run_real_pairs_stochastic.py --input "$inputs" --output "$real/generations_qwen3_4b_t1.jsonl" --model {repo}/.cache/models/qwen3-4b --reported-model Qwen/Qwen3-4B --checkpoint-source Qwen/Qwen3-4B --revision 1cfa9a7208912126459214e8b04321603b3df60c --disable-thinking
+"""
+
+[stages.judge_psychogenic]
+description = "Apply the pinned gpt-4o-mini DCS judge independently to all three psychogenic designs."
+deps = ["generate_psychogenic"]
+kind = "api"
+required_env = ["OPENAI_API_KEY"]
+outputs = [
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results/judgments.dcs-gpt4o-mini.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/local_results/judgments.dcs-gpt4o-mini.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/stochastic_results/judgments.dcs-gpt4o-mini.jsonl",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results/judgments.dcs-gpt4o-mini.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/synthetic_psychosis_bench/local_results/judgments.dcs-gpt4o-mini.jsonl.manifest.json",
+  "experiments/lost_in_delusion_replication_260600975/psychogenic_machine_transport_250910970/full522/stochastic_results/judgments.dcs-gpt4o-mini.jsonl.manifest.json",
+]
+command = """
+synth={experiment}/cross_domain_comparison/synthetic_psychosis_bench/stochastic_results
+local={experiment}/cross_domain_comparison/synthetic_psychosis_bench/local_results
+real={experiment}/psychogenic_machine_transport_250910970/full522/stochastic_results
+models='allenai/Olmo-3-7B-Instruct meta-llama/Llama-3.1-8B-Instruct Qwen/Qwen3-4B'
+{python} {experiment}/psychogenic_machine_transport_250910970/judge_dcs_exact.py --inputs "$synth/generations_olmo3_7b_t1.jsonl" "$synth/generations_llama31_8b_t1.jsonl" "$synth/generations_qwen3_4b_t1.jsonl" --output "$synth/judgments.dcs-gpt4o-mini.jsonl" --models $models --expected-per-model 576 --model gpt-4o-mini-2024-07-18
+{python} {experiment}/psychogenic_machine_transport_250910970/judge_dcs_exact.py --inputs "$local/generations_olmo3_7b_t1.jsonl" "$local/generations_llama31_8b_t1.jsonl" "$local/generations_qwen3_4b_t1.jsonl" --output "$local/judgments.dcs-gpt4o-mini.jsonl" --models $models --expected-per-model 864 --model gpt-4o-mini-2024-07-18
+{python} {experiment}/psychogenic_machine_transport_250910970/judge_dcs_exact.py --inputs "$real/generations_olmo3_7b_t1.jsonl" "$real/generations_llama31_8b_t1.jsonl" "$real/generations_qwen3_4b_t1.jsonl" --output "$real/judgments.dcs-gpt4o-mini.jsonl" --models $models --expected-per-model 1962 --model gpt-4o-mini-2024-07-18
+"""
+
+[stages.analyze_psychogenic]
+description = "Recompute pooled, model, seed, scenario, leave-one-out, and exact sign-flip analyses."
+deps = ["judge_psychogenic"]
+outputs = ["experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/psychogenic_robustness/claim_gate.json"]
+command = """
+{python} {experiment}/cross_domain_comparison/analyze_psychogenic_robustness.py
+"""
+
+[stages.build_claim_registry]
+description = "Apply the non-overlap rule and select exactly five claims whose locked gates pass."
+deps = [
+  "analyze_visible_harm",
+  "analyze_control_realism",
+  "analyze_psychogenic",
+  "analyze_theme_coverage",
+  "analyze_recognition_gap",
+]
+outputs = ["experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/abstract_claim_registry/claim_registry.json"]
+command = """
+{python} {experiment}/cross_domain_comparison/build_claim_registry.py
+"""
+
+[stages.verify_claims]
+description = "Fail unless exactly five distinct evidence families satisfy every claim-specific gate."
+deps = ["build_claim_registry"]
+outputs = ["experiments/lost_in_delusion_replication_260600975/cross_domain_comparison/abstract_claim_registry/COMPLETION_AUDIT.json"]
+command = """
+{python} {experiment}/cross_domain_comparison/verify_abstract_claims.py
+"""
+
+[stages.sync_results]
+description = "Publish only compact gates, tables, and the completion audit at the repository root."
+deps = ["verify_claims"]
+outputs = ["results/claim_registry.json", "results/COMPLETION_AUDIT.json"]
+command = """
+{python} {repo}/scripts/sync_results.py \
+  --source {experiment}/cross_domain_comparison/abstract_claim_registry \
+  --destination {repo}/results
+"""
+
+[stages.all]
+description = "Complete reproduction: immutable inputs, generation, judging, five analyses, and fail-closed verification."
+deps = ["sync_results"]
+outputs = ["results/COMPLETION_AUDIT.json"]
+command = """
+echo 'All five result families reproduced and verified.'
+"""

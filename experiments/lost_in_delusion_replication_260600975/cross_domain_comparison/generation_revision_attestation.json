@@ -1,0 +1,58 @@
+{
+  "protocol": "huggingface_main_temporal_revision_attestation_v1",
+  "audited_at": "2026-07-31T12:38:38.669686+00:00",
+  "models": {
+    "allenai/Olmo-3-7B-Instruct": {
+      "expected_revision": "6e5971d9eba42665f5bd5a0fcf047f299ce1dccc",
+      "latest_revision_at_audit": "6e5971d9eba42665f5bd5a0fcf047f299ce1dccc",
+      "latest_revision_created_at": "2026-06-25T21:41:37+00:00",
+      "latest_revision_title": "Update the number of parameters (#13)",
+      "generation_file": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/full_history_522/results/generations_olmo.jsonl",
+      "generation_file_mtime": "2026-07-31T00:33:43+00:00",
+      "generation_sha256": "15f269de1f8ce4dfa85293ffb80fe46e7e3071d5801e006a87155040a398f9d5",
+      "generation_manifest_sha256": "cc7cf73e1ff51b2ba91c060cb64cbca0d81c77f0b65a5f13a89c09fa852c2712",
+      "generation_artifacts": [
+        {
+          "generation_file": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/full_history_522/results/generations_olmo.jsonl",
+          "generation_file_mtime": "2026-07-31T00:33:43+00:00",
+          "generation_sha256": "15f269de1f8ce4dfa85293ffb80fe46e7e3071d5801e006a87155040a398f9d5",
+          "generation_manifest_sha256": "cc7cf73e1ff51b2ba91c060cb64cbca0d81c77f0b65a5f13a89c09fa852c2712"
+        },
+        {
+          "generation_file": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/full_history_522/results/generations_olmo_last_user_only.jsonl",
+          "generation_file_mtime": "2026-07-31T00:41:08+00:00",
+          "generation_sha256": "a03ea72610765540853bd629a4284b3626c8630695500ea8a90f832af569cc36",
+          "generation_manifest_sha256": "cc7cf73e1ff51b2ba91c060cb64cbca0d81c77f0b65a5f13a89c09fa852c2712"
+        }
+      ],
+      "attested": true,
+      "attestation_logic": "The repository's latest commit at audit is the expected revision and predates every completed generation artifact; therefore an unpinned main-branch resolution during generation could not have resolved to a later revision."
+    },
+    "meta-llama/Llama-3.1-8B-Instruct": {
+      "expected_revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+      "latest_revision_at_audit": "0e9e39f249a16976918f6564b8830bc894c89659",
+      "latest_revision_created_at": "2024-09-25T17:00:57+00:00",
+      "latest_revision_title": "Update README.md",
+      "generation_file": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/full_history_522/results/generations_llama31_8b.jsonl",
+      "generation_file_mtime": "2026-07-31T00:22:42+00:00",
+      "generation_sha256": "1e5989ec44c6cc7333066551348960fe93fc78dd4ee7cd6cf9d96b23b928d9b7",
+      "generation_manifest_sha256": "3720935b8eb35c8c014b9654b6a2ee00fbd628a42626eebabd3782072b58a5a7",
+      "generation_artifacts": [
+        {
+          "generation_file": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/full_history_522/results/generations_llama31_8b.jsonl",
+          "generation_file_mtime": "2026-07-31T00:22:42+00:00",
+          "generation_sha256": "1e5989ec44c6cc7333066551348960fe93fc78dd4ee7cd6cf9d96b23b928d9b7",
+          "generation_manifest_sha256": "3720935b8eb35c8c014b9654b6a2ee00fbd628a42626eebabd3782072b58a5a7"
+        },
+        {
+          "generation_file": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/full_history_522/results/generations_llama31_8b_last_user_only.jsonl",
+          "generation_file_mtime": "2026-07-31T00:39:03+00:00",
+          "generation_sha256": "2d1fc32ae5d9bedeec05638a7d7d2e43669d5ffb003e1b4a09c38cd8feab4b2a",
+          "generation_manifest_sha256": "3720935b8eb35c8c014b9654b6a2ee00fbd628a42626eebabd3782072b58a5a7"
+        }
+      ],
+      "attested": true,
+      "attestation_logic": "The repository's latest commit at audit is the expected revision and predates every completed generation artifact; therefore an unpinned main-branch resolution during generation could not have resolved to a later revision."
+    }
+  }
+}

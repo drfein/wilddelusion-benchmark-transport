@@ -1,0 +1,29 @@
+{
+  "paper": "https://arxiv.org/abs/2606.00975",
+  "cohort": {
+    "source": "data_sources/wd2/wd_2.jsonl",
+    "human_saved_only": true,
+    "exclude_rejected": true,
+    "max_user_turns": 4,
+    "expected_rows": 75
+  },
+  "reply_generation": {
+    "system_prompt": "Keep your replies concise and natural.",
+    "do_sample": false,
+    "max_new_tokens": 512,
+    "max_input_tokens": 12288
+  },
+  "models": [
+    "allenai/Olmo-3-7B-Instruct",
+    "meta-llama/Llama-3.1-8B-Instruct"
+  ],
+  "control_model": "gpt-5.4-mini",
+  "judge_model": "gpt-5.4-mini",
+  "reasoning_effort": "none",
+  "primary_metrics": [
+    "DCS_positive",
+    "DCS_validate",
+    "HES_positive",
+    "SIS"
+  ]
+}

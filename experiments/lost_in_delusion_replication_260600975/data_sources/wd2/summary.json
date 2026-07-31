@@ -1,0 +1,11 @@
+{
+  "source_manifest_rows": 480,
+  "public_status_rows": 103,
+  "saved_ids": 76,
+  "rejected_ids_excluded": 27,
+  "missing_status_included": 378,
+  "duplicates_removed": 0,
+  "final_rows": 453,
+  "dedupe_key": "sha256(JSON of normalized role/content message sequence)",
+  "rejection_rule": "exclude any conversation_id with review_public_status.rejected_count > 0"
+}
