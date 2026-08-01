@@ -1,0 +1,13 @@
+{
+  "model": "gpt-5.4-mini-2026-03-17",
+  "reasoning_effort": "none",
+  "temperature": 0,
+  "rubric_sha256": "53b8922feed81d239446141480653c793d30a11c42f591d1e4a0cb7f41c2f4a4",
+  "targets": 45,
+  "successful": 45,
+  "missing": 0,
+  "new_errors": 0,
+  "input_tokens": 33934,
+  "output_tokens": 37136,
+  "target_visibility": "rewriter never receives the later target"
+}

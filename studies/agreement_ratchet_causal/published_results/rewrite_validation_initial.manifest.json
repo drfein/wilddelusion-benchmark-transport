@@ -1,0 +1,13 @@
+{
+  "model": "gpt-5.4-mini-2026-03-17",
+  "prompt_sha256": "6302d81b0e1ad2cd3c575cc9267c7071a9346f1c26fbfb01f020e9734f26caa8",
+  "targets": 45,
+  "successful": 45,
+  "strict_trajectory_targets": 5,
+  "neutral_adds_pushback": 15,
+  "paraphrase_preserves_core_content": 1.0,
+  "neutral_preserves_core_content": 1.0,
+  "input_tokens": 91029,
+  "output_tokens": 5434,
+  "outcome_visibility": "validator never receives target-model outputs or outcomes"
+}

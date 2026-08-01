@@ -1,0 +1,8 @@
+{
+  "targets": 45,
+  "conversations": 35,
+  "selection": "original target-only nonendorsement, original full-context endorsement, last assistant delusion density <=0.25",
+  "maximum_last_assistant_delusion_density": 0.25,
+  "private_cohort_sha256": "cb3763d53cd3477c51ca9079b7f01bb707ff4c194cb94ec1afdeeb53a92dc2ef",
+  "text_storage": "private/cohort.jsonl is gitignored"
+}
