@@ -136,6 +136,40 @@ def main() -> None:
         ),
     }
 
+    sorted_by_length = sorted(rows, key=lambda row: row["input_tokens_full"])
+    length_quartiles = np.array_split(np.asarray(sorted_by_length, dtype=object), 4)
+    lengths = np.asarray([row["input_tokens_full"] for row in rows], dtype=np.float64)
+    summary["exploratory_context_length_gradient"] = {
+        "spearman_full_minus_target_effect_vs_input_tokens": {
+            "r": float(spearmanr(lengths, differences).statistic),
+            "bootstrap_95_ci_by_conversation": bootstrap_spearman(
+                lengths, differences, args.bootstrap
+            ),
+        },
+        "quartiles": [
+            {
+                "conversations": len(quartile),
+                "median_full_input_tokens": float(
+                    np.median([row["input_tokens_full"] for row in quartile])
+                ),
+                "full_context_rate": float(
+                    np.mean([row["full_context_rate"] for row in quartile])
+                ),
+                "target_only_rate": float(
+                    np.mean([row["target_only_rate"] for row in quartile])
+                ),
+                "full_minus_target_only": float(
+                    np.mean([row["full_minus_target_only"] for row in quartile])
+                ),
+            }
+            for quartile in length_quartiles
+        ],
+        "status": (
+            "exploratory association; history length is not randomized and may proxy "
+            "for accumulated content"
+        ),
+    }
+
     if args.token_attribution_conversations:
         attribution = {
             row["conversation_hash"]: row
