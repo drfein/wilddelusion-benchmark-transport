@@ -7,6 +7,7 @@ CASES="$ROOT/input/test_cases.json"
 QWEN=${QWEN:-/workspace/models/Qwen3-8B}
 LLAMA=${LLAMA:-/dev/shm/model-cache/Llama-3.1-8B-Instruct}
 GEMMA=${GEMMA:-/dev/shm/model-cache/gemma-3-12b-it}
+REAL_COHORT=${REAL_COHORT:-$ROOT/input/real_cohort.jsonl}
 
 wait_for_supervisor_exit() {
   local program=$1
@@ -90,6 +91,25 @@ secondary_judge_and_fit() {
     --output "$run_dir/judge_agreement.json"
 }
 
+generate_real_continuations() {
+  local model_key=$1
+  local model_path=$2
+  local run_dir="$ROOT/real_runs/$model_key"
+  mkdir -p "$run_dir/activations"
+  /venv/main/bin/python "$CODE/generate_real_continuations.py" \
+    --cohort "$REAL_COHORT" \
+    --model "$model_path" \
+    --model-key "$model_key" \
+    --output "$run_dir/generations.jsonl" \
+    --activation-dir "$run_dir/activations" \
+    --activation-index "$run_dir/activation_index.jsonl" \
+    --manifest "$run_dir/manifest.json" \
+    --repetitions 5 \
+    --temperature 0.7 \
+    --top-p 0.9 \
+    --max-new-tokens 256
+}
+
 if [[ "${QWEN_EXTERNAL:-0}" == "1" ]]; then
   # Vast deployment starts Qwen under Supervisor for separately visible progress.
   wait_for_supervisor_exit qwen_trajectory_rollout
@@ -109,3 +129,6 @@ judge_and_fit gemma3_12b
 for model_key in qwen3_8b llama31_8b gemma3_12b; do
   secondary_judge_and_fit "$model_key"
 done
+
+generate_real_continuations llama31_8b "$LLAMA"
+generate_real_continuations gemma3_12b "$GEMMA"

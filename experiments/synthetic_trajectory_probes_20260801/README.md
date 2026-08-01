@@ -54,3 +54,8 @@ turn, two independent DCS judgment files, judge agreement, out-of-fold
 predictions, and current/future-horizon summaries. The unit of generalization
 is `scenario_pair`; individual turns and repeated trajectories never define a
 fold.
+
+If `REAL_COHORT` points to the frozen 187-history WildDelusion cohort, the same
+runner also generates five continuations per history for Llama and Gemma and
+caches one deterministic pre-response activation per history. These outputs are
+used to train real-domain probes before frozen evaluation on Psychosis-Bench.
