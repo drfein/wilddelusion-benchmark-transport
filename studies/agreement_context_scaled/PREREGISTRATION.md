@@ -145,3 +145,10 @@ confirmatory cohort is 216 conversations and 1,944 target-model calls. The
 exclusion was determined solely by counterfactual-construction feasibility,
 not any target-model response or outcome. Because attrition is concentrated in
 extreme histories, estimates do not cover the longest-tail conversations.
+
+The cumulative manipulation validator succeeded for 215/216 executable
+conversations. For one approximately 160k-token history, the original prefix
+plus rewrite map exceeded the validator context window. This target remains in
+the all-cohort primary causal analysis, but its manipulation check is marked
+unavailable and it is conservatively excluded from the valid-cumulative
+sensitivity subset. This handling was fixed before target-model generation.

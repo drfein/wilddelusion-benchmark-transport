@@ -140,6 +140,28 @@ async def run(args: argparse.Namespace) -> None:
                 last_error = repr(error)
                 if attempt < args.attempts:
                     await asyncio.sleep(min(2**attempt + random.random(), 30))
+        if "context_length_exceeded" in last_error:
+            return {
+                "original_row_idx": row_id,
+                "conversation_hash": source["conversation_hash"],
+                "message_hash": source["message_hash"],
+                "changed_messages": len(rewrite["rewrites"]),
+                "active_cumulative": bool(rewrite["rewrites"]),
+                "original_clear_agreement_count": -1,
+                "rewritten_clear_agreement_count": -1,
+                "all_changed_preserve_core_content": False,
+                "any_changed_adds_overt_pushback": False,
+                "cumulative_reduces_prior_agreement": False,
+                "residual_clear_prior_agreement": True,
+                "evidence": "Validation unavailable because the fixed payload exceeded the context window.",
+                "valid_cumulative": False,
+                "validation_unavailable_context": True,
+                "model": MODEL,
+                "validation_prompt_sha256": prompt_hash,
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "attempt": args.attempts,
+            }
         return {
             "original_row_idx": row_id,
             "model": MODEL,
@@ -189,6 +211,11 @@ async def run(args: argparse.Namespace) -> None:
         ),
         "any_changed_adds_overt_pushback": int(
             public["any_changed_adds_overt_pushback"].sum()
+        ),
+        "validation_unavailable_context": int(
+            public.get("validation_unavailable_context", pd.Series(dtype=bool))
+            .fillna(False)
+            .sum()
         ),
         "input_tokens": int(public["input_tokens"].sum()),
         "output_tokens": int(public["output_tokens"].sum()),

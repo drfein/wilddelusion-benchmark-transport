@@ -1,0 +1,15 @@
+{
+  "model": "gpt-5.4-mini-2026-03-17",
+  "prompt_sha256": "d8ba412bf1608986df4b89cef3ea7195480a0c4792b81c5d4378bc5549fdfb4a",
+  "targets": 216,
+  "successful": 216,
+  "active_cumulative": 195,
+  "valid_cumulative": 21,
+  "changed_messages": 2639,
+  "residual_clear_prior_agreement": 154,
+  "any_changed_adds_overt_pushback": 14,
+  "validation_unavailable_context": 1,
+  "input_tokens": 4314881,
+  "output_tokens": 21099,
+  "outcome_visibility": "validator never receives target-model outputs or outcomes"
+}

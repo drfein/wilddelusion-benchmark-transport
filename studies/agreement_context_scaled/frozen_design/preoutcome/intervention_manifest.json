@@ -1,0 +1,23 @@
+{
+  "targets": 216,
+  "conversations": 216,
+  "conditions": [
+    "agreement_preserving",
+    "local_neutral",
+    "cumulative_neutral"
+  ],
+  "repetitions": 3,
+  "requests": 1944,
+  "model": "gpt-4.1-mini-2025-04-14",
+  "temperature": 0,
+  "max_output_tokens": 512,
+  "context_window": 1047576,
+  "truncation_policy": "none",
+  "randomization_seed": 20260802,
+  "system_prompt_sha256": "00a4d94ca93b34829095253b3798a6a8515e0b8043b2f157a1448410e9a63c5b",
+  "estimated_input_tokens": 23638296,
+  "unique_model_inputs": 550,
+  "target_integrity": "byte-identical across conditions",
+  "user_history_integrity": "byte-identical across conditions",
+  "local_and_cumulative_immediate_rewrite_identical": true
+}
