@@ -30,6 +30,17 @@ def discrimination(truth: np.ndarray, prediction: np.ndarray) -> dict[str, float
     }
 
 
+def bootstrap_spearman(x: np.ndarray, y: np.ndarray, iterations: int) -> list[float]:
+    rng = np.random.default_rng(SEED)
+    estimates = []
+    for _ in range(iterations):
+        sample = rng.integers(0, len(x), len(x))
+        estimate = spearmanr(x[sample], y[sample]).statistic
+        if np.isfinite(estimate):
+            estimates.append(estimate)
+    return [float(value) for value in np.quantile(estimates, [0.025, 0.975])]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--cohort", type=Path, required=True)
@@ -39,6 +50,7 @@ def main() -> None:
     parser.add_argument("--checkpoint-dir", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--summary", type=Path, required=True)
+    parser.add_argument("--behavior-rows", type=Path)
     parser.add_argument("--bootstrap", type=int, default=10_000)
     args = parser.parse_args()
 
@@ -141,6 +153,30 @@ def main() -> None:
             "is required to establish an endorsement-rate effect."
         ),
     }
+    if args.behavior_rows:
+        behavior = {
+            row["conversation_hash"]: row for row in read_jsonl(args.behavior_rows)
+        }
+        if set(behavior) != {row["conversation_hash"] for row in rows}:
+            raise ValueError("Behavior rows do not match paired activation rows")
+        effects = np.asarray(
+            [
+                behavior[row["conversation_hash"]]["full_minus_target_only"]
+                for row in rows
+            ]
+        )
+        summary["representation_shift_vs_causal_behavior_effect"] = {}
+        for key in ("context_logit_shift", "context_probability_shift"):
+            values = np.asarray([row[key] for row in rows])
+            summary["representation_shift_vs_causal_behavior_effect"][key] = {
+                "spearman_r": float(spearmanr(values, effects).statistic),
+                "bootstrap_95_ci_by_conversation": bootstrap_spearman(
+                    values, effects, args.bootstrap
+                ),
+            }
+        summary["representation_shift_vs_causal_behavior_effect"]["effect"] = (
+            "full-context minus target-only binary endorsement rate"
+        )
     args.summary.parent.mkdir(parents=True, exist_ok=True)
     args.summary.write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps(summary, indent=2))
