@@ -31,3 +31,26 @@ has not seen during probe training.
 Psychosis-Bench has only eight independent scenario pairs. Results are a
 mechanistic pilot and require replication on the larger Lost in Delusion
 persona set before a broad synthetic-data claim.
+
+## Run
+
+Fetch the exact stimuli:
+
+```bash
+python fetch_psychosis_bench.py \
+  --output artifacts/private/test_cases.json \
+  --manifest artifacts/test_cases_manifest.json
+```
+
+Set `ROOT`, `QWEN`, `LLAMA`, and `GEMMA` if the defaults do not match the GPU
+machine, then run:
+
+```bash
+./run_gpu_pipeline.sh
+```
+
+Each model directory contains raw responses, one compressed activation file per
+turn, two independent DCS judgment files, judge agreement, out-of-fold
+predictions, and current/future-horizon summaries. The unit of generalization
+is `scenario_pair`; individual turns and repeated trajectories never define a
+fold.

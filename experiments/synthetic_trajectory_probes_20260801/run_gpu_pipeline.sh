@@ -90,11 +90,15 @@ secondary_judge_and_fit() {
     --output "$run_dir/judge_agreement.json"
 }
 
-# The Qwen rollout is started separately so progress is visible immediately.
-wait_for_supervisor_exit qwen_trajectory_rollout
-validate_manifest "$ROOT/runs/qwen3_8b/manifest.json"
-wait_for_supervisor_exit download_llama
-wait_for_supervisor_exit download_gemma
+if [[ "${QWEN_EXTERNAL:-0}" == "1" ]]; then
+  # Vast deployment starts Qwen under Supervisor for separately visible progress.
+  wait_for_supervisor_exit qwen_trajectory_rollout
+  validate_manifest "$ROOT/runs/qwen3_8b/manifest.json"
+  wait_for_supervisor_exit download_llama
+  wait_for_supervisor_exit download_gemma
+else
+  rollout qwen3_8b "$QWEN" 12
+fi
 
 judge_and_fit qwen3_8b
 rollout llama31_8b "$LLAMA" 12
