@@ -9,6 +9,7 @@ from pathlib import Path
 import numpy as np
 from config import ENDORSEMENT_THRESHOLD, SEED
 from io_utils import read_jsonl, sha256_file, write_jsonl
+from scipy.stats import spearmanr
 
 
 def role_masks(
@@ -219,12 +220,40 @@ def main() -> None:
     conversation_rows = []
     message_rows = []
     methods: dict[str, list[dict]] = defaultdict(list)
+    agreement_rows = []
     for conversation_hash in sorted(index):
         row = cohort[conversation_hash]
         data = np.load(
             args.attribution_dir / index[conversation_hash]["attribution_file"]
         )
         message_indices = data["message_indices"]
+        if "integrated_gradients" in data:
+            gradient = data["gradient_times_input"].astype(np.float64)
+            integrated = data["integrated_gradients"].astype(np.float64)
+            content = message_indices >= 0
+            message_ids = sorted(set(message_indices[content].tolist()))
+            gradient_messages = np.asarray(
+                [gradient[message_indices == value].sum() for value in message_ids]
+            )
+            integrated_messages = np.asarray(
+                [integrated[message_indices == value].sum() for value in message_ids]
+            )
+            agreement_rows.append(
+                {
+                    "conversation_hash": conversation_hash,
+                    "input_tokens": int(row["input_tokens"]),
+                    "token_spearman": float(
+                        spearmanr(gradient[content], integrated[content]).statistic
+                    ),
+                    "message_sum_spearman": float(
+                        spearmanr(gradient_messages, integrated_messages).statistic
+                    ),
+                    "top_signed_message_agreement": int(
+                        int(np.argmax(gradient_messages))
+                        == int(np.argmax(integrated_messages))
+                    ),
+                }
+            )
         for key, method in (
             ("gradient_times_input", "gradient_times_input"),
             ("integrated_gradients", "integrated_gradients"),
@@ -253,6 +282,28 @@ def main() -> None:
         "role_scope": "prior user and assistant content tokens; target/system/template excluded",
         "methods": {
             method: aggregate(rows, args.bootstrap) for method, rows in methods.items()
+        },
+        "gradient_times_input_vs_integrated_gradients": {
+            "conversations": len(agreement_rows),
+            "availability_note": (
+                "Frozen smallest-hash subset with exact no-truncation IG; the longest "
+                "planned cases were not run to prioritize causal regeneration."
+            ),
+            **{
+                key: {
+                    "mean": finite_mean(agreement_rows, key),
+                    "bootstrap_95_ci": bootstrap_interval(
+                        agreement_rows,
+                        lambda sample, name=key: finite_mean(sample, name),
+                        args.bootstrap,
+                    ),
+                }
+                for key in (
+                    "token_spearman",
+                    "message_sum_spearman",
+                    "top_signed_message_agreement",
+                )
+            },
         },
     }
     args.summary.parent.mkdir(parents=True, exist_ok=True)
