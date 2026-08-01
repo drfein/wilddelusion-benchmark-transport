@@ -120,15 +120,16 @@ else
   rollout qwen3_8b "$QWEN" 12
 fi
 
-judge_and_fit qwen3_8b
 rollout llama31_8b "$LLAMA" 12
-judge_and_fit llama31_8b
 rollout gemma3_12b "$GEMMA" 8
-judge_and_fit gemma3_12b
+
+generate_real_continuations llama31_8b "$LLAMA"
+generate_real_continuations gemma3_12b "$GEMMA"
+
+for model_key in qwen3_8b llama31_8b gemma3_12b; do
+  judge_and_fit "$model_key"
+done
 
 for model_key in qwen3_8b llama31_8b gemma3_12b; do
   secondary_judge_and_fit "$model_key"
 done
-
-generate_real_continuations llama31_8b "$LLAMA"
-generate_real_continuations gemma3_12b "$GEMMA"
