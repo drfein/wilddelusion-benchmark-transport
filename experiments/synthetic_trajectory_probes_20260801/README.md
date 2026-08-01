@@ -59,3 +59,10 @@ If `REAL_COHORT` points to the frozen 187-history WildDelusion cohort, the same
 runner also generates five continuations per history for Llama and Gemma and
 caches one deterministic pre-response activation per history. These outputs are
 used to train real-domain probes before frozen evaluation on Psychosis-Bench.
+
+After copying GPU outputs under `artifacts/private/transfer/gpu_export`, run
+`run_spirals_judging_and_transfer.sh` with `ENV_FILE` set. It uses the same
+released `bot-endorses-delusion` rubric and GPT-5.4-mini judge as the original
+Qwen real-data probe, fits Llama/Gemma probes using only real histories, and
+applies all three frozen probe ensembles to synthetic activations without
+recalibration.
