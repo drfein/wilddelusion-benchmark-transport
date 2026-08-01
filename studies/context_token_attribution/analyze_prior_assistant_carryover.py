@@ -47,6 +47,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--prior-assistant-judgments", type=Path, required=True)
     parser.add_argument("--behavior-rows", type=Path, required=True)
+    parser.add_argument("--context-depth-rows", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--summary", type=Path, required=True)
     parser.add_argument("--bootstrap", type=int, default=10_000)
@@ -127,6 +128,32 @@ def main() -> None:
             "experiment is required for assistant-specific causation."
         ),
     }
+    if args.context_depth_rows:
+        depth = {
+            row["conversation_hash"]: row for row in read_jsonl(args.context_depth_rows)
+        }
+        if set(depth) != set(prior):
+            raise ValueError("Context-depth rows do not match prior assistant rows")
+        summary["context_depth_by_prior_assistant_endorsement"] = {}
+        for name, selected in (
+            ("endorsing", endorsed),
+            ("not_endorsing", not_endorsed),
+        ):
+            selected_depth = [depth[row["conversation_hash"]] for row in selected]
+            rates = {
+                condition: float(
+                    np.mean([row[f"{condition}_rate"] for row in selected_depth])
+                )
+                for condition in ("full", "last_exchange", "target_only")
+            }
+            summary["context_depth_by_prior_assistant_endorsement"][name] = {
+                "conversations": len(selected),
+                "endorsement_rates": rates,
+                "last_exchange_minus_target_only": (
+                    rates["last_exchange"] - rates["target_only"]
+                ),
+                "full_minus_last_exchange": rates["full"] - rates["last_exchange"],
+            }
     write_jsonl(args.output, rows)
     args.summary.parent.mkdir(parents=True, exist_ok=True)
     args.summary.write_text(json.dumps(summary, indent=2) + "\n")
