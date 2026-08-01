@@ -1,0 +1,78 @@
+{
+  "study": "context-token-attribution",
+  "status": "complete_through_behavioral_interventions_and_sparse_feature_prediction",
+  "population": {
+    "conversations": 187,
+    "responses_per_condition": 935,
+    "cohort_sha256": "36c81c6915315c3456866208cf47dc3cd978b215ab27415c001f1742def4eb99"
+  },
+  "model": {
+    "id": "Qwen/Qwen3-8B",
+    "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "samples_per_prompt": 5
+  },
+  "judge": {
+    "model": "gpt-5.4-mini-2026-03-17",
+    "reasoning": "none",
+    "binary_threshold": 7,
+    "rubric": "SPIRALS bot-endorses-delusion",
+    "prompt_sha256": "b40aa9fe56149f2c5f4b0baac745f61bc516ba7fd49c9966c75e11f12c467abb"
+  },
+  "context_ablation": {
+    "full_rate": 0.27700534759358286,
+    "last_exchange_rate": 0.19679144385026737,
+    "target_only_rate": 0.04385026737967914,
+    "full_minus_target_only": 0.23315508021390371,
+    "full_minus_target_only_ci95": [0.18181818181818185, 0.28451871657753974],
+    "last_exchange_minus_target_only": 0.15294117647058825,
+    "last_exchange_minus_target_only_ci95": [0.10695187165775401, 0.20213903743315506],
+    "full_minus_last_exchange": 0.08021390374331551,
+    "full_minus_last_exchange_ci95": [0.0427807486631016, 0.11764705882352941]
+  },
+  "latest_endorsing_assistant_deletion": {
+    "conversations": 36,
+    "original_rate": 0.688888888888889,
+    "deleted_rate": 0.5388888888888889,
+    "matched_deleted_rate": 0.6388888888888888,
+    "deleted_minus_original": -0.15,
+    "deleted_minus_original_ci95": [-0.24444444444444446, -0.05555555555555555],
+    "deleted_minus_matched": -0.10000000000000002,
+    "deleted_minus_matched_ci95": [-0.19444444444444445, -0.011111111111111127]
+  },
+  "exact_content_position_swap": {
+    "conversations": 31,
+    "original_rate": 0.6774193548387096,
+    "relocated_rate": 0.6516129032258065,
+    "relocated_minus_original": -0.02580645161290323,
+    "relocated_minus_original_ci95": [-0.11612903225806454, 0.06451612903225806],
+    "relocated_minus_original_p_two_sided": 0.690276548617257,
+    "removed_minus_relocated": -0.12258064516129032,
+    "removed_minus_relocated_ci95": [-0.21290322580645166, -0.032258064516129045],
+    "removed_minus_relocated_p_two_sided": 0.020869895650521747
+  },
+  "dense_probe": {
+    "auroc": 0.80645,
+    "auroc_ci95": [0.75038, 0.85594],
+    "average_precision": 0.60517
+  },
+  "sae_context_delta_probe": {
+    "sae": "sammyliu/qwen3-8b-sae-l20-topk64",
+    "auroc": 0.6586666971282356,
+    "auroc_ci95": [0.5778764066204898, 0.7316640330546915],
+    "average_precision": 0.4483421561241583,
+    "target_only_auroc": 0.48205147243608787
+  },
+  "attribution_faithfulness": {
+    "gradient_integrated_overlap_conversations": 23,
+    "same_top_assistant": 3,
+    "gradient_top_minus_matched_deletion": 0.06400000000000002,
+    "gradient_top_minus_matched_ci95": [-0.008, 0.14],
+    "integrated_top_minus_matched_deletion": 0.06956521739130435,
+    "integrated_top_minus_matched_ci95": [-0.026086956521739143, 0.18260869565217389],
+    "attricot_same_top_message_rate": 0.8,
+    "flashtrace_same_top_message_rate": 1.0
+  },
+  "claim": "In this selected real-dialogue cohort, belief-specific assistant content acts as a persistent epistemic anchor: removal reduces later endorsement, while moving the same content earlier does not reliably do so. Fine-grained saliency methods did not faithfully rank causal assistant turns."
+}

@@ -55,7 +55,9 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    sys.path.insert(0, str(args.flashtrace_source.resolve()))
+    source_path = args.flashtrace_source.resolve()
+    import_root = source_path.parent if (source_path / "__init__.py").exists() else source_path
+    sys.path.insert(0, str(import_root))
     from flashtrace import FlashTrace
 
     judgment_rows = read_jsonl(args.judgments)

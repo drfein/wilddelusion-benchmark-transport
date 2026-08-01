@@ -24,3 +24,5 @@ model-tokenized prompts that exceed the frozen limit are excluded and counted.
 Raw conversations, generations, judgments, token scores, and activations stay
 under `artifacts/private/` and are excluded from git.
 
+Aggregate findings are in `RESULTS.md` and `results_summary.json`. Exact
+commands and artifact locations are documented in `RUNBOOK.md`.
