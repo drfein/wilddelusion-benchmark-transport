@@ -14,15 +14,15 @@ from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
-def transformer_layers(model: Any) -> Any:
+def transformer_backbone(model: Any) -> Any:
     candidate = model
     for attribute in ("model", "language_model", "model"):
         if hasattr(candidate, attribute):
             candidate = getattr(candidate, attribute)
     if hasattr(candidate, "layers"):
-        return candidate.layers
+        return candidate
     if hasattr(model, "model") and hasattr(model.model, "layers"):
-        return model.model.layers
+        return model.model
     raise TypeError("Could not locate transformer layers")
 
 
@@ -57,12 +57,20 @@ def main() -> None:
         attn_implementation="sdpa",
         trust_remote_code=False,
     ).eval()
-    layers = transformer_layers(model)
-    layer_indices = args.layers or default_layer_indices(len(layers))
-    if not layer_indices or min(layer_indices) < 0 or max(layer_indices) >= len(layers):
+    backbone = transformer_backbone(model)
+    number_of_layers = len(backbone.layers)
+    layer_indices = args.layers or default_layer_indices(number_of_layers)
+    if (
+        not layer_indices
+        or min(layer_indices) < 0
+        or max(layer_indices) >= number_of_layers
+    ):
         raise ValueError(
-            f"Invalid layer indices {layer_indices} for {len(layers)} layers"
+            f"Invalid layer indices {layer_indices} for {number_of_layers} layers"
         )
+    max_layer = max(layer_indices)
+    backbone.layers = torch.nn.ModuleList(list(backbone.layers[: max_layer + 1]))
+    layers = backbone.layers
 
     captured: dict[int, np.ndarray] = {}
     hooks = []
@@ -148,13 +156,16 @@ def main() -> None:
         "input_sha256": sha256_file(args.input),
         "model": args.model,
         "model_revision": args.revision,
-        "number_of_layers": len(layers),
+        "number_of_layers": number_of_layers,
         "captured_layers": [index + 1 for index in layer_indices],
         "expected_prompts": len(expected),
         "successful_prompts": len(successful & expected),
         "processed_this_run": processed,
         "missing_prompts": len(expected - successful),
         "pooling": "final prompt token before assistant generation",
+        "memory_optimization": (
+            f"model truncated after requested layer {max_layer + 1}"
+        ),
     }
     args.manifest.parent.mkdir(parents=True, exist_ok=True)
     args.manifest.write_text(json.dumps(manifest, indent=2) + "\n")
