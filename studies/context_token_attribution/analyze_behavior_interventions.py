@@ -40,19 +40,25 @@ def main() -> None:
     args = parser.parse_args()
 
     selections = {row["conversation_hash"]: row for row in read_jsonl(args.selections)}
-    original_values: dict[str, list[int]] = defaultdict(list)
+    original_values: dict[str, dict[int, tuple[int, int]]] = defaultdict(dict)
     for row in judged_labels(args.original_judgments):
         if row["conversation_hash"] in selections:
-            original_values[row["conversation_hash"]].append(
-                int(row["annotation_score"] >= ENDORSEMENT_THRESHOLD)
+            original_values[row["conversation_hash"]][int(row["repetition"])] = (
+                int(row["annotation_score"] >= ENDORSEMENT_THRESHOLD),
+                int(row["annotation_score"]),
             )
 
-    intervention_values: dict[tuple[str, str], list[int]] = defaultdict(list)
+    intervention_values: dict[tuple[str, str], dict[int, tuple[int, int]]] = (
+        defaultdict(dict)
+    )
     for row in judged_labels(args.intervention_judgments):
         condition = row.get("condition")
         if condition in CONDITIONS and row["conversation_hash"] in selections:
-            intervention_values[(row["conversation_hash"], condition)].append(
-                int(row["annotation_score"] >= ENDORSEMENT_THRESHOLD)
+            intervention_values[(row["conversation_hash"], condition)][
+                int(row["repetition"])
+            ] = (
+                int(row["annotation_score"] >= ENDORSEMENT_THRESHOLD),
+                int(row["annotation_score"]),
             )
 
     rows = []
@@ -60,14 +66,18 @@ def main() -> None:
         original = original_values[conversation_hash]
         top = intervention_values[(conversation_hash, "top_assistant_deleted")]
         matched = intervention_values[(conversation_hash, "matched_assistant_deleted")]
-        if not (len(original) == len(top) == len(matched) == 5):
+        expected_repetitions = set(range(5))
+        if not (set(original) == set(top) == set(matched) == expected_repetitions):
             raise ValueError(
                 f"Incomplete intervention labels for {conversation_hash}: "
-                f"{len(original)}, {len(top)}, {len(matched)}"
+                f"{sorted(original)}, {sorted(top)}, {sorted(matched)}"
             )
-        original_rate = float(np.mean(original))
-        top_rate = float(np.mean(top))
-        matched_rate = float(np.mean(matched))
+        original_rate = float(np.mean([original[index][0] for index in range(5)]))
+        top_rate = float(np.mean([top[index][0] for index in range(5)]))
+        matched_rate = float(np.mean([matched[index][0] for index in range(5)]))
+        original_score = float(np.mean([original[index][1] for index in range(5)]))
+        top_score = float(np.mean([top[index][1] for index in range(5)]))
+        matched_score = float(np.mean([matched[index][1] for index in range(5)]))
         rows.append(
             {
                 **selection,
@@ -77,6 +87,12 @@ def main() -> None:
                 "top_minus_matched": top_rate - matched_rate,
                 "top_minus_original": top_rate - original_rate,
                 "matched_minus_original": matched_rate - original_rate,
+                "original_mean_score": original_score,
+                "top_deleted_mean_score": top_score,
+                "matched_deleted_mean_score": matched_score,
+                "top_minus_matched_score": top_score - matched_score,
+                "top_minus_original_score": top_score - original_score,
+                "matched_minus_original_score": matched_score - original_score,
             }
         )
 
@@ -105,6 +121,11 @@ def main() -> None:
         "primary_top_minus_matched": effect("top_minus_matched"),
         "top_minus_original": effect("top_minus_original"),
         "matched_minus_original": effect("matched_minus_original"),
+        "secondary_ordinal_score_effects": {
+            "top_minus_matched": effect("top_minus_matched_score"),
+            "top_minus_original": effect("top_minus_original_score"),
+            "matched_minus_original": effect("matched_minus_original_score"),
+        },
         "interpretation": (
             "Negative top-minus-matched supports faithfulness of the assistant-message "
             "attribution; a confidence interval spanning zero falsifies the primary "

@@ -11,12 +11,15 @@ from io_utils import read_jsonl, sha256_file, write_jsonl
 from scipy.stats import spearmanr
 
 
-def label_rows(path: Path) -> dict[tuple[str, int], int]:
+def label_rows(path: Path) -> dict[tuple[str, int], tuple[int, int]]:
     result = {}
     for row in read_jsonl(path):
         if isinstance(row.get("annotation_score"), int) and not row.get("judge_error"):
             key = (row["conversation_hash"], int(row["repetition"]))
-            result[key] = int(row["annotation_score"] >= ENDORSEMENT_THRESHOLD)
+            result[key] = (
+                int(row["annotation_score"] >= ENDORSEMENT_THRESHOLD),
+                int(row["annotation_score"]),
+            )
     return result
 
 
@@ -65,12 +68,14 @@ def main() -> None:
             f"expected={len(expected)}"
         )
 
-    by_conversation: dict[str, list[tuple[int, int]]] = defaultdict(list)
+    by_conversation: dict[str, list[tuple[int, int, int, int]]] = defaultdict(list)
     for conversation_hash, repetition in sorted(expected):
         by_conversation[conversation_hash].append(
             (
-                full[(conversation_hash, repetition)],
-                target[(conversation_hash, repetition)],
+                full[(conversation_hash, repetition)][0],
+                target[(conversation_hash, repetition)][0],
+                full[(conversation_hash, repetition)][1],
+                target[(conversation_hash, repetition)][1],
             )
         )
     rows = []
@@ -78,6 +83,8 @@ def main() -> None:
         values = np.asarray(by_conversation[conversation_hash], dtype=np.float64)
         full_rate = float(values[:, 0].mean())
         target_rate = float(values[:, 1].mean())
+        full_score = float(values[:, 2].mean())
+        target_score = float(values[:, 3].mean())
         source = cohort[conversation_hash]
         rows.append(
             {
@@ -86,6 +93,9 @@ def main() -> None:
                 "full_context_rate": full_rate,
                 "target_only_rate": target_rate,
                 "full_minus_target_only": full_rate - target_rate,
+                "full_context_mean_score": full_score,
+                "target_only_mean_score": target_score,
+                "full_minus_target_only_score": full_score - target_score,
                 "input_tokens_full": source["input_tokens"],
                 "prior_messages": len(source["messages"]) - 2,
             }
@@ -94,6 +104,9 @@ def main() -> None:
     differences = np.asarray([row["full_minus_target_only"] for row in rows])
     full_rates = np.asarray([row["full_context_rate"] for row in rows])
     target_rates = np.asarray([row["target_only_rate"] for row in rows])
+    score_differences = np.asarray(
+        [row["full_minus_target_only_score"] for row in rows]
+    )
     summary = {
         "cohort_sha256": sha256_file(args.cohort),
         "full_judgments_sha256": sha256_file(args.full_judgments),
@@ -106,6 +119,12 @@ def main() -> None:
             "mean": float(differences.mean()),
             "bootstrap_95_ci_by_conversation": bootstrap_mean(
                 differences, args.bootstrap
+            ),
+        },
+        "secondary_ordinal_score_effect": {
+            "mean": float(score_differences.mean()),
+            "bootstrap_95_ci_by_conversation": bootstrap_mean(
+                score_differences, args.bootstrap
             ),
         },
         "conversations_full_higher": int((differences > 0).sum()),
