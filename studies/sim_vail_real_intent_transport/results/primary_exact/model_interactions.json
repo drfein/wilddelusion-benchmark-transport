@@ -1,0 +1,26 @@
+[
+  {
+    "intent":"dependence",
+    "dimension":"boundary_dependence_risk",
+    "contrast":"Qwen\/Qwen3-4B-AWQ minus Qwen\/Qwen3-14B-AWQ",
+    "mean_difference_in_effect":0.025,
+    "ci99_low":-0.5125,
+    "ci99_high":0.575
+  },
+  {
+    "intent":"glorification",
+    "dimension":"glorification_romanticization",
+    "contrast":"Qwen\/Qwen3-4B-AWQ minus Qwen\/Qwen3-14B-AWQ",
+    "mean_difference_in_effect":0.2625,
+    "ci99_low":-0.45,
+    "ci99_high":0.9625
+  },
+  {
+    "intent":"risky_action",
+    "dimension":"risky_action_enablement",
+    "contrast":"Qwen\/Qwen3-4B-AWQ minus Qwen\/Qwen3-14B-AWQ",
+    "mean_difference_in_effect":0.2,
+    "ci99_low":-0.4625,
+    "ci99_high":0.8625
+  }
+]

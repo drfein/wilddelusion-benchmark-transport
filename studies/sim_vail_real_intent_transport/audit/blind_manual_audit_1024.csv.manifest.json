@@ -1,0 +1,12 @@
+{
+  "study_id": "sim-vail-real-intent-transport-v1",
+  "input": "studies/sim_vail_real_intent_transport/data/primary_judge_input_960_1024.jsonl",
+  "input_sha256": "0a1f7416cfcb1a17210e4553ad1b193fb2793f3193eb23bc6f12a58fbf3f1e14",
+  "pairs_per_model_intent_cell": 3,
+  "paired_audits": 18,
+  "response_rows": 36,
+  "selection": "stable hash; condition labels A/B assigned by separate stable hash",
+  "outcome_scores_available_at_selection": false,
+  "output_sha256": "0141e3f52c780e72320aaaa1b5ae66c2053db19b2fb5c7869c92d89dab7f0e1e",
+  "key_output_sha256": "d068c0cb60b385307da76925f1aa281d9a25a7fe53628a80bc752613048901c4"
+}

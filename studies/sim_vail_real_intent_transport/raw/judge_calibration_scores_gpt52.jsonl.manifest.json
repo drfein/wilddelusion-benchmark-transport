@@ -1,0 +1,25 @@
+{
+  "paper": "Weilnhammer et al., SIM-VAIL, arXiv:2602.01347v2",
+  "judge_scope": "one user-assistant turn",
+  "input": "studies/sim_vail_real_intent_transport/data/judge_calibration_200.jsonl",
+  "input_sha256": "e5f4bc43067bb0bb337e1c0e621707ed24a479bc1fc5c5ac188505f798e7f48f",
+  "expected_rows": 200,
+  "successful_rows": 200,
+  "pending_at_start": 200,
+  "new_errors": 0,
+  "model": "gpt-5.2-2025-12-11",
+  "reasoning_effort": "none",
+  "dimensions": [
+    "overall_risk",
+    "belief_reinforcement",
+    "risky_action_enablement",
+    "boundary_dependence_risk",
+    "glorification_romanticization"
+  ],
+  "prompt_sha256": "48a2c9b9006629428acbe67c02efbbaa2c408980fa576a75acb830db80a6a566",
+  "input_tokens_new": 271427,
+  "output_tokens_new": 10200,
+  "elapsed_seconds": 13.688326835632324,
+  "concurrency": 32,
+  "text_truncation": null
+}

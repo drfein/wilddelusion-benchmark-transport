@@ -1,0 +1,101 @@
+{
+  "format": "deterministic gzip (mtime=0)",
+  "files": [
+    {
+      "archive": "arms.jsonl.gz",
+      "archive_sha256": "576674d22043fc90749305cbb3f8d78f41b14c5c8cd1d93ff87ae3928cd03bfa",
+      "raw_file": "arms.jsonl",
+      "raw_sha256": "ab347b873ad830d6f0d36c07f67f008bac54ab040893da0303564fb24f78a191",
+      "raw_bytes": 27123296,
+      "rows": 600
+    },
+    {
+      "archive": "candidates.jsonl.gz",
+      "archive_sha256": "0aa5d29fcbaecee8c86e52cda0612da473140b14e22bdb112dc56424bcc459d4",
+      "raw_file": "candidates.jsonl",
+      "raw_sha256": "047491dd185356b43bbbfc4e3fb53df42fe833fb117c9c8b54116c0d46cc10ca",
+      "raw_bytes": 15337096,
+      "rows": 321
+    },
+    {
+      "archive": "judge_calibration_200.jsonl.gz",
+      "archive_sha256": "a81ab66c819f728d5cc47f52c2aa8ea92f67df892de1b4327386aa084a5f4fbc",
+      "raw_file": "judge_calibration_200.jsonl",
+      "raw_sha256": "e5f4bc43067bb0bb337e1c0e621707ed24a479bc1fc5c5ac188505f798e7f48f",
+      "raw_bytes": 988205,
+      "rows": 200
+    },
+    {
+      "archive": "judge_calibration_exact_200.jsonl.gz",
+      "archive_sha256": "440b8164367f6d8b04b0d2278f7dc6bf2f9367422df75fa87762fa606abcdb85",
+      "raw_file": "judge_calibration_exact_200.jsonl",
+      "raw_sha256": "d4eea6cd33af6e2e130b75e8eddac4f48c556f58f8d6ffbc91f501a5fda60f6a",
+      "raw_bytes": 922987,
+      "rows": 200
+    },
+    {
+      "archive": "judge_calibration_exact_scores_gpt52.jsonl.gz",
+      "archive_sha256": "861e71cc3985e8f641709be34f2f31731d4e1ec444633efa9aec0a8cf72b0e37",
+      "raw_file": "judge_calibration_exact_scores_gpt52.jsonl",
+      "raw_sha256": "38a4d8aae5d5ad2dd31c00345bd0b0892d4e4509ea4c5b2f31f9ab4e6212a43b",
+      "raw_bytes": 1161274,
+      "rows": 200
+    },
+    {
+      "archive": "judge_calibration_holdout_200.jsonl.gz",
+      "archive_sha256": "f73e47c4d49625425d8c1f7bcf99eb749c3e7a863996865c0af011de0bddc58a",
+      "raw_file": "judge_calibration_holdout_200.jsonl",
+      "raw_sha256": "2987164b6b186bb8407b5e97dc41e41b7b6b893c6f930214eb7245d5a6a92011",
+      "raw_bytes": 959127,
+      "rows": 200
+    },
+    {
+      "archive": "judge_calibration_holdout_scores_gpt52.jsonl.gz",
+      "archive_sha256": "d3ae3b5a2d55a28c01794234b9d9240641265afaadb77e3ace8a1315f32d1b32",
+      "raw_file": "judge_calibration_holdout_scores_gpt52.jsonl",
+      "raw_sha256": "d39d407f5eac1df65a112aea6147b2ea07ba8688751ba14a8cdaeb250cf0ea83",
+      "raw_bytes": 86391,
+      "rows": 200
+    },
+    {
+      "archive": "judge_calibration_scores_gpt52.jsonl.gz",
+      "archive_sha256": "f2421f3df072d9454ac2d8673b49a8f60d6c0309e2a9964a87c2cd2821f005f1",
+      "raw_file": "judge_calibration_scores_gpt52.jsonl",
+      "raw_sha256": "7cb31097b424fa69c2a16291b4c80904f8e3d49e74a8fcedf137e28fab7fb9c1",
+      "raw_bytes": 86340,
+      "rows": 200
+    },
+    {
+      "archive": "primary_judge_input_960_1024.jsonl.gz",
+      "archive_sha256": "9dfc1bcbb1749061955c7f430001fdfcbb55a831b1ab5b694066dfcfcd9b89ac",
+      "raw_file": "primary_judge_input_960_1024.jsonl",
+      "raw_sha256": "0a1f7416cfcb1a17210e4553ad1b193fb2793f3193eb23bc6f12a58fbf3f1e14",
+      "raw_bytes": 62443386,
+      "rows": 960
+    },
+    {
+      "archive": "primary_scores_exact_gpt52_960.jsonl.gz",
+      "archive_sha256": "a154a11f438abd282fcb8e74423d2b3f9c818382b9d81d5d029e26c8fea28590",
+      "raw_file": "primary_scores_exact_gpt52_960.jsonl",
+      "raw_sha256": "ff34aac39975d5d8fabe26d17081706247a2b4713bd9daa9a85e1ddcade79896",
+      "raw_bytes": 5767439,
+      "rows": 960
+    },
+    {
+      "archive": "screens_gpt54nano.jsonl.gz",
+      "archive_sha256": "461b73cfdb8f0b88a2be696b61bb561f8674d0e8fc7ccc8290dfd6ef226095d5",
+      "raw_file": "screens_gpt54nano.jsonl",
+      "raw_sha256": "ef80547ab39ef144d385699fe993566d2136c4e4aaf2f7109e3e85465c1afd2f",
+      "raw_bytes": 139719,
+      "rows": 321
+    },
+    {
+      "archive": "selected.jsonl.gz",
+      "archive_sha256": "70737cad40deb0ce6fa4c8146c8adfe050e78dbfae161986e3ea8bd9aa3d4535",
+      "raw_file": "selected.jsonl",
+      "raw_sha256": "e609e53e99f3f97b444d5abc50cc92c72bea7b90fc8b7cbf3ee9d0af9f367f84",
+      "raw_bytes": 4548255,
+      "rows": 100
+    }
+  ]
+}

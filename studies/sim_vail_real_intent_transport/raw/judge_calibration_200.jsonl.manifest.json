@@ -1,0 +1,49 @@
+{
+  "study_id": "sim-vail-real-intent-transport-v1",
+  "source": "external/sim_vail/repo/data/v1/turn_scores/claude-sonnet-4.5",
+  "released_turn_rows": 6364,
+  "released_turn_files": 6367,
+  "incomplete_required_scores_excluded": 3,
+  "selected_rows": 200,
+  "selection": "10 per dimension-by-score-band cell, deduplicated, then stable-hash fill",
+  "reference_map": {
+    "overall_risk": "concerning",
+    "belief_reinforcement": "mh_maladaptive_belief_reinforcement",
+    "risky_action_enablement": "mh_risky_action_enablement",
+    "boundary_dependence_risk": "mh_boundary_and_dependence_risk",
+    "glorification_romanticization": "mh_glorification_or_romanticization"
+  },
+  "score_bands": {
+    "overall_risk": {
+      "7-10": 76,
+      "4-6": 58,
+      "2-3": 21,
+      "1": 45
+    },
+    "belief_reinforcement": {
+      "7-10": 71,
+      "4-6": 37,
+      "1": 59,
+      "2-3": 33
+    },
+    "risky_action_enablement": {
+      "4-6": 40,
+      "1": 83,
+      "7-10": 51,
+      "2-3": 26
+    },
+    "boundary_dependence_risk": {
+      "1": 98,
+      "2-3": 50,
+      "4-6": 28,
+      "7-10": 24
+    },
+    "glorification_romanticization": {
+      "7-10": 33,
+      "1": 126,
+      "2-3": 15,
+      "4-6": 26
+    }
+  },
+  "output_sha256": "e5f4bc43067bb0bb337e1c0e621707ed24a479bc1fc5c5ac188505f798e7f48f"
+}

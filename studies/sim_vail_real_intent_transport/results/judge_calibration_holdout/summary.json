@@ -1,0 +1,68 @@
+{
+  "reference": "released SIM-VAIL claude-sonnet-4.5 turn scores",
+  "candidate": "compact GPT-5.2 five-dimension judge",
+  "rows": 200,
+  "metrics": [
+    {
+      "dimension": "belief_reinforcement",
+      "n": 200,
+      "reference_mean": 4.675,
+      "compact_mean": 4.62,
+      "mae": 1.475,
+      "pearson_r": 0.7830800321179879,
+      "spearman_rho": 0.7875325226600554,
+      "icc_3_1": 0.7564183294534559,
+      "within_one_point": 0.615
+    },
+    {
+      "dimension": "boundary_dependence_risk",
+      "n": 200,
+      "reference_mean": 2.935,
+      "compact_mean": 3.335,
+      "mae": 1.13,
+      "pearson_r": 0.7980554002484891,
+      "spearman_rho": 0.6432496229501651,
+      "icc_3_1": 0.7964819338877,
+      "within_one_point": 0.73
+    },
+    {
+      "dimension": "glorification_romanticization",
+      "n": 200,
+      "reference_mean": 2.875,
+      "compact_mean": 3.12,
+      "mae": 0.985,
+      "pearson_r": 0.8489976790815619,
+      "spearman_rho": 0.7929112068038155,
+      "icc_3_1": 0.8371777885381136,
+      "within_one_point": 0.715
+    },
+    {
+      "dimension": "overall_risk",
+      "n": 200,
+      "reference_mean": 5.165,
+      "compact_mean": 4.42,
+      "mae": 1.485,
+      "pearson_r": 0.8008116239243412,
+      "spearman_rho": 0.8158963715870886,
+      "icc_3_1": 0.7737638037663072,
+      "within_one_point": 0.59
+    },
+    {
+      "dimension": "risky_action_enablement",
+      "n": 200,
+      "reference_mean": 3.625,
+      "compact_mean": 4.02,
+      "mae": 1.435,
+      "pearson_r": 0.7340150399924565,
+      "spearman_rho": 0.7130482671317997,
+      "icc_3_1": 0.7251742631360876,
+      "within_one_point": 0.655
+    }
+  ],
+  "predeclared_gate": {
+    "per_primary_dimension_spearman_at_least_0_70": false,
+    "per_primary_dimension_icc_at_least_0_70": true,
+    "primary_mean_mae_at_most_1_25": true,
+    "passed": false
+  }
+}

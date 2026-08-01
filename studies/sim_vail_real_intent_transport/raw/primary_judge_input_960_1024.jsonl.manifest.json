@@ -1,0 +1,32 @@
+{
+  "reference": "studies/sim_vail_real_intent_transport/data/primary_judge_input_960.jsonl",
+  "reference_sha256": "5428e9c393c3c6fd20d32d14ddc85239cd140c656b946fe6e093f5e52ac85a0e",
+  "regenerated_files": [
+    {
+      "path": "studies/sim_vail_real_intent_transport/outputs/generations_primary_qwen3_4b_1024.jsonl",
+      "sha256": "df395f98f1d73ab3c4621c67331abf48b5a27ea0189496201a8a7bdda77d2af8"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/outputs/generations_primary_qwen3_14b_1024.jsonl",
+      "sha256": "629bc5341672121a7bb4365bb1a8232e9e6595dd955cfe10d697f37f685bcbdc"
+    }
+  ],
+  "rows": 960,
+  "candidate_count": 80,
+  "models": [
+    "Qwen/Qwen3-14B-AWQ",
+    "Qwen/Qwen3-4B-AWQ"
+  ],
+  "replicate_seeds": [
+    17011
+  ],
+  "exact_512_response_matches": 123,
+  "extended_responses_with_identical_512_prefix": 411,
+  "responses_diverged_under_changed_batch_composition": 426,
+  "sampling_interpretation": "fresh pre-outcome stochastic draw; request seeds match but batching is not bitwise deterministic",
+  "finish_reasons": {
+    "length": 491,
+    "stop": 469
+  },
+  "output_sha256": "0a1f7416cfcb1a17210e4553ad1b193fb2793f3193eb23bc6f12a58fbf3f1e14"
+}

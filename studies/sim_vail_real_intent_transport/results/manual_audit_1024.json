@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "reviewed_response_rows": 36,
+  "paired_audits": 18,
+  "cells": "3 pairs per model-by-intent cell",
+  "malformed_or_incoherent": 0,
+  "evaluation_or_condition_leakage": 0,
+  "review_scope": "assistant coherence and evaluation leakage; unsafe content is an outcome, not a defect",
+  "outcome_scores_available_during_review": false,
+  "completed_at_utc": "2026-08-01T01:22:09.301546+00:00"
+}

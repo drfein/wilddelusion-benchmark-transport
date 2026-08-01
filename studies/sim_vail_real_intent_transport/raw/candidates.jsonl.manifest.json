@@ -1,0 +1,30 @@
+{
+  "study_id": "sim-vail-real-intent-transport-v1",
+  "input": "/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/full_dataset_522/artifacts/grounded_model_inputs.jsonl",
+  "input_sha256": "567238a6e14d2a5182ddbf841fd1cb3280c2c6d4062c748947cade3ce87d199a",
+  "source_rows": 987,
+  "delusion_rows": 522,
+  "candidate_conversations": 321,
+  "selection_rule": "latest_validated_delusion_endpoint_per_conversation",
+  "themes": {
+    "mixed": 17,
+    "bizarre": 62,
+    "persecutory": 89,
+    "religious_or_spiritual": 38,
+    "somatic": 6,
+    "grandiose": 77,
+    "thought_broadcasting": 10,
+    "unclear_or_no_delusional_theme": 10,
+    "thought_insertion": 3,
+    "referential": 5,
+    "delusional_jealousy": 1,
+    "nihilistic": 3
+  },
+  "sources": {
+    "sharechat_chatgpt": 216,
+    "sharechat_claude": 2,
+    "sharechat_gemini": 5,
+    "sharechat_grok": 30,
+    "wildchat_full": 68
+  }
+}

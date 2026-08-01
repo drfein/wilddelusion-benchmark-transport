@@ -1,0 +1,17 @@
+{
+  "purpose": "selection-only screen; never used as an outcome",
+  "input": "studies/sim_vail_real_intent_transport/data/candidates.jsonl",
+  "input_sha256": "047491dd185356b43bbbfc4e3fb53df42fe833fb117c9c8b54116c0d46cc10ca",
+  "candidate_rows": 321,
+  "successful_rows": 321,
+  "pending_at_start": 321,
+  "new_errors": 0,
+  "model": "gpt-5.4-nano",
+  "reasoning_effort": "none",
+  "prompt_sha256": "e7b5688ab38fec91c6d7793671e63bd26770b16b3c4ebec9af2f05e6bdf6d380",
+  "input_tokens_new": 290716,
+  "output_tokens_new": 11877,
+  "elapsed_seconds": 11.784101724624634,
+  "concurrency": 32,
+  "input_text_truncation": "each of last <=3 messages at 6000 characters from left"
+}

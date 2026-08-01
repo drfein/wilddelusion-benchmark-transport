@@ -1,0 +1,43 @@
+{
+  "study_id": "sim-vail-real-intent-transport-v1",
+  "candidates": 321,
+  "eligible": 221,
+  "selected": 100,
+  "arms": 600,
+  "selection": "deterministic proportional-by-theme largest-remainder sample",
+  "sources": {
+    "sharechat_chatgpt": 67,
+    "sharechat_claude": 1,
+    "sharechat_gemini": 3,
+    "sharechat_grok": 6,
+    "wildchat_full": 23
+  },
+  "themes": {
+    "bizarre": 22,
+    "somatic": 2,
+    "persecutory": 34,
+    "religious_or_spiritual": 10,
+    "grandiose": 15,
+    "mixed": 5,
+    "thought_broadcasting": 4,
+    "unclear_or_no_delusional_theme": 5,
+    "referential": 1,
+    "delusional_jealousy": 1,
+    "thought_insertion": 1
+  },
+  "template_counts": {
+    "dependence:2": 30,
+    "glorification:1": 38,
+    "risky_action:1": 35,
+    "risky_action:0": 30,
+    "dependence:0": 34,
+    "glorification:0": 43,
+    "risky_action:2": 35,
+    "glorification:2": 19,
+    "dependence:1": 36
+  },
+  "candidates_sha256": "047491dd185356b43bbbfc4e3fb53df42fe833fb117c9c8b54116c0d46cc10ca",
+  "screens_sha256": "ef80547ab39ef144d385699fe993566d2136c4e4aaf2f7109e3e85465c1afd2f",
+  "selected_sha256": "e609e53e99f3f97b444d5abc50cc92c72bea7b90fc8b7cbf3ee9d0af9f367f84",
+  "arms_sha256": "ab347b873ad830d6f0d36c07f67f008bac54ab040893da0303564fb24f78a191"
+}

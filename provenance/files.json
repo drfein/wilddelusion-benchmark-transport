@@ -7,8 +7,8 @@
     },
     {
       "path": ".gitattributes",
-      "bytes": 13,
-      "sha256": "2ed0077447c3b45465683ec6b60800456bae3655d4fd233dc653d408563dfaed"
+      "bytes": 25,
+      "sha256": "c81e24eb21a8f1a9d13b01acf088c6882b4e98a9e5be8d9e3981c928d8e8d7e4"
     },
     {
       "path": ".github/workflows/test.yml",
@@ -27,8 +27,8 @@
     },
     {
       "path": "DATA_LICENSE.md",
-      "bytes": 983,
-      "sha256": "3843f50ff86b57eac8a4ad7573e259e164a83c3d0dce4fbd2629853cac64bf18"
+      "bytes": 1438,
+      "sha256": "0fecb5fe49acf0016ad8aabd742837f046f3099a0d8e80f8928a28dd646168fa"
     },
     {
       "path": "LICENSE",
@@ -42,8 +42,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6426,
-      "sha256": "e4a5449d8601a35595535a10cd2c3e831aa10f9a4abf51b6086e384f7494651f"
+      "bytes": 7537,
+      "sha256": "6f6e161f9e91cc062fc0b9d1d6796e11ccbc2664fe44cbcd53a53390c5582cf5"
     },
     {
       "path": "configs/pipeline.toml",
@@ -1096,6 +1096,396 @@
       "sha256": "eceabc442c627dba7698f3ad6106ce53af7b51652f5d122f18f4203395567ca1"
     },
     {
+      "path": "studies/sim_vail_real_intent_transport/README.md",
+      "bytes": 6777,
+      "sha256": "a182e474aa76b28d79fb748c84aa9460043bb2d76ecd39a2fa534bd666fa7f99"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/REPORT.md",
+      "bytes": 6325,
+      "sha256": "bba403c68642a2826e2e29d5e9b524bfcb56b2846797ce248e3eeb395cd575ac"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/analyze_judge_calibration.py",
+      "bytes": 4160,
+      "sha256": "5e206dacd229f61189cb0ae3802bf38aee6a9113f258476c0f22654ce0278a7f"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/analyze_outcomes.py",
+      "bytes": 13035,
+      "sha256": "c6a8fd5e1d7ede253d2e4654a50bc6c38f392d6dfd752fc6296cfdab5413825f"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/audit/blind_manual_audit_1024.csv",
+      "bytes": 149184,
+      "sha256": "53af4a0f9c05f3706ffbac7449a99e30f1d6d473ad86ec463f18d2555636cfc9"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/audit/blind_manual_audit_1024.csv.manifest.json",
+      "bytes": 628,
+      "sha256": "b4b2e287f3abab3467d4e4a6535bc8b07f3220d3c2cc3f83b29a15a6c08c00b9"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/audit/blind_manual_audit_1024_key.jsonl",
+      "bytes": 5184,
+      "sha256": "d068c0cb60b385307da76925f1aa281d9a25a7fe53628a80bc752613048901c4"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/build_arms.py",
+      "bytes": 7184,
+      "sha256": "a81b840b3ccfbde79d1fbf97bd957546e990f0ddf6f66db93fc0067caf8ac528"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/design.py",
+      "bytes": 7455,
+      "sha256": "6760d7565ef637aec0fca3db5bcd4212966c66e9b428cfc4356198335018d3b9"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/extract_top_pairs.py",
+      "bytes": 3681,
+      "sha256": "5f7603c76c40ddc80eda22e74e738bfdd7a29b864158e7845f78007d04a4023b"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/fresh_reproduction.sh",
+      "bytes": 2276,
+      "sha256": "d10d1a6c447bc3ac5593e6fc1a2095a3aebeecb1f59bed2dc68babe6a14a7d1a"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/generate_vllm.py",
+      "bytes": 13078,
+      "sha256": "58872329342baa78620b2057b313b9ea33eb5907984fcc3a1861eb7ad691d295"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/io_utils.py",
+      "bytes": 1881,
+      "sha256": "71b30c7165999f9795c93d60c7224a673495b79b52fe999d401a2e055b9f757c"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/plot_primary_results.py",
+      "bytes": 3577,
+      "sha256": "9e22f1fd173548b63136c440bc3087cd9ec36f6e6e1072461a5143804df3bbda"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/prepare_blind_audit.py",
+      "bytes": 4035,
+      "sha256": "a83811a8a0f93710eea3dc83588936a55d257e7fa029d1c99f25f284afa59416"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/prepare_candidates.py",
+      "bytes": 4040,
+      "sha256": "0a58acaf03aff2d38f12f6ce1d3868fa1f22bf1a5d17f0c8592a43502d796515"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/prepare_judge_calibration.py",
+      "bytes": 5488,
+      "sha256": "9a72a63ba7fe0cbb6deb8c71aaa422ec692fef8f5c7ea562a5f8fa4be087a8cc"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/prepare_primary_judge_input.py",
+      "bytes": 4027,
+      "sha256": "ed311446837434f17da9691bedbf1540f99dc85f6466ec948dea7381b96ad154"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/provenance/generations_primary_qwen3_14b_1024.jsonl.manifest.json",
+      "bytes": 994,
+      "sha256": "ea47609012dfeb0ac21396289316fde9d9c4d5e67c012786976755d26f27d7b2"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/provenance/generations_primary_qwen3_4b_1024.jsonl.manifest.json",
+      "bytes": 990,
+      "sha256": "31a0f2bc4578642ee3798e39c321b46a1cf00834bdf7b2c4e7cddb8509720051"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/provenance/primary_candidate_ids_80.txt",
+      "bytes": 2000,
+      "sha256": "4b5d285d838cb5042d3f5edab07922635254f6483d01e79d5825116d960e3d7d"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/README.md",
+      "bytes": 955,
+      "sha256": "05ba6a02b3f6ba6af2e9e6e0b45c4be70dfde5d20d89671ccd60119617001f28"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/arms.jsonl.gz",
+      "bytes": 5114262,
+      "sha256": "576674d22043fc90749305cbb3f8d78f41b14c5c8cd1d93ff87ae3928cd03bfa"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/arms.jsonl.manifest.json",
+      "bytes": 1271,
+      "sha256": "f1ae4bbf0f21fdaebb1f1037290284374c97c235182c95c345d2346a090105e5"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/candidates.jsonl.gz",
+      "bytes": 3670463,
+      "sha256": "0aa5d29fcbaecee8c86e52cda0612da473140b14e22bdb112dc56424bcc459d4"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/candidates.jsonl.manifest.json",
+      "bytes": 936,
+      "sha256": "0ab3a1265c06a21fe244f0222dfa3032b2579a6cebcc6f992fcba255dbb74eb6"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/judge_calibration_200.jsonl.gz",
+      "bytes": 330766,
+      "sha256": "a81ab66c819f728d5cc47f52c2aa8ea92f67df892de1b4327386aa084a5f4fbc"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/judge_calibration_200.jsonl.manifest.json",
+      "bytes": 1314,
+      "sha256": "636a32da56be6c5577efd6ab6477fe19ae26d213f23db23aeef3d4d689cebc12"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/judge_calibration_exact_200.jsonl.gz",
+      "bytes": 309570,
+      "sha256": "440b8164367f6d8b04b0d2278f7dc6bf2f9367422df75fa87762fa606abcdb85"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/judge_calibration_exact_200.jsonl.manifest.json",
+      "bytes": 1357,
+      "sha256": "987337974d0c05bff362fa44a76ab318c4a086e6c185d69285f7bfb3d7e9172f"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/judge_calibration_exact_scores_gpt52.jsonl.gz",
+      "bytes": 316168,
+      "sha256": "861e71cc3985e8f641709be34f2f31731d4e1ec444633efa9aec0a8cf72b0e37"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/judge_calibration_exact_scores_gpt52.jsonl.manifest.json",
+      "bytes": 937,
+      "sha256": "43b81a8f44f7eb6590b481f1b920ef663ed52b126ad9a894e56ded1c12c8c3bf"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/judge_calibration_holdout_200.jsonl.gz",
+      "bytes": 321576,
+      "sha256": "f73e47c4d49625425d8c1f7bcf99eb749c3e7a863996865c0af011de0bddc58a"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/judge_calibration_holdout_200.jsonl.manifest.json",
+      "bytes": 1357,
+      "sha256": "d080ac0048a6874aa80392abf0915f690674ec40ca45486299320a6082daecc0"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/judge_calibration_holdout_scores_gpt52.jsonl.gz",
+      "bytes": 5484,
+      "sha256": "d3ae3b5a2d55a28c01794234b9d9240641265afaadb77e3ace8a1315f32d1b32"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/judge_calibration_holdout_scores_gpt52.jsonl.manifest.json",
+      "bytes": 855,
+      "sha256": "8315716f403bd0b4546ea8a57f7cb27beae8bba8f3af5f201d7d729ca5e031fe"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/judge_calibration_scores_gpt52.jsonl.gz",
+      "bytes": 5484,
+      "sha256": "f2421f3df072d9454ac2d8673b49a8f60d6c0309e2a9964a87c2cd2821f005f1"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/judge_calibration_scores_gpt52.jsonl.manifest.json",
+      "bytes": 847,
+      "sha256": "b9c31005bb317b298cbc0702277a334e9000756d7bf0b65866e1be6601c766bb"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/manifest.json",
+      "bytes": 4179,
+      "sha256": "e2e39ffa5b6abf0d66827cd72edc75f071ae45f33d381bdc0ec3af261e090582"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/primary_judge_input_960_1024.jsonl.gz",
+      "bytes": 13207178,
+      "sha256": "9dfc1bcbb1749061955c7f430001fdfcbb55a831b1ab5b694066dfcfcd9b89ac"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/primary_judge_input_960_1024.jsonl.manifest.json",
+      "bytes": 1193,
+      "sha256": "c62cde1b07fd2c8a17a641ba95ec69eeb13a2d73ad45bfde2042fff89e8da487"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/primary_scores_exact_gpt52_960.jsonl.gz",
+      "bytes": 1506119,
+      "sha256": "a154a11f438abd282fcb8e74423d2b3f9c818382b9d81d5d029e26c8fea28590"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/primary_scores_exact_gpt52_960.jsonl.manifest.json",
+      "bytes": 938,
+      "sha256": "dca423c15f38d05b661069589a047feaa2521d5cd71cf2d82b7a5b5e3b7a2b61"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/screens_gpt54nano.jsonl.gz",
+      "bytes": 7454,
+      "sha256": "461b73cfdb8f0b88a2be696b61bb561f8674d0e8fc7ccc8290dfd6ef226095d5"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/screens_gpt54nano.jsonl.manifest.json",
+      "bytes": 676,
+      "sha256": "653b30add8e291bb6351dc2db09f5523ddef0235dd5962e5c2101daaea6bdaaf"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/raw/selected.jsonl.gz",
+      "bytes": 999419,
+      "sha256": "70737cad40deb0ce6fa4c8146c8adfe050e78dbfae161986e3ea8bd9aa3d4535"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/reproduce.py",
+      "bytes": 4819,
+      "sha256": "1f974012568489b3fdcdcac033b45e7310a7a9fac930ee81f95c184dc93a0a1b"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/requirements-gpu.txt",
+      "bytes": 80,
+      "sha256": "38594d84136cb9926e2166cb222f08c777df9e683ce78d8059b5a30e749f4645"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/requirements.txt",
+      "bytes": 134,
+      "sha256": "544ab65a561a45c571a59dcbf31ccc7f3e3c93519ff31753d82541ab557548ea"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/CHECKSUMS.sha256",
+      "bytes": 1443,
+      "sha256": "501a65929dc53566af975171ba9b53b750a831402884c756c74e7505a23829ca"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/judge_calibration/dimension_metrics.csv",
+      "bytes": 620,
+      "sha256": "00dcec6bc3b69b57e72319f5eb403d37b21fcee4438277be3875bb783df1f230"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/judge_calibration/paired_scores.csv",
+      "bytes": 51691,
+      "sha256": "5ef18c5859af61ea252e7d66a1a957d722406aae47370dd5e01627de7734f267"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/judge_calibration/summary.json",
+      "bytes": 1870,
+      "sha256": "3556e2ea104e66b04497879ad23d6eda59372fcb7944e10324e8cd4c8f60a9e4"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/judge_calibration_exact/dimension_metrics.csv",
+      "bytes": 618,
+      "sha256": "7bd2e8dca2b26c7dd17b450f26aee72f027415b596ce15e9d571c4d43657dee3"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/judge_calibration_exact/paired_scores.csv",
+      "bytes": 51699,
+      "sha256": "77e4f0de605006d7a1e34d69b3ebf804982fd35ad15cee6ed990b900c5b433fd"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/judge_calibration_exact/summary.json",
+      "bytes": 1885,
+      "sha256": "4286cf906f2852bdcc82135354fd3d41c0cf99f9eaa677dd2f6fbdc33a97fe12"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/judge_calibration_holdout/dimension_metrics.csv",
+      "bytes": 620,
+      "sha256": "00ee2e4d74c36d792e89c9cfbbbdba853be48d088cf7a4680b1816da9de5bc02"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/judge_calibration_holdout/paired_scores.csv",
+      "bytes": 51691,
+      "sha256": "410c9c1cca96e176dfc9c7d669003dc3a22fcbd791f509159471befe8b8c3676"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/judge_calibration_holdout/summary.json",
+      "bytes": 1870,
+      "sha256": "5b43c1335446d8353b67ed9f096a7dabac050067ea8c56c7f83ae98c455bed85"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/manual_audit_1024.json",
+      "bytes": 416,
+      "sha256": "f7137464ba4f8a56abb51a9c0347ba60c9fd7766477bd461f5b23fd08454b5e0"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/primary_exact/conversation_pair_deltas.csv",
+      "bytes": 84370,
+      "sha256": "bc3363b97871f399f0bba25e868cd1fad085465d0b2806cd01c55431b50e4039"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/primary_exact/manifest.json",
+      "bytes": 946,
+      "sha256": "a28fd5871c2d90415e7b2f2573d13adb990aeeab4fca385b909b058ca42a0976"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/primary_exact/model_interactions.json",
+      "bytes": 694,
+      "sha256": "649021884a69aa2ef329192821f3be17c2f5e9674d635237704119c8cb7d4513"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/primary_exact/primary_effects.pdf",
+      "bytes": 25837,
+      "sha256": "e5d556c50d5ef67b117fa81d2d7f644a5c9af9b1e9af4a9b62909530a33713df"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/primary_exact/primary_effects.png",
+      "bytes": 151832,
+      "sha256": "5c86a9846b262e452ef003c9eb1f28083d5af6f50b734187e31a3cd805f60483"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/primary_exact/primary_results.json",
+      "bytes": 7703,
+      "sha256": "75d2d571b5a4e91018aea9831b20ad1caf5fee5d470323f755192210b29f96ab"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/primary_exact/replicate_pair_deltas.csv",
+      "bytes": 88290,
+      "sha256": "bfb48c8e8ede861f79e72b0f98b79f03be4a07b044a9f26a395a62900673859a"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/primary_exact/secondary_results.json",
+      "bytes": 2313,
+      "sha256": "472e4f7dfe61ac5acab4dbd48167bf4e51798bb5c77e653ac45bef56edccddc5"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/primary_exact/source_sensitivity.json",
+      "bytes": 7692,
+      "sha256": "29711c728d9aa9bf8792ffe34a8b8a9534262ccffbcba0129c44f9028e1b610c"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/results/primary_exact/top_pairs.json",
+      "bytes": 304242,
+      "sha256": "1bedbe08d5676a8aa0f4b5062497567bac48955d675509bc4e0c197a2f2d1d4a"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/score_compact_openai.py",
+      "bytes": 8326,
+      "sha256": "2d546a15d42d0d8f5e183953894ae1d2351a21467f0b95d02a8c8c4933b0e8c0"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/score_exact_openai.py",
+      "bytes": 9681,
+      "sha256": "8a51b456f56cef23899da5720712a520843f8d8c52125c05b1db9a8f9a743c0e"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/screen_candidates_openai.py",
+      "bytes": 9211,
+      "sha256": "a21cc155f2d956ea09eb1fead5e30332cecafa8499b3d009c4485f16e9aa167f"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/test_design.py",
+      "bytes": 738,
+      "sha256": "a4c1bf0818db2e201e43884cd034b4b26e49121ca9825467e7c861ff7321b8b8"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/upstream/SIM_VAIL_COMMIT",
+      "bytes": 41,
+      "sha256": "2faf38b75ccfbe6eaf3dc0818a31557cb06d7f66c8e4bf7404b6ed3072fb88ff"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/upstream/SIM_VAIL_LICENSE",
+      "bytes": 1074,
+      "sha256": "d0ff5a50254059fb6df7c16f3ff73898d5d747372288da2089c084cc03876fda"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/upstream/sim_vail_prompts.py",
+      "bytes": 42304,
+      "sha256": "9dce1a6ea0885d14fae18455e64da55e63ac58843df0a847438517aca0171c0a"
+    },
+    {
+      "path": "studies/sim_vail_real_intent_transport/validate_primary_regeneration.py",
+      "bytes": 3490,
+      "sha256": "cdfde264a6f5b75f72dbeb2046611f3bbcf32de0d578998058da8ff9b61b8d32"
+    },
+    {
       "path": "tests/test_frozen_inputs.py",
       "bytes": 676,
       "sha256": "0e3f02c200cee21d0be6a9dfe5266a516d0523cfe386a2af0b0a3c390591aca1"
@@ -1121,5 +1511,5 @@
       "sha256": "ef601d6188c892c0ccf11556ba266687e68ae24bebe12e5ac9e62e38257334cc"
     }
   ],
-  "count": 224
+  "count": 302
 }

@@ -1,0 +1,30 @@
+{
+  "study_id": "sim-vail-real-intent-transport-v1",
+  "input": "data/arms.jsonl",
+  "input_sha256": "ab347b873ad830d6f0d36c07f67f008bac54ab040893da0303564fb24f78a191",
+  "output": "outputs/generations_primary_qwen3_14b_1024.jsonl",
+  "model": "Qwen/Qwen3-14B-AWQ",
+  "model_path": "/workspace/models/qwen3-14b-awq",
+  "model_revision": "31c69efc29464b6bb0aee1398b5a7b50a99340c3",
+  "model_dtype": "half",
+  "vllm_version": "0.26.0",
+  "thinking_disabled": true,
+  "system_prompt": null,
+  "temperature": 1.0,
+  "top_p": 1.0,
+  "replicate_seeds": [
+    17011
+  ],
+  "max_input_tokens": 7680,
+  "max_new_tokens": 1024,
+  "arms": 480,
+  "expected_rows": 480,
+  "successful_rows": 480,
+  "empty_responses": 0,
+  "dropped_message_count_min": 0,
+  "dropped_message_count_max": 280,
+  "output_sha256": "629bc5341672121a7bb4365bb1a8232e9e6595dd955cfe10d697f37f685bcbdc",
+  "smoke_limit_pairs": null,
+  "candidate_ids_file": "data/primary_candidate_ids_80.txt",
+  "model_slug": "Qwen__Qwen3-14B-AWQ"
+}

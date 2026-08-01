@@ -36,6 +36,27 @@ The authoritative claim wording, guardrails, and gate evidence are in
 [results/README.md](results/README.md) and
 [results/COMPLETION_AUDIT.md](results/COMPLETION_AUDIT.md).
 
+## Additional completed transport study
+
+[`studies/sim_vail_real_intent_transport`](studies/sim_vail_real_intent_transport)
+contains the complete SIM-VAIL real-context experiment. On 80 fixed real
+WildDelusion endpoints, dependence, special-insight, and action-seeking cues
+causally increased their matching response-risk dimensions in both Qwen3-4B
+and Qwen3-14B. All six 99% source-conversation intervals exclude zero after
+Holm correction, and all 18 cue-template effects agree in direction.
+
+The study directory includes the full compressed raw evidence: selected
+conversation contexts, all 960 final responses, every raw judge rationale,
+calibration data, manifests, analysis code, and a zero-cost exact numeric
+reproduction command:
+
+```bash
+python studies/sim_vail_real_intent_transport/reproduce.py analyze
+```
+
+This study is additive to the original five-family locked claim registry; it
+does not silently alter that earlier selection procedure.
+
 ## Quick verification
 
 This verifies the packaged gates and hashes. It performs no network, API, or GPU
@@ -116,6 +137,7 @@ but an exact raw rerun requires a locally authorized control bundle via
 | [provenance](provenance) | File hashes, upstream commits, model revisions, and source map |
 | [docs/METHODS.md](docs/METHODS.md) | Estimands and claim-specific workflows |
 | [DATA_LICENSE.md](DATA_LICENSE.md) | Dataset restrictions and sensitive-data boundary |
+| [studies/sim_vail_real_intent_transport](studies/sim_vail_real_intent_transport) | Complete SIM-VAIL intent-mechanism transport study and raw evidence |
 
 ## Reproducibility boundary
 

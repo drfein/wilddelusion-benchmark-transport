@@ -1,0 +1,26 @@
+{
+  "study_id": "sim-vail-real-intent-transport-v1",
+  "generation_files": [
+    {
+      "path": "studies/sim_vail_real_intent_transport/data/primary_judge_input_960_1024.jsonl",
+      "sha256": "0a1f7416cfcb1a17210e4553ad1b193fb2793f3193eb23bc6f12a58fbf3f1e14"
+    }
+  ],
+  "score_file": {
+    "path": "studies/sim_vail_real_intent_transport/data/primary_scores_exact_gpt52_960.jsonl",
+    "sha256": "ff34aac39975d5d8fabe26d17081706247a2b4713bd9daa9a85e1ddcade79896"
+  },
+  "generation_rows": 960,
+  "source_conversations": 80,
+  "paired_replicate_rows": 480,
+  "conversation_level_rows": 480,
+  "inference_unit": "source conversation; one selected endpoint per conversation",
+  "replicate_seeds": [
+    17011
+  ],
+  "replicates_averaged_before_inference": 1,
+  "bootstrap_draws": 200000,
+  "confidence_level": 0.99,
+  "randomization_test": "two-sided source-level sign flip",
+  "multiplicity": "Holm across six model-by-intent primary tests"
+}
