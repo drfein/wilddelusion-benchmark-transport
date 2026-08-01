@@ -128,3 +128,20 @@ therefore reduced from 25 to 10 eligible assistant indices for the 12 pending
 rows. The 209 completed cumulative interventions are retained. This final
 pre-outcome change affects only API-call granularity and is recorded here
 before any GPT-4.1-mini response or outcome exists.
+
+## Pre-outcome amendment 2: operational attrition
+
+Added 2026-08-01 at the user's instruction to stop waiting for the final
+extreme rewrite cases, before any GPT-4.1-mini intervention response or outcome
+judgment existed. After all execution remedies above, cumulative interventions
+were valid for 216/221 conversations. Five conversations still did not produce
+a complete cumulative intervention; they had 26-176 eligible earlier assistant
+turns and approximately 105k-266k original input tokens.
+
+These five are excluded from all three arms so paired contrasts retain a common
+outcome-independent cohort. Their row IDs, hashes, lengths, and exclusion
+reason are frozen in `frozen_design/operational_attrition.csv`. The final
+confirmatory cohort is 216 conversations and 1,944 target-model calls. The
+exclusion was determined solely by counterfactual-construction feasibility,
+not any target-model response or outcome. Because attrition is concentrated in
+extreme histories, estimates do not cover the longest-tail conversations.

@@ -1,0 +1,15 @@
+{
+  "frozen_before_target_model_outputs": true,
+  "original_targets": 221,
+  "executable_targets": 216,
+  "excluded_targets": 5,
+  "excluded_original_row_indices": [
+    41,
+    132,
+    165,
+    330,
+    476
+  ],
+  "out_cohort_sha256": "2605b298aec8060c4087b248ae9d353ed4a2d598f96309836a1c7826528366cb",
+  "attrition_sha256": "32a09cf795f231cd2ec4d91d01ed47fc3c7b62afe152f799d10525468fd4ceb7"
+}

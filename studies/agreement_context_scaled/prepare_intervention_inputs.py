@@ -66,8 +66,8 @@ def main() -> None:
         for row in read_jsonl(args.cumulative_rewrites)
         if isinstance(row.get("rewrites"), list) and not row.get("error")
     }
-    if set(cohort) != set(local) or set(cohort) != set(cumulative):
-        raise ValueError("Cohort and rewrite IDs do not match")
+    if not set(cohort).issubset(local) or not set(cohort).issubset(cumulative):
+        raise ValueError("Every cohort ID must have local and cumulative rewrites")
 
     encoding = tiktoken.get_encoding("o200k_base")
     requests: list[dict[str, Any]] = []

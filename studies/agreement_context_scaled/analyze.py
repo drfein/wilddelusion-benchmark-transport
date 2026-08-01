@@ -179,7 +179,10 @@ def main() -> None:
         if isinstance(row.get("annotation_score"), int) and not row.get("judge_error")
     ]
     data = pd.DataFrame(rows)
-    expected = 221 * len(CONDITIONS) * 3
+    targets_in_data = data["original_row_idx"].nunique()
+    expected = targets_in_data * len(CONDITIONS) * 3
+    if targets_in_data != 216:
+        raise ValueError(f"Expected 216 executable targets, found {targets_in_data}")
     if len(data) != expected or data["prompt_sha256"].nunique() != expected:
         raise ValueError(f"Expected {expected} unique judgments, found {len(data)}")
     data["endorse"] = data["annotation_score"].ge(THRESHOLD).astype(int)
