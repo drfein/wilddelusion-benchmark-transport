@@ -1,0 +1,804 @@
+{
+  "status": "preregistered outcome-independent intervention",
+  "model": "gpt-4.1-mini-2025-04-14",
+  "judge_model": "gpt-5.4-mini-2026-03-17",
+  "judge_threshold": 7,
+  "repetitions_per_condition": 3,
+  "subsets": [
+    {
+      "subset": "all_preregistered",
+      "targets": 216,
+      "conversations": 216,
+      "arm_endorsement": {
+        "agreement_preserving": {
+          "estimate": 0.18981481481481483,
+          "ci_low": 0.14351851851851852,
+          "ci_high": 0.23919753086419748
+        },
+        "local_neutral": {
+          "estimate": 0.19907407407407407,
+          "ci_low": 0.15432098765432098,
+          "ci_high": 0.24691358024691357
+        },
+        "cumulative_neutral": {
+          "estimate": 0.19444444444444445,
+          "ci_low": 0.14969135802469133,
+          "ci_high": 0.24074074074074073
+        }
+      },
+      "contrasts": {
+        "immediate_stance": {
+          "endorsement": {
+            "estimate": -0.009259259259259257,
+            "ci_low": -0.032407407407407406,
+            "ci_high": 0.013888888888888888
+          },
+          "score": {
+            "estimate": -0.11574074074074071,
+            "ci_low": -0.2824074074074074,
+            "ci_high": 0.04938271604938272
+          },
+          "directions": {
+            "positive": 17,
+            "equal": 178,
+            "negative": 21
+          },
+          "sign_flip_p_two_sided": 0.5097049029509705,
+          "holm_adjusted_p": 1.0
+        },
+        "earlier_accumulated_stance": {
+          "endorsement": {
+            "estimate": 0.004629629629629629,
+            "ci_low": -0.02160493827160494,
+            "ci_high": 0.030864197530864196
+          },
+          "score": {
+            "estimate": 0.16975308641975306,
+            "ci_low": -0.009259259259259316,
+            "ci_high": 0.34567901234567905
+          },
+          "directions": {
+            "positive": 24,
+            "equal": 171,
+            "negative": 21
+          },
+          "sign_flip_p_two_sided": 0.8220417795822041,
+          "holm_adjusted_p": 1.0
+        },
+        "total_stance": {
+          "endorsement": {
+            "estimate": -0.004629629629629632,
+            "ci_low": -0.03395061728395061,
+            "ci_high": 0.023148148148148147
+          },
+          "score": {
+            "estimate": 0.05401234567901233,
+            "ci_low": -0.14351851851851852,
+            "ci_high": 0.24845679012345676
+          },
+          "directions": {
+            "positive": 23,
+            "equal": 171,
+            "negative": 22
+          },
+          "sign_flip_p_two_sided": 0.8258017419825802,
+          "holm_adjusted_p": 1.0
+        }
+      }
+    },
+    {
+      "subset": "valid_local",
+      "targets": 149,
+      "conversations": 149,
+      "arm_endorsement": {
+        "agreement_preserving": {
+          "estimate": 0.22371364653243844,
+          "ci_low": 0.16554809843400445,
+          "ci_high": 0.28411633109619683
+        },
+        "local_neutral": {
+          "estimate": 0.23042505592841162,
+          "ci_low": 0.17225950782997762,
+          "ci_high": 0.29082774049217
+        },
+        "cumulative_neutral": {
+          "estimate": 0.23042505592841162,
+          "ci_low": 0.17225950782997762,
+          "ci_high": 0.29082774049217
+        }
+      },
+      "contrasts": {
+        "immediate_stance": {
+          "endorsement": {
+            "estimate": -0.006711409395973154,
+            "ci_low": -0.035794183445190156,
+            "ci_high": 0.02237136465324385
+          },
+          "score": {
+            "estimate": -0.0984340044742729,
+            "ci_low": -0.31096196868008946,
+            "ci_high": 0.11185682326621925
+          },
+          "directions": {
+            "positive": 14,
+            "equal": 118,
+            "negative": 17
+          }
+        },
+        "earlier_accumulated_stance": {
+          "endorsement": {
+            "estimate": 1.8627903097737526e-18,
+            "ci_low": -0.03355704697986577,
+            "ci_high": 0.03355704697986577
+          },
+          "score": {
+            "estimate": 0.16554809843400445,
+            "ci_low": -0.058165548098434036,
+            "ci_high": 0.3892617449664429
+          },
+          "directions": {
+            "positive": 16,
+            "equal": 117,
+            "negative": 16
+          }
+        },
+        "total_stance": {
+          "endorsement": {
+            "estimate": -0.006711409395973153,
+            "ci_low": -0.04250559284116331,
+            "ci_high": 0.029082774049217
+          },
+          "score": {
+            "estimate": 0.06711409395973152,
+            "ci_low": -0.18120805369127518,
+            "ci_high": 0.3131991051454138
+          },
+          "directions": {
+            "positive": 17,
+            "equal": 116,
+            "negative": 16
+          }
+        }
+      }
+    },
+    {
+      "subset": "active_cumulative",
+      "targets": 195,
+      "conversations": 195,
+      "arm_endorsement": {
+        "agreement_preserving": {
+          "estimate": 0.19487179487179487,
+          "ci_low": 0.14700854700854699,
+          "ci_high": 0.24615384615384617
+        },
+        "local_neutral": {
+          "estimate": 0.20683760683760682,
+          "ci_low": 0.15897435897435896,
+          "ci_high": 0.2581196581196581
+        },
+        "cumulative_neutral": {
+          "estimate": 0.20512820512820512,
+          "ci_low": 0.15726495726495726,
+          "ci_high": 0.252991452991453
+        }
+      },
+      "contrasts": {
+        "immediate_stance": {
+          "endorsement": {
+            "estimate": -0.011965811965811965,
+            "ci_low": -0.035897435897435895,
+            "ci_high": 0.011965811965811967
+          },
+          "score": {
+            "estimate": -0.14700854700854699,
+            "ci_low": -0.3231196581196581,
+            "ci_high": 0.025641025641025696
+          },
+          "directions": {
+            "positive": 15,
+            "equal": 160,
+            "negative": 20
+          }
+        },
+        "earlier_accumulated_stance": {
+          "endorsement": {
+            "estimate": 0.0017094017094017085,
+            "ci_low": -0.027350427350427354,
+            "ci_high": 0.03076923076923077
+          },
+          "score": {
+            "estimate": 0.17264957264957265,
+            "ci_low": -0.02051282051282055,
+            "ci_high": 0.3641452991452954
+          },
+          "directions": {
+            "positive": 22,
+            "equal": 152,
+            "negative": 21
+          }
+        },
+        "total_stance": {
+          "endorsement": {
+            "estimate": -0.010256410256410253,
+            "ci_low": -0.039316239316239315,
+            "ci_high": 0.018803418803418806
+          },
+          "score": {
+            "estimate": 0.025641025641025612,
+            "ci_low": -0.1829059829059829,
+            "ci_high": 0.23076923076923078
+          },
+          "directions": {
+            "positive": 21,
+            "equal": 152,
+            "negative": 22
+          }
+        }
+      }
+    },
+    {
+      "subset": "valid_cumulative",
+      "targets": 21,
+      "conversations": 21,
+      "arm_endorsement": {
+        "agreement_preserving": {
+          "estimate": 0.25396825396825395,
+          "ci_low": 0.09523809523809523,
+          "ci_high": 0.42857142857142855
+        },
+        "local_neutral": {
+          "estimate": 0.3333333333333333,
+          "ci_low": 0.15873015873015872,
+          "ci_high": 0.5238095238095237
+        },
+        "cumulative_neutral": {
+          "estimate": 0.2698412698412698,
+          "ci_low": 0.11111111111111112,
+          "ci_high": 0.44444444444444436
+        }
+      },
+      "contrasts": {
+        "immediate_stance": {
+          "endorsement": {
+            "estimate": -0.07936507936507936,
+            "ci_low": -0.17460317460317462,
+            "ci_high": 5.28677630773884e-18
+          },
+          "score": {
+            "estimate": -0.4920634920634921,
+            "ci_low": -1.1111111111111112,
+            "ci_high": 0.11111111111111124
+          },
+          "directions": {
+            "positive": 1,
+            "equal": 15,
+            "negative": 5
+          }
+        },
+        "earlier_accumulated_stance": {
+          "endorsement": {
+            "estimate": 0.0634920634920635,
+            "ci_low": -0.031746031746031744,
+            "ci_high": 0.15873015873015875
+          },
+          "score": {
+            "estimate": 0.7142857142857142,
+            "ci_low": 0.1428571428571427,
+            "ci_high": 1.3492063492063493
+          },
+          "directions": {
+            "positive": 5,
+            "equal": 14,
+            "negative": 2
+          }
+        },
+        "total_stance": {
+          "endorsement": {
+            "estimate": -0.01587301587301587,
+            "ci_low": -0.07936507936507936,
+            "ci_high": 0.047619047619047616
+          },
+          "score": {
+            "estimate": 0.22222222222222215,
+            "ci_low": -0.41269841269841273,
+            "ci_high": 0.8412698412698415
+          },
+          "directions": {
+            "positive": 2,
+            "equal": 16,
+            "negative": 3
+          }
+        }
+      }
+    },
+    {
+      "subset": "valid_local_and_cumulative",
+      "targets": 16,
+      "conversations": 16,
+      "arm_endorsement": {
+        "agreement_preserving": {
+          "estimate": 0.3333333333333333,
+          "ci_low": 0.14583333333333331,
+          "ci_high": 0.5416666666666666
+        },
+        "local_neutral": {
+          "estimate": 0.41666666666666663,
+          "ci_low": 0.20833333333333331,
+          "ci_high": 0.6458333333333333
+        },
+        "cumulative_neutral": {
+          "estimate": 0.3125,
+          "ci_low": 0.10416666666666666,
+          "ci_high": 0.5208333333333333
+        }
+      },
+      "contrasts": {
+        "immediate_stance": {
+          "endorsement": {
+            "estimate": -0.08333333333333334,
+            "ci_low": -0.18750000000000003,
+            "ci_high": 0.020833333333333336
+          },
+          "score": {
+            "estimate": -0.45833333333333337,
+            "ci_low": -1.25,
+            "ci_high": 0.29166666666666674
+          },
+          "directions": {
+            "positive": 1,
+            "equal": 11,
+            "negative": 4
+          }
+        },
+        "earlier_accumulated_stance": {
+          "endorsement": {
+            "estimate": 0.10416666666666667,
+            "ci_low": -3.469446951953614e-18,
+            "ci_high": 0.22916666666666666
+          },
+          "score": {
+            "estimate": 0.8958333333333333,
+            "ci_low": 0.20833333333333307,
+            "ci_high": 1.6666666666666667
+          },
+          "directions": {
+            "positive": 5,
+            "equal": 10,
+            "negative": 1
+          }
+        },
+        "total_stance": {
+          "endorsement": {
+            "estimate": 0.020833333333333336,
+            "ci_low": -0.041666666666666664,
+            "ci_high": 0.08333333333333334
+          },
+          "score": {
+            "estimate": 0.4375,
+            "ci_low": -0.2916666666666667,
+            "ci_high": 1.1250000000000002
+          },
+          "directions": {
+            "positive": 2,
+            "equal": 13,
+            "negative": 1
+          }
+        }
+      }
+    }
+  ],
+  "source_sensitivity": [
+    {
+      "subset": "source:sharechat_chatgpt",
+      "targets": 151,
+      "conversations": 151,
+      "arm_endorsement": {
+        "agreement_preserving": {
+          "estimate": 0.2472406181015452,
+          "ci_low": 0.1876379690949227,
+          "ci_high": 0.31125827814569534
+        },
+        "local_neutral": {
+          "estimate": 0.26490066225165565,
+          "ci_low": 0.2052980132450331,
+          "ci_high": 0.3267108167770419
+        },
+        "cumulative_neutral": {
+          "estimate": 0.25165562913907286,
+          "ci_low": 0.19426048565121412,
+          "ci_high": 0.31125827814569534
+        }
+      },
+      "contrasts": {
+        "immediate_stance": {
+          "endorsement": {
+            "estimate": -0.017660044150110372,
+            "ci_low": -0.04856512141280353,
+            "ci_high": 0.013245033112582781
+          },
+          "score": {
+            "estimate": -0.18322295805739514,
+            "ci_low": -0.4039735099337749,
+            "ci_high": 0.037527593818984545
+          },
+          "directions": {
+            "positive": 14,
+            "equal": 117,
+            "negative": 20
+          }
+        },
+        "earlier_accumulated_stance": {
+          "endorsement": {
+            "estimate": 0.01324503311258278,
+            "ci_low": -0.019867549668874173,
+            "ci_high": 0.04856512141280352
+          },
+          "score": {
+            "estimate": 0.27152317880794696,
+            "ci_low": 0.06401766004415009,
+            "ci_high": 0.4856512141280353
+          },
+          "directions": {
+            "positive": 21,
+            "equal": 112,
+            "negative": 18
+          }
+        },
+        "total_stance": {
+          "endorsement": {
+            "estimate": -0.004415011037527591,
+            "ci_low": -0.04194260485651213,
+            "ci_high": 0.03090507726269316
+          },
+          "score": {
+            "estimate": 0.08830022075055186,
+            "ci_low": -0.16114790286975716,
+            "ci_high": 0.33333333333333337
+          },
+          "directions": {
+            "positive": 20,
+            "equal": 112,
+            "negative": 19
+          }
+        }
+      }
+    },
+    {
+      "subset": "source:sharechat_claude",
+      "targets": 2,
+      "conversations": 2,
+      "arm_endorsement": {
+        "agreement_preserving": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0
+        },
+        "local_neutral": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0
+        },
+        "cumulative_neutral": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0
+        }
+      },
+      "contrasts": {
+        "immediate_stance": {
+          "endorsement": {
+            "estimate": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0
+          },
+          "score": {
+            "estimate": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0
+          },
+          "directions": {
+            "positive": 0,
+            "equal": 2,
+            "negative": 0
+          }
+        },
+        "earlier_accumulated_stance": {
+          "endorsement": {
+            "estimate": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0
+          },
+          "score": {
+            "estimate": 0.8333333333333334,
+            "ci_low": 0.0,
+            "ci_high": 1.6666666666666667
+          },
+          "directions": {
+            "positive": 0,
+            "equal": 2,
+            "negative": 0
+          }
+        },
+        "total_stance": {
+          "endorsement": {
+            "estimate": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0
+          },
+          "score": {
+            "estimate": 0.8333333333333334,
+            "ci_low": 0.0,
+            "ci_high": 1.6666666666666667
+          },
+          "directions": {
+            "positive": 0,
+            "equal": 2,
+            "negative": 0
+          }
+        }
+      }
+    },
+    {
+      "subset": "source:sharechat_gemini",
+      "targets": 4,
+      "conversations": 4,
+      "arm_endorsement": {
+        "agreement_preserving": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0
+        },
+        "local_neutral": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0
+        },
+        "cumulative_neutral": {
+          "estimate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.0
+        }
+      },
+      "contrasts": {
+        "immediate_stance": {
+          "endorsement": {
+            "estimate": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0
+          },
+          "score": {
+            "estimate": -0.3333333333333333,
+            "ci_low": -1.0,
+            "ci_high": 0.0
+          },
+          "directions": {
+            "positive": 0,
+            "equal": 4,
+            "negative": 0
+          }
+        },
+        "earlier_accumulated_stance": {
+          "endorsement": {
+            "estimate": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0
+          },
+          "score": {
+            "estimate": -0.4166666666666667,
+            "ci_low": -1.5,
+            "ci_high": 0.6666666666666666
+          },
+          "directions": {
+            "positive": 0,
+            "equal": 4,
+            "negative": 0
+          }
+        },
+        "total_stance": {
+          "endorsement": {
+            "estimate": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0
+          },
+          "score": {
+            "estimate": -0.75,
+            "ci_low": -1.5,
+            "ci_high": 0.0
+          },
+          "directions": {
+            "positive": 0,
+            "equal": 4,
+            "negative": 0
+          }
+        }
+      }
+    },
+    {
+      "subset": "source:sharechat_grok",
+      "targets": 22,
+      "conversations": 22,
+      "arm_endorsement": {
+        "agreement_preserving": {
+          "estimate": 0.1212121212121212,
+          "ci_low": 0.0,
+          "ci_high": 0.25757575757575757
+        },
+        "local_neutral": {
+          "estimate": 0.10606060606060605,
+          "ci_low": 0.0,
+          "ci_high": 0.22727272727272727
+        },
+        "cumulative_neutral": {
+          "estimate": 0.09090909090909091,
+          "ci_low": 0.0,
+          "ci_high": 0.2121212121212121
+        }
+      },
+      "contrasts": {
+        "immediate_stance": {
+          "endorsement": {
+            "estimate": 0.015151515151515154,
+            "ci_low": 0.0,
+            "ci_high": 0.045454545454545456
+          },
+          "score": {
+            "estimate": -0.0757575757575758,
+            "ci_low": -0.33333333333333337,
+            "ci_high": 0.2121212121212121
+          },
+          "directions": {
+            "positive": 1,
+            "equal": 21,
+            "negative": 0
+          }
+        },
+        "earlier_accumulated_stance": {
+          "endorsement": {
+            "estimate": 0.01515151515151515,
+            "ci_low": 0.0,
+            "ci_high": 0.045454545454545456
+          },
+          "score": {
+            "estimate": 0.12121212121212123,
+            "ci_low": -0.2424242424242424,
+            "ci_high": 0.5303030303030304
+          },
+          "directions": {
+            "positive": 1,
+            "equal": 21,
+            "negative": 0
+          }
+        },
+        "total_stance": {
+          "endorsement": {
+            "estimate": 0.030303030303030307,
+            "ci_low": 0.0,
+            "ci_high": 0.07575757575757576
+          },
+          "score": {
+            "estimate": 0.045454545454545414,
+            "ci_low": -0.37878787878787884,
+            "ci_high": 0.5303030303030303
+          },
+          "directions": {
+            "positive": 2,
+            "equal": 20,
+            "negative": 0
+          }
+        }
+      }
+    },
+    {
+      "subset": "source:wildchat_full",
+      "targets": 37,
+      "conversations": 37,
+      "arm_endorsement": {
+        "agreement_preserving": {
+          "estimate": 0.02702702702702703,
+          "ci_low": 0.0,
+          "ci_high": 0.07207207207207207
+        },
+        "local_neutral": {
+          "estimate": 0.018018018018018018,
+          "ci_low": 0.0,
+          "ci_high": 0.04504504504504504
+        },
+        "cumulative_neutral": {
+          "estimate": 0.05405405405405406,
+          "ci_low": 0.0,
+          "ci_high": 0.12612612612612611
+        }
+      },
+      "contrasts": {
+        "immediate_stance": {
+          "endorsement": {
+            "estimate": 0.009009009009009009,
+            "ci_low": -0.018018018018018018,
+            "ci_high": 0.04504504504504504
+          },
+          "score": {
+            "estimate": 0.15315315315315317,
+            "ci_low": -0.1081081081081081,
+            "ci_high": 0.43243243243243246
+          },
+          "directions": {
+            "positive": 2,
+            "equal": 34,
+            "negative": 1
+          }
+        },
+        "earlier_accumulated_stance": {
+          "endorsement": {
+            "estimate": -0.036036036036036036,
+            "ci_low": -0.11711711711711711,
+            "ci_high": 0.02702702702702703
+          },
+          "score": {
+            "estimate": -0.1891891891891892,
+            "ci_low": -0.6936936936936936,
+            "ci_high": 0.2162162162162162
+          },
+          "directions": {
+            "positive": 2,
+            "equal": 32,
+            "negative": 3
+          }
+        },
+        "total_stance": {
+          "endorsement": {
+            "estimate": -0.027027027027027025,
+            "ci_low": -0.0900900900900901,
+            "ci_high": 0.036036036036036036
+          },
+          "score": {
+            "estimate": -0.03603603603603605,
+            "ci_low": -0.45945945945945954,
+            "ci_high": 0.40540540540540543
+          },
+          "directions": {
+            "positive": 1,
+            "equal": 33,
+            "negative": 3
+          }
+        }
+      }
+    }
+  ],
+  "repetition_transitions": [
+    {
+      "contrast": "immediate_stance",
+      "both_nonendorse": 486,
+      "left_only_endorses": 33,
+      "right_only_endorses": 39,
+      "both_endorse": 90
+    },
+    {
+      "contrast": "earlier_accumulated_stance",
+      "both_nonendorse": 483,
+      "left_only_endorses": 39,
+      "right_only_endorses": 36,
+      "both_endorse": 90
+    },
+    {
+      "contrast": "total_stance",
+      "both_nonendorse": 489,
+      "left_only_endorses": 33,
+      "right_only_endorses": 36,
+      "both_endorse": 90
+    }
+  ],
+  "response_uniqueness_per_target_condition": {
+    "1": 11,
+    "2": 17,
+    "3": 620
+  },
+  "manipulation": {
+    "valid_local": 149,
+    "active_cumulative": 195,
+    "valid_cumulative": 21,
+    "changed_earlier_assistant_messages": 2639,
+    "residual_clear_prior_agreement": 154
+  },
+  "interpretation_boundary": "Causal for fixed rewrites in the outcome-independent WildDelusion cohort; not a prevalence estimate for general traffic.",
+  "judgments_sha256": "4cb3f3e0863c293943f2a2b05c81ee8c42bbbf65a383d6e164f5af2b5d6abae0"
+}

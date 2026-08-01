@@ -1,0 +1,14 @@
+{
+  "model": "gpt-4.1-mini-2025-04-14",
+  "reasoning_effort": "not_applicable",
+  "temperature": 0,
+  "max_output_tokens": 512,
+  "requested_rows": 1944,
+  "pending_at_start": 1944,
+  "successful_rows": 1944,
+  "missing_rows": 0,
+  "new_errors": 0,
+  "total_input_tokens": 23400264,
+  "total_output_tokens": 590593,
+  "output_sha256": "f26876914258987179a4375588462a11b20ab6e317e3c11bf96d359085f0caca"
+}

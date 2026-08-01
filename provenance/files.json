@@ -1096,6 +1096,171 @@
       "sha256": "eceabc442c627dba7698f3ad6106ce53af7b51652f5d122f18f4203395567ca1"
     },
     {
+      "path": "studies/agreement_context_scaled/.gitignore",
+      "bytes": 25,
+      "sha256": "dfc05bc241e0f68087a5d0d611c6aa4dcae87fec23f31db8db7884f88bc5f693"
+    },
+    {
+      "path": "studies/agreement_context_scaled/PREREGISTRATION.md",
+      "bytes": 8450,
+      "sha256": "7d0f45a72794950eaa8693d07620931e8f9ab4c344e481c79e7767801d808e11"
+    },
+    {
+      "path": "studies/agreement_context_scaled/README.md",
+      "bytes": 844,
+      "sha256": "0a4a217894dd34d5b1b424e1d26b0a6867c11514cddcb2dbcb5459a16e911c7f"
+    },
+    {
+      "path": "studies/agreement_context_scaled/RESULTS.md",
+      "bytes": 5443,
+      "sha256": "a5aff89a3ed9e43b0706c5ae3c3771f7d710fe54f2e264c7164fb3a1bd54ae13"
+    },
+    {
+      "path": "studies/agreement_context_scaled/analyze.py",
+      "bytes": 13001,
+      "sha256": "6e33447f79b77f04750f4d233062b27f25b6a68a41dd124331cdc46750dddd25"
+    },
+    {
+      "path": "studies/agreement_context_scaled/api_utils.py",
+      "bytes": 706,
+      "sha256": "a82cd9927b9c49f709ce6efbd8e08901a1e020b58e145e71247b0f27031b148d"
+    },
+    {
+      "path": "studies/agreement_context_scaled/freeze_executable_cohort.py",
+      "bytes": 3072,
+      "sha256": "47088828eb024ec86444707fbc9bb1dde52fe51a44f5380b04472f8e1ba3dd2a"
+    },
+    {
+      "path": "studies/agreement_context_scaled/frozen_design/cohort.parquet",
+      "bytes": 77387,
+      "sha256": "a38075ffd731f3af4d3452db3848253b663b43cd01876d270af3c18931e5508a"
+    },
+    {
+      "path": "studies/agreement_context_scaled/frozen_design/cohort_manifest.json",
+      "bytes": 645,
+      "sha256": "86da2a487b75f9a7c0cf730877b6126cec648d37a6eee7f5c123ba58c09764f0"
+    },
+    {
+      "path": "studies/agreement_context_scaled/frozen_design/executable_cohort_manifest.json",
+      "bytes": 396,
+      "sha256": "58a06d47a991e1fa31cf14572c5c83489dc46f3f082382ef9f9e6df918f3cf0f"
+    },
+    {
+      "path": "studies/agreement_context_scaled/frozen_design/operational_attrition.csv",
+      "bytes": 1235,
+      "sha256": "32a09cf795f231cd2ec4d91d01ed47fc3c7b62afe152f799d10525468fd4ceb7"
+    },
+    {
+      "path": "studies/agreement_context_scaled/frozen_design/preoutcome/cumulative_validation.csv",
+      "bytes": 59674,
+      "sha256": "cefaab040a589db5623db1a4240866cd076d76d8b3b53baee2df54507dc245b4"
+    },
+    {
+      "path": "studies/agreement_context_scaled/frozen_design/preoutcome/cumulative_validation.manifest.json",
+      "bytes": 508,
+      "sha256": "a086a5af94e50e86e5b7f71a8b5b554813698d3418165012164aa3e3e2902b97"
+    },
+    {
+      "path": "studies/agreement_context_scaled/frozen_design/preoutcome/intervention_cohort.parquet",
+      "bytes": 79974,
+      "sha256": "17f870d3c9efd7d03717205002ef67e06a106b0726a42e284bd3219f72adea7b"
+    },
+    {
+      "path": "studies/agreement_context_scaled/frozen_design/preoutcome/intervention_manifest.json",
+      "bytes": 706,
+      "sha256": "fc055cc4caddb97e4825f64f209e536b63a3ec27c1eeea828158cf292c680512"
+    },
+    {
+      "path": "studies/agreement_context_scaled/frozen_design/preoutcome/local_validation.csv",
+      "bytes": 62691,
+      "sha256": "d65a9182deddc29f91443c99fb3793994f182adcd439c6735a6cf59743ce3029"
+    },
+    {
+      "path": "studies/agreement_context_scaled/frozen_design/preoutcome/local_validation.manifest.json",
+      "bytes": 504,
+      "sha256": "998e95ef67c541d09b35f80b6d97d46a68daac5b8a97762b564ab1f7ed70bb3d"
+    },
+    {
+      "path": "studies/agreement_context_scaled/generate_cumulative_rewrites.py",
+      "bytes": 14059,
+      "sha256": "048d9b52b9289aae40cde02884c9f5f38eefb2d9d42ac3ff747a8800339f67dc"
+    },
+    {
+      "path": "studies/agreement_context_scaled/generate_local_rewrites.py",
+      "bytes": 12253,
+      "sha256": "7212a4dbd6f197d05550961cc689e6bd5dc9f4462b4a163b8deab4164b8da6a8"
+    },
+    {
+      "path": "studies/agreement_context_scaled/prepare_cohort.py",
+      "bytes": 6662,
+      "sha256": "a7245bb273966d10d5b7c524cf7dedebd89777092780805692f1c6138d88103b"
+    },
+    {
+      "path": "studies/agreement_context_scaled/prepare_intervention_inputs.py",
+      "bytes": 8277,
+      "sha256": "5bd67108f9c7dc45db70807272245a6371b5c488c764ab32b85ccccf0ab60411"
+    },
+    {
+      "path": "studies/agreement_context_scaled/published_results/README.md",
+      "bytes": 823,
+      "sha256": "bb07324499254883f9f6483e1e5acfda6a31af388507c2f053b95c181c4f8777"
+    },
+    {
+      "path": "studies/agreement_context_scaled/published_results/generation_execution_manifest.json",
+      "bytes": 404,
+      "sha256": "91fe26352c737723e5f87629527768a0009286f135362a533ba4c43632f5bab9"
+    },
+    {
+      "path": "studies/agreement_context_scaled/published_results/judge_execution_manifest.json",
+      "bytes": 479,
+      "sha256": "dd0072f5c940b39ebced772fd0df6b874c347c357e31243c79c677a2cf3dcf42"
+    },
+    {
+      "path": "studies/agreement_context_scaled/published_results/results/causal_effect.pdf",
+      "bytes": 15174,
+      "sha256": "78938d6ecbe3eff845b018fe5599d03814f5beef4a8535036674a1b88a6da118"
+    },
+    {
+      "path": "studies/agreement_context_scaled/published_results/results/causal_effect.png",
+      "bytes": 72055,
+      "sha256": "ac1b1404ca20d578b7464129b0ae06018ebd393a67773ff4dd0c443807239a74"
+    },
+    {
+      "path": "studies/agreement_context_scaled/published_results/results/repetition_transitions.csv",
+      "bytes": 173,
+      "sha256": "d6507aed1d9f553cefd74115c148c2b873c3e9b800599233ef5e2ba4bec077a4"
+    },
+    {
+      "path": "studies/agreement_context_scaled/published_results/results/source_results.json",
+      "bytes": 9139,
+      "sha256": "96718908e4968e89d592d62c07577ba6079b2c9de6e4a9899d7abf21af888519"
+    },
+    {
+      "path": "studies/agreement_context_scaled/published_results/results/summary.json",
+      "bytes": 22261,
+      "sha256": "166a16d76a77b6a7fb2ee695c26bdd7982cc218f1b7e41021db93e62220c75c0"
+    },
+    {
+      "path": "studies/agreement_context_scaled/published_results/results/target_results_no_text.csv",
+      "bytes": 54055,
+      "sha256": "0b52c2eb66814fd167ab0b3e5d98e7ed5471474c797f2097815dbf04d0fd1db8"
+    },
+    {
+      "path": "studies/agreement_context_scaled/test_study.py",
+      "bytes": 1107,
+      "sha256": "1893d8008c0f63f811797667eb7c7904d2ccf23e39472f59fd6facf61c9b2bc1"
+    },
+    {
+      "path": "studies/agreement_context_scaled/validate_cumulative_rewrites.py",
+      "bytes": 10953,
+      "sha256": "b80691b9691748e35c61f75fba0bdbf768e67ed7f0e4d507f243ce1ed54364b6"
+    },
+    {
+      "path": "studies/agreement_context_scaled/validate_local_rewrites.py",
+      "bytes": 10862,
+      "sha256": "50931b7a0b0a4b0eb734f3eb37d92e5ce1ca0aac8f691fa28c43df93fee7d813"
+    },
+    {
       "path": "studies/agreement_ratchet_causal/.gitignore",
       "bytes": 11,
       "sha256": "f162171ded7ff8c1d6032f7cb50317bc19cc4d1bbd4757be9f8ea75cdec540f1"
@@ -2196,5 +2361,5 @@
       "sha256": "ef601d6188c892c0ccf11556ba266687e68ae24bebe12e5ac9e62e38257334cc"
     }
   ],
-  "count": 439
+  "count": 472
 }
