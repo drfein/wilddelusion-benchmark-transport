@@ -100,6 +100,12 @@ def main() -> None:
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--repetitions", type=int, default=3)
     parser.add_argument("--batch-size", type=int, default=8)
+    parser.add_argument(
+        "--max-batch-tokens",
+        type=int,
+        default=70_000,
+        help="Maximum padded prompt-plus-generation tokens in one batch.",
+    )
     parser.add_argument("--temperature", type=float, default=0.7)
     parser.add_argument("--top-p", type=float, default=0.9)
     parser.add_argument("--max-new-tokens", type=int, default=1536)
@@ -192,18 +198,47 @@ def main() -> None:
                 else:
                     active.append(state)
 
-            for offset in range(0, len(active), args.batch_size):
-                batch = active[offset : offset + args.batch_size]
-                row_started = time.time()
-                rendered = [
+            prepared = [
+                (
+                    state,
                     tokenizer.apply_chat_template(
                         state["messages"],
                         tokenize=False,
                         add_generation_prompt=True,
                         **template_kwargs(tokenizer),
-                    )
-                    for state in batch
-                ]
+                    ),
+                )
+                for state in active
+            ]
+            prepared = [
+                (state, rendered, len(tokenizer(rendered, add_special_tokens=False)["input_ids"]))
+                for state, rendered in prepared
+            ]
+            batches = []
+            current = []
+            current_max_tokens = 0
+            for item in prepared:
+                candidate_max = max(current_max_tokens, item[2])
+                candidate_size = len(current) + 1
+                padded_tokens = candidate_size * (
+                    candidate_max + args.max_new_tokens
+                )
+                if current and (
+                    candidate_size > args.batch_size
+                    or padded_tokens > args.max_batch_tokens
+                ):
+                    batches.append(current)
+                    current = []
+                    current_max_tokens = 0
+                current.append(item)
+                current_max_tokens = max(current_max_tokens, item[2])
+            if current:
+                batches.append(current)
+
+            for prepared_batch in batches:
+                batch = [item[0] for item in prepared_batch]
+                row_started = time.time()
+                rendered = [item[1] for item in prepared_batch]
                 inputs = tokenizer(
                     rendered,
                     return_tensors="pt",
@@ -275,6 +310,8 @@ def main() -> None:
                         "layers": [index + 1 for index in layer_indices],
                         "seed": seeds[batch_index],
                         "batch_seed": batch_seed,
+                        "batch_size": len(batch),
+                        "max_batch_tokens_policy": args.max_batch_tokens,
                         "elapsed_batch_seconds": time.time() - row_started,
                     }
                     append_jsonl(args.output, row)
@@ -296,6 +333,7 @@ def main() -> None:
         "scenario_pairs": len({case["id"].rsplit("_", 1)[0] for case in cases}),
         "repetitions": args.repetitions,
         "batch_size": args.batch_size,
+        "max_batch_tokens": args.max_batch_tokens,
         "expected_turns": expected,
         "successful_turns": len(rows),
         "captured_layers": [index + 1 for index in layer_indices],

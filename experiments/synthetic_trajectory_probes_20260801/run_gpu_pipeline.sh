@@ -47,6 +47,7 @@ rollout() {
     --temperature 0.7 \
     --top-p 0.9 \
     --batch-size "$batch_size" \
+    --max-batch-tokens 70000 \
     --max-new-tokens 1536
   validate_manifest "$run_dir/manifest.json"
 }

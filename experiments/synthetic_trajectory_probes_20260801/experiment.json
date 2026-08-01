@@ -10,7 +10,8 @@
       "llama31_8b": 12,
       "qwen3_8b": 12,
       "gemma3_12b": 8
-    }
+    },
+    "max_padded_batch_tokens": 70000
   },
   "models": {
     "llama31_8b": {

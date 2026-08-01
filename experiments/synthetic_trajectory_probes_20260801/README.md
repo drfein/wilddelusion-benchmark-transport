@@ -17,6 +17,9 @@ has not seen during probe training.
   depth fractions.
 - Independent trajectories are batched at the same turn. Responses may use up
   to 1,536 tokens, and cap hits are recorded rather than silently truncated.
+- Batches have both a model-specific count ceiling and a deterministic 70,000
+  padded prompt-plus-generation token budget, so long histories shrink batches
+  before exhausting GPU memory.
 - Explicit and implicit variants of one underlying scenario remain in the same
   outer and inner folds. Repetitions never cross folds independently.
 - Outcomes: endorsement on the current turn and at fixed future horizons.
