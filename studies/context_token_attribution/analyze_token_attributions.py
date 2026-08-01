@@ -240,6 +240,17 @@ def main() -> None:
             integrated_messages = np.asarray(
                 [integrated[message_indices == value].sum() for value in message_ids]
             )
+            assistant_ids = [
+                value
+                for value in message_ids
+                if row["messages"][value]["role"] == "assistant"
+            ]
+            gradient_assistant = np.asarray(
+                [gradient[message_indices == value].sum() for value in assistant_ids]
+            )
+            integrated_assistant = np.asarray(
+                [integrated[message_indices == value].sum() for value in assistant_ids]
+            )
             agreement_rows.append(
                 {
                     "conversation_hash": conversation_hash,
@@ -255,6 +266,23 @@ def main() -> None:
                     "top_signed_message_agreement": int(
                         int(np.argmax(gradient_messages))
                         == int(np.argmax(integrated_messages))
+                    ),
+                    "assistant_message_sum_spearman": (
+                        float(
+                            spearmanr(
+                                gradient_assistant, integrated_assistant
+                            ).statistic
+                        )
+                        if len(assistant_ids) > 1
+                        else float("nan")
+                    ),
+                    "top_signed_assistant_agreement": (
+                        int(
+                            int(np.argmax(gradient_assistant))
+                            == int(np.argmax(integrated_assistant))
+                        )
+                        if assistant_ids
+                        else float("nan")
                     ),
                 }
             )
@@ -306,6 +334,8 @@ def main() -> None:
                     "token_spearman",
                     "message_sum_spearman",
                     "top_signed_message_agreement",
+                    "assistant_message_sum_spearman",
+                    "top_signed_assistant_agreement",
                 )
             },
         },
