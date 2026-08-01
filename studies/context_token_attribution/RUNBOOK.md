@@ -43,3 +43,32 @@ behavioral intervention is materialized with
 `prepare_behavior_interventions.py` and passed back through the same generator
 and judge.
 
+## Turn-by-turn dynamics
+
+The boundary extractor performs one causal forward pass per complete
+conversation and reads every exact header-only assistant-generation boundary.
+Layers use one-based numbering.
+
+```bash
+python extract_turn_boundary_activations.py \
+  --input artifacts/private/cohort.jsonl \
+  --output-dir artifacts/private/turn_boundaries/activations \
+  --index artifacts/private/turn_boundaries/activation_index.jsonl \
+  --manifest artifacts/private/turn_boundaries/manifest.json \
+  --layers 18 27
+
+python fit_turn_boundary_probe.py \
+  --cohort artifacts/private/cohort.jsonl \
+  --judgments artifacts/private/judgments.jsonl \
+  --activation-dir artifacts/private/turn_boundaries/activations \
+  --prior-assistant-judgments artifacts/private/prior_assistant/judgments.jsonl \
+  --checkpoint-dir artifacts/private/turn_boundaries/checkpoints \
+  --oof-predictions artifacts/private/turn_boundaries/oof_predictions.jsonl \
+  --trajectory-rows artifacts/private/turn_boundaries/trajectory_rows.jsonl \
+  --summary artifacts/private/turn_boundaries/summary.json
+
+python analyze_turn_dynamics.py \
+  --rows artifacts/private/turn_boundaries/trajectory_rows.jsonl \
+  --summary artifacts/private/turn_boundaries/dynamics_summary.json \
+  --figure artifacts/private/turn_boundaries/turn_dynamics.png
+```

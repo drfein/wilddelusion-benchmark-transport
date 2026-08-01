@@ -1,0 +1,307 @@
+{
+  "design": "Fixed-composition event study over the final six exact assistant-decision states. Offset -1 is immediately before the source assistant response whose endorsement label defines the group; offset 0 is after that response and the final target user message.",
+  "offsets": [
+    -5,
+    -4,
+    -3,
+    -2,
+    -1,
+    0
+  ],
+  "groups": {
+    "prior_assistant_endorsing": {
+      "conversations": 24,
+      "mean_by_offset": {
+        "-5": 0.18710467263105024,
+        "-4": 0.3533076050141927,
+        "-3": 0.37311898704587526,
+        "-2": 0.4020747234374909,
+        "-1": 0.4665820292856329,
+        "0": 0.5434546043058402
+      },
+      "bootstrap_95_ci_by_offset": {
+        "-5": [
+          0.11940171146559418,
+          0.25853481834076814
+        ],
+        "-4": [
+          0.244488406341829,
+          0.4601495295832049
+        ],
+        "-3": [
+          0.265007897794209,
+          0.4829414523033354
+        ],
+        "-2": [
+          0.29986352523625864,
+          0.5004698950251131
+        ],
+        "-1": [
+          0.3585972488343834,
+          0.5716702050437535
+        ],
+        "0": [
+          0.440132652131145,
+          0.6415217164542726
+        ]
+      },
+      "pre_latest_assistant_ramp_minus5_to_minus1": {
+        "mean": 0.27947735665458256,
+        "bootstrap_95_ci": [
+          0.1869729147867385,
+          0.37609254341554715
+        ],
+        "fraction_positive": 0.875
+      },
+      "latest_assistant_plus_target_step_minus1_to_0": {
+        "mean": 0.07687257502020746,
+        "bootstrap_95_ci": [
+          0.018850801138543753,
+          0.1360766902770944
+        ],
+        "fraction_positive": 0.7083333333333334
+      },
+      "six_state_linear_slope": {
+        "mean": 0.061443676216568176,
+        "bootstrap_95_ci": [
+          0.044944875062268394,
+          0.07907928042064132
+        ],
+        "fraction_positive": 0.9583333333333334
+      }
+    },
+    "other": {
+      "conversations": 83,
+      "mean_by_offset": {
+        "-5": 0.15787054570642625,
+        "-4": 0.18018770658562328,
+        "-3": 0.18097020230168015,
+        "-2": 0.17512443993964857,
+        "-1": 0.1841480500348685,
+        "0": 0.2426463347858592
+      },
+      "bootstrap_95_ci_by_offset": {
+        "-5": [
+          0.12137656646639587,
+          0.19950374799123102
+        ],
+        "-4": [
+          0.14155350918254325,
+          0.22277825155236014
+        ],
+        "-3": [
+          0.14074103270374438,
+          0.22513842640574203
+        ],
+        "-2": [
+          0.1392560372488003,
+          0.21328162847732696
+        ],
+        "-1": [
+          0.14926872746441855,
+          0.22283889115852154
+        ],
+        "0": [
+          0.19846574805451858,
+          0.29014013033115366
+        ]
+      },
+      "pre_latest_assistant_ramp_minus5_to_minus1": {
+        "mean": 0.026277504328442287,
+        "bootstrap_95_ci": [
+          -0.011461799459629714,
+          0.06593231164145397
+        ],
+        "fraction_positive": 0.5903614457831325
+      },
+      "latest_assistant_plus_target_step_minus1_to_0": {
+        "mean": 0.05849828475099068,
+        "bootstrap_95_ci": [
+          0.02906916522669962,
+          0.08970406629812361
+        ],
+        "fraction_positive": 0.7349397590361446
+      },
+      "six_state_linear_slope": {
+        "mean": 0.01228326323951055,
+        "bootstrap_95_ci": [
+          0.004047330210392055,
+          0.020905061377648262
+        ],
+        "fraction_positive": 0.6626506024096386
+      }
+    }
+  },
+  "between_group_differences": {
+    "pre_latest_assistant_ramp": {
+      "mean": 0.2531998523261403,
+      "bootstrap_95_ci": [
+        0.15400475408923958,
+        0.35640236917310253
+      ]
+    },
+    "latest_assistant_plus_target_step": {
+      "mean": 0.018374290269216782,
+      "bootstrap_95_ci": [
+        -0.0471160989979034,
+        0.08451473244861632
+      ]
+    }
+  },
+  "cross_model_prediction": {
+    "all_sources": {
+      "conversations": 187,
+      "endorsing_source_assistant_responses": 37,
+      "auroc": 0.7574774774774775,
+      "auroc_bootstrap_95_ci": [
+        0.6598169447643131,
+        0.8430844201223016
+      ],
+      "average_precision": 0.5166561564494507,
+      "interpretation": "Held-out Qwen susceptibility immediately before the source assistant response predicts whether that source assistant endorses."
+    },
+    "sharechat_chatgpt": {
+      "conversations": 127,
+      "endorsing_source_assistant_responses": 35,
+      "auroc": 0.7155279503105589,
+      "auroc_bootstrap_95_ci": [
+        0.6023998136067102,
+        0.8172742055178455
+      ],
+      "average_precision": 0.5557385767554985,
+      "interpretation": "Held-out Qwen susceptibility immediately before the source assistant response predicts whether that source assistant endorses."
+    }
+  },
+  "sharechat_chatgpt_sensitivity": {
+    "prior_assistant_endorsing": {
+      "conversations": 23,
+      "mean_by_offset": {
+        "-5": 0.1924470600306277,
+        "-4": 0.366036801564961,
+        "-3": 0.3879283825582607,
+        "-2": 0.4191813655633981,
+        "-1": 0.4845877254190284,
+        "0": 0.5623568343639402
+      },
+      "bootstrap_95_ci_by_offset": {
+        "-5": [
+          0.12408759816276077,
+          0.26714495238238367
+        ],
+        "-4": [
+          0.25753942860515766,
+          0.4766247670121011
+        ],
+        "-3": [
+          0.2814944294408318,
+          0.4981017031180497
+        ],
+        "-2": [
+          0.3201879947251014,
+          0.5165169549864891
+        ],
+        "-1": [
+          0.3821987625961549,
+          0.5893594225358862
+        ],
+        "0": [
+          0.4650940102979722,
+          0.6579891400826181
+        ]
+      },
+      "pre_latest_assistant_ramp_minus5_to_minus1": {
+        "mean": 0.29214066538840056,
+        "bootstrap_95_ci": [
+          0.19930675516966043,
+          0.38918536666575126
+        ],
+        "fraction_positive": 0.9130434782608695
+      },
+      "latest_assistant_plus_target_step_minus1_to_0": {
+        "mean": 0.07776910894491197,
+        "bootstrap_95_ci": [
+          0.018293682858189164,
+          0.14006964669977515
+        ],
+        "fraction_positive": 0.6956521739130435
+      },
+      "six_state_linear_slope": {
+        "mean": 0.06389870360668291,
+        "bootstrap_95_ci": [
+          0.047617050076652886,
+          0.08135588273080131
+        ],
+        "fraction_positive": 0.9565217391304348
+      }
+    },
+    "other": {
+      "conversations": 53,
+      "mean_by_offset": {
+        "-5": 0.19782580348532566,
+        "-4": 0.23658719830404049,
+        "-3": 0.2156687457196038,
+        "-2": 0.21566969490202867,
+        "-1": 0.23112936148509983,
+        "0": 0.3104451289936544
+      },
+      "bootstrap_95_ci_by_offset": {
+        "-5": [
+          0.14596733586898125,
+          0.25596995410708323
+        ],
+        "-4": [
+          0.18285358838719493,
+          0.29484709639226814
+        ],
+        "-3": [
+          0.16422560347459114,
+          0.2747121907749791
+        ],
+        "-2": [
+          0.1670931952237252,
+          0.2667405229458829
+        ],
+        "-1": [
+          0.18375601280664125,
+          0.281777439377585
+        ],
+        "0": [
+          0.2509374273498598,
+          0.37227598948766494
+        ]
+      },
+      "pre_latest_assistant_ramp_minus5_to_minus1": {
+        "mean": 0.033303557999774205,
+        "bootstrap_95_ci": [
+          -0.022401902613485358,
+          0.09180768165494207
+        ],
+        "fraction_positive": 0.6037735849056604
+      },
+      "latest_assistant_plus_target_step_minus1_to_0": {
+        "mean": 0.07931576750855455,
+        "bootstrap_95_ci": [
+          0.035690843379444656,
+          0.12177458299479957
+        ],
+        "fraction_positive": 0.7547169811320755
+      },
+      "six_state_linear_slope": {
+        "mean": 0.015620687607635634,
+        "bootstrap_95_ci": [
+          0.003444194349009134,
+          0.0279239044610412
+        ],
+        "fraction_positive": 0.6415094339622641
+      }
+    },
+    "pre_ramp_difference": {
+      "mean": 0.25883710738862636,
+      "bootstrap_95_ci": [
+        0.1478980166560099,
+        0.3696000573997127
+      ]
+    }
+  },
+  "scope_warning": "The pre-event ramp is predictive and temporally prior but not a randomized effect. The step from -1 to 0 combines the source assistant response and the next user message. Separate assistant deletion/relocation experiments establish that the latest endorsing assistant content has a causal persistent effect."
+}

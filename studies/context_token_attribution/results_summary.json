@@ -74,5 +74,22 @@
     "attricot_same_top_message_rate": 0.8,
     "flashtrace_same_top_message_rate": 1.0
   },
+  "turn_dynamics": {
+    "exact_user_turn_boundaries": 2272,
+    "boundary_probe_auroc": 0.8306698499006191,
+    "boundary_probe_auroc_ci95": [0.781839887362021, 0.8738662042650046],
+    "boundary_probe_average_precision": 0.6397294108647981,
+    "fixed_six_state_conversations_prior_assistant_endorsing": 24,
+    "fixed_six_state_conversations_other": 83,
+    "pre_endorsement_ramp_prior_assistant_endorsing": 0.27947735665458256,
+    "pre_endorsement_ramp_other": 0.026277504328442287,
+    "pre_endorsement_ramp_difference": 0.2531998523261403,
+    "pre_endorsement_ramp_difference_ci95": [0.15400475408923958, 0.35640236917310253],
+    "final_transition_difference": 0.018374290269216782,
+    "final_transition_difference_ci95": [-0.0471160989979034, 0.08451473244861632],
+    "cross_model_prior_assistant_endorsement_auroc": 0.7574774774774775,
+    "cross_model_prior_assistant_endorsement_auroc_ci95": [0.6598169447643131, 0.8430844201223016],
+    "sharechat_chatgpt_cross_model_auroc": 0.7155279503105589
+  },
   "claim": "In this selected real-dialogue cohort, belief-specific assistant content acts as a persistent epistemic anchor: removal reduces later endorsement, while moving the same content earlier does not reliably do so. Fine-grained saliency methods did not faithfully rank causal assistant turns."
 }

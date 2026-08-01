@@ -56,6 +56,35 @@ same effect.
 
 ## Localization methods
 
+### Turn-by-turn dynamics
+
+A second nested grouped probe was trained at the header-only assistant-generation
+boundary, which is exactly shared by historical and final user turns. It
+retained strong held-out prediction (AUROC 0.831, 95% CI 0.782 to 0.874;
+average precision 0.640). Causal masking then allowed all 2,272 historical
+assistant-decision states to be extracted from 187 full-conversation forwards
+without future-token leakage.
+
+In the fixed-composition subset with at least six decision states, conversations
+whose next source-assistant response endorsed showed a Qwen susceptibility ramp
+from 18.7% five states earlier to 46.7% immediately before that response
+(+27.9 points, 95% CI +18.7 to +37.6; 24 conversations). The corresponding
+ramp was +2.6 points (-1.1 to +6.6) when the next source-assistant response did
+not endorse (83 conversations). The between-group ramp difference was +25.3
+points (+15.4 to +35.6), and remained +25.9 points (+14.8 to +37.0) when
+restricted to ShareChat conversations with ChatGPT as the source assistant.
+
+The held-out Qwen state immediately before the source response predicted whether
+that different source assistant would endorse (AUROC 0.757, 95% CI 0.660 to
+0.843; ShareChat-ChatGPT sensitivity AUROC 0.716). By contrast, the final state
+change after the latest assistant response and target user turn differed by only
++1.8 points between groups (95% CI -4.7 to +8.5). Thus endorsement occurs in a
+cross-model conversational risk state that has often been building for several
+turns; the source assistant's endorsement is more a marker and reinforcement of
+that state than its sole point of origin. This trajectory is predictive, not a
+randomized effect. The separate deletion and relocation experiments establish
+that endorsing assistant content subsequently contributes causally and persists.
+
 ### Predictive representations
 
 The final prompt-token residual stream predicted sampled endorsement out of
