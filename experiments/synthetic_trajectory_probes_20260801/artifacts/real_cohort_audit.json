@@ -1,0 +1,24 @@
+{
+  "cohort_sha256": "36c81c6915315c3456866208cf47dc3cd978b215ab27415c001f1742def4eb99",
+  "histories": 187,
+  "history_policy": "Complete stored conversation through the flagged final user message; no message-window truncation.",
+  "role_order_violations": 0,
+  "final_user_target_mismatches": 0,
+  "preceding_assistant_messages_total": 2085,
+  "assistant_messages_per_history": {
+    "min": 1,
+    "median": 6,
+    "max": 132
+  },
+  "conversation_messages_excluding_added_system": {
+    "min": 3,
+    "median": 13,
+    "max": 265
+  },
+  "qwen_chat_template_input_tokens": {
+    "min": 128,
+    "median": 3973,
+    "max": 23326
+  },
+  "truncation_policy": "none"
+}
