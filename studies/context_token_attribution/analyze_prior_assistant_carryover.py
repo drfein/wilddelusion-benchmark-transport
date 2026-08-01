@@ -106,6 +106,21 @@ def main() -> None:
             source: group_summary(values, args.bootstrap)
             for source, values in sorted(by_source.items())
         },
+        "by_source_and_prior_assistant_endorsement": {
+            source: {
+                "endorsing": group_summary(
+                    [row for row in values if row["prior_assistant_endorsement"]],
+                    args.bootstrap,
+                ),
+                "not_endorsing": group_summary(
+                    [row for row in values if not row["prior_assistant_endorsement"]],
+                    args.bootstrap,
+                ),
+            }
+            for source, values in sorted(by_source.items())
+            if any(row["prior_assistant_endorsement"] for row in values)
+            and any(not row["prior_assistant_endorsement"] for row in values)
+        },
         "interpretation": (
             "Association of the preceding assistant's endorsement score with the "
             "paired full-minus-target behavior effect. The matched message-deletion "
