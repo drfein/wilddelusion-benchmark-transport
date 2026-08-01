@@ -9,7 +9,6 @@ from typing import Any
 
 import pandas as pd
 
-
 ROLE_ALIASES = {"human": "user", "llm": "assistant"}
 
 
@@ -34,35 +33,51 @@ def chunk_text(text: str, max_words: int) -> list[str]:
     words = re.findall(r"\S+", text)
     if not words:
         return [""]
-    return [" ".join(words[start : start + max_words]) for start in range(0, len(words), max_words)]
+    return [
+        " ".join(words[start : start + max_words])
+        for start in range(0, len(words), max_words)
+    ]
+
+
+def conversation_key(row: Any) -> str:
+    return f"{getattr(row, 'source', '')}\x1f{row.conversation_id}"
 
 
 def canonical_conversations(release: pd.DataFrame) -> dict[str, list[dict[str, Any]]]:
     canonical: dict[str, list[dict[str, Any]]] = {}
     for row in release.itertuples(index=False):
-        conversation_id = str(row.conversation_id)
+        key = conversation_key(row)
         messages = list(row.messages)
-        if conversation_id not in canonical or len(messages) > len(canonical[conversation_id]):
-            canonical[conversation_id] = messages
+        if key not in canonical or len(messages) > len(canonical[key]):
+            canonical[key] = messages
 
     for row in release.itertuples(index=False):
         messages = list(row.messages)
-        reference = canonical[str(row.conversation_id)]
+        reference = canonical[conversation_key(row)]
         for index, message in enumerate(messages):
             if index >= len(reference):
-                raise ValueError("A release row is longer than its canonical conversation.")
-            left = (normalize_role(message.get("role")), str(message.get("content", "")))
+                raise ValueError(
+                    "A release row is longer than its canonical conversation."
+                )
+            left = (
+                normalize_role(message.get("role")),
+                str(message.get("content", "")),
+            )
             right = (
                 normalize_role(reference[index].get("role")),
                 str(reference[index].get("content", "")),
             )
             if left != right:
-                raise ValueError(f"Conflicting conversation reconstruction at {row.conversation_id}:{index}")
+                raise ValueError(
+                    f"Conflicting conversation reconstruction at {row.conversation_id}:{index}"
+                )
     return canonical
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Deduplicate and chunk WildDelusion prefixes.")
+    parser = argparse.ArgumentParser(
+        description="Deduplicate and chunk WildDelusion prefixes."
+    )
     parser.add_argument("--release", type=Path, required=True)
     parser.add_argument("--paired-scores", type=Path, required=True)
     parser.add_argument("--out-dir", type=Path, required=True)
@@ -80,9 +95,11 @@ def main() -> None:
     needed: dict[tuple[str, int], dict[str, Any]] = {}
     membership: list[dict[str, Any]] = []
     for row in release.itertuples(index=False):
-        conversation_id = str(row.conversation_id)
+        conversation_id = conversation_key(row)
         target_index = int(row.target_message_index)
-        for message_index, message in enumerate(canonical[conversation_id][:target_index]):
+        for message_index, message in enumerate(
+            canonical[conversation_id][:target_index]
+        ):
             key = (conversation_id, message_index)
             needed[key] = message
             membership.append(
@@ -101,7 +118,9 @@ def main() -> None:
         for chunk_index, chunk in enumerate(chunk_text(text, args.max_words)):
             chunks.append(
                 {
-                    "item_id": stable_hash(conversation_id, message_index, chunk_index, chunk),
+                    "item_id": stable_hash(
+                        conversation_id, message_index, chunk_index, chunk
+                    ),
                     "conversation_hash": stable_hash(conversation_id),
                     "message_key": stable_hash(conversation_id, message_index),
                     "message_index": message_index,
@@ -121,16 +140,20 @@ def main() -> None:
     public_chunks.to_parquet(args.out_dir / "chunk_index.parquet", index=False)
     manifest = {
         "release_sha256": hashlib.sha256(args.release.read_bytes()).hexdigest(),
-        "paired_scores_sha256": hashlib.sha256(args.paired_scores.read_bytes()).hexdigest(),
+        "paired_scores_sha256": hashlib.sha256(
+            args.paired_scores.read_bytes()
+        ).hexdigest(),
         "release_rows": len(release),
-        "source_conversations": int(release["conversation_id"].nunique()),
+        "source_conversations": int(release.apply(conversation_key, axis=1).nunique()),
         "unique_prefix_messages": len(needed),
         "chunks": len(chunks),
         "prefix_memberships": len(membership),
         "max_words_per_chunk": args.max_words,
         "total_chunk_words": sum(row["word_count"] for row in chunks),
         "role_counts": public_chunks["role"].value_counts().to_dict(),
-        "empty_prefix_targets": int((release["target_message_index"].astype(int) == 0).sum()),
+        "empty_prefix_targets": int(
+            (release["target_message_index"].astype(int) == 0).sum()
+        ),
         "text_storage": "private/blind_chunks.jsonl is gitignored; public index contains no text or source IDs",
     }
     (args.out_dir / "prepare_manifest.json").write_text(

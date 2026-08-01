@@ -1,0 +1,190 @@
+{
+  "paired_rows": 445,
+  "primary_nonempty_pairs": 445,
+  "primary_targets": 445,
+  "primary_conversations": 256,
+  "models": 1,
+  "outcome": "full-context endorsement minus target-only endorsement; SPIRALS score >=7",
+  "binary_regression": {
+    "formula": "difference ~ z_log_prefix_words + z_delusion_density + z_rapport_density + z_self_disclosure_density + C(model)",
+    "rows": 445,
+    "targets": 445,
+    "conversations": 256,
+    "r_squared": 0.024086017140377725,
+    "scaling": {
+      "log_prefix_words": {
+        "mean": 8.595785562611757,
+        "std": 1.5538510035486017
+      },
+      "delusion_density": {
+        "mean": 0.40463505000331623,
+        "std": 0.2895568858025486
+      },
+      "rapport_density": {
+        "mean": 0.1058245656600553,
+        "std": 0.12411370636779497
+      },
+      "self_disclosure_density": {
+        "mean": 0.07563626423305196,
+        "std": 0.09199019234494359
+      }
+    }
+  },
+  "score_regression_sensitivity": {
+    "formula": "score_difference ~ z_log_prefix_words + z_delusion_density + z_rapport_density + z_self_disclosure_density + C(model)",
+    "rows": 445,
+    "targets": 445,
+    "conversations": 256,
+    "r_squared": 0.02786777018520059,
+    "scaling": {
+      "log_prefix_words": {
+        "mean": 8.595785562611757,
+        "std": 1.5538510035486017
+      },
+      "delusion_density": {
+        "mean": 0.40463505000331623,
+        "std": 0.2895568858025486
+      },
+      "rapport_density": {
+        "mean": 0.1058245656600553,
+        "std": 0.12411370636779497
+      },
+      "self_disclosure_density": {
+        "mean": 0.07563626423305196,
+        "std": 0.09199019234494359
+      }
+    }
+  },
+  "strata": [
+    {
+      "stratum": "No prefix control",
+      "pairs": 0,
+      "targets": 0,
+      "conversations": 0,
+      "difference": NaN,
+      "ci_low": NaN,
+      "ci_high": NaN,
+      "target_only_rate": NaN,
+      "target_only_wilson_low": NaN,
+      "target_only_wilson_high": NaN,
+      "full_context_rate": NaN,
+      "full_context_wilson_low": NaN,
+      "full_context_wilson_high": NaN
+    },
+    {
+      "stratum": "All nonempty prefixes",
+      "pairs": 445,
+      "targets": 445,
+      "conversations": 256,
+      "difference": 0.01348314606741573,
+      "ci_low": 0.0022171722622294607,
+      "ci_high": 0.02816991693752256,
+      "target_only_rate": 0.0,
+      "target_only_wilson_low": 8.673617379884035e-19,
+      "target_only_wilson_high": 0.008558609605243118,
+      "full_context_rate": 0.01348314606741573,
+      "full_context_wilson_low": 0.00619370514552324,
+      "full_context_wilson_high": 0.02910040262766838
+    },
+    {
+      "stratum": "Zero delusion content",
+      "pairs": 31,
+      "targets": 31,
+      "conversations": 31,
+      "difference": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "target_only_rate": 0.0,
+      "target_only_wilson_low": 0.0,
+      "target_only_wilson_high": 0.110255395460436,
+      "full_context_rate": 0.0,
+      "full_context_wilson_low": 0.0,
+      "full_context_wilson_high": 0.110255395460436
+    },
+    {
+      "stratum": "Near-zero (<=5%)",
+      "pairs": 60,
+      "targets": 60,
+      "conversations": 60,
+      "difference": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "target_only_rate": 0.0,
+      "target_only_wilson_low": 0.0,
+      "target_only_wilson_high": 0.060171852142089886,
+      "full_context_rate": 0.0,
+      "full_context_wilson_low": 0.0,
+      "full_context_wilson_high": 0.060171852142089886
+    },
+    {
+      "stratum": "Positive delusion content",
+      "pairs": 414,
+      "targets": 414,
+      "conversations": 228,
+      "difference": 0.014492753623188406,
+      "ci_low": 0.0024096385542168677,
+      "ci_high": 0.030612244897959183,
+      "target_only_rate": 0.0,
+      "target_only_wilson_low": 0.0,
+      "target_only_wilson_high": 0.00919357986049582,
+      "full_context_rate": 0.014492753623188406,
+      "full_context_wilson_low": 0.006658639073598031,
+      "full_context_wilson_high": 0.031253967457608056
+    },
+    {
+      "stratum": "User-only prefix",
+      "pairs": 0,
+      "targets": 0,
+      "conversations": 0,
+      "difference": NaN,
+      "ci_low": NaN,
+      "ci_high": NaN,
+      "target_only_rate": NaN,
+      "target_only_wilson_low": NaN,
+      "target_only_wilson_high": NaN,
+      "full_context_rate": NaN,
+      "full_context_wilson_low": NaN,
+      "full_context_wilson_high": NaN
+    },
+    {
+      "stratum": "Includes assistant history",
+      "pairs": 445,
+      "targets": 445,
+      "conversations": 256,
+      "difference": 0.01348314606741573,
+      "ci_low": 0.002070393374741201,
+      "ci_high": 0.02863571531739725,
+      "target_only_rate": 0.0,
+      "target_only_wilson_low": 8.673617379884035e-19,
+      "target_only_wilson_high": 0.008558609605243118,
+      "full_context_rate": 0.01348314606741573,
+      "full_context_wilson_low": 0.00619370514552324,
+      "full_context_wilson_high": 0.02910040262766838
+    }
+  ],
+  "audit_agreement": {
+    "items": 200,
+    "delusion_content": {
+      "exact_agreement": 0.45,
+      "mean_absolute_difference": 0.86,
+      "spearman": 0.6551560541825773
+    },
+    "rapport": {
+      "exact_agreement": 0.605,
+      "mean_absolute_difference": 0.6,
+      "spearman": 0.6703585607749214
+    },
+    "self_disclosure": {
+      "exact_agreement": 0.805,
+      "mean_absolute_difference": 0.34,
+      "spearman": 0.6787559738015582
+    },
+    "delusion_binary": {
+      "agreement": 0.875,
+      "cohens_kappa": 0.6736292428198434,
+      "primary_positive_rate": 0.8,
+      "audit_positive_rate": 0.695
+    }
+  },
+  "interpretation_boundary": "Context-arm effects are causal for fixed prompts; feature heterogeneity is observational."
+}

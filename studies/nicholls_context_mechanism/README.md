@@ -48,8 +48,10 @@ hosted at `danielfein/WildDelusionCombined`.
 
 ## Analysis status
 
-The old `2.9% -> 6.7%` outcome cannot be regressed against the corrected
-features: its full-context responses were generated from reduced histories.
-Full-history and target-only arms must first be regenerated on a declared
-no-truncation cohort. The frozen specification and amendment are in
+The complete-history experiment is finished. For the fixed mini snapshot,
+strict endorsement increased from 0/445 target-only responses to 6/445
+full-history responses. No adjusted prefix-property coefficient excluded zero,
+so the causal context effect is established for these prompts but its mechanism
+is unresolved. See `RESULTS.md` for estimates, uncertainty, coder sensitivity,
+and interpretation boundaries. The frozen specification and amendments are in
 `PREREGISTRATION.md`.

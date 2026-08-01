@@ -1,4 +1,5 @@
 HuggingFace-Hub>=0.34
+llm-delusions-annotations
 numpy>=2.0
 openai>=2.0
 pandas>=2.2

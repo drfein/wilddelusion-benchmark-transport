@@ -5,7 +5,6 @@ from pathlib import Path
 
 import pandas as pd
 
-
 HERE = Path(__file__).parent
 
 
@@ -20,6 +19,7 @@ def load(name: str):
 prepare = load("prepare_prefix_chunks")
 analyze = load("analyze")
 complete = load("build_complete_history_cohort")
+label = load("label_prefix_chunks")
 rehydrate = load("rehydrate_hf_release")
 
 
@@ -59,6 +59,31 @@ def test_canonical_conversations_rejects_conflicts() -> None:
         assert "Conflicting" in str(error)
     else:
         raise AssertionError("Conflicting reconstructions must fail closed.")
+
+
+def test_canonical_conversations_namespaces_source_ids() -> None:
+    frame = pd.DataFrame(
+        [
+            {
+                "source": "a",
+                "conversation_id": "x",
+                "messages": [{"role": "user", "content": "one"}],
+            },
+            {
+                "source": "b",
+                "conversation_id": "x",
+                "messages": [{"role": "user", "content": "two"}],
+            },
+        ]
+    )
+    assert len(prepare.canonical_conversations(frame)) == 2
+
+
+def test_label_schema_uses_batch_local_indices() -> None:
+    schema = label.response_schema(3)
+    item = schema["properties"]["labels"]["items"]
+    assert item["properties"]["item_index"]["enum"] == [0, 1, 2]
+    assert "item_id" not in item["properties"]
 
 
 def test_complete_history_normalization_preserves_roles() -> None:

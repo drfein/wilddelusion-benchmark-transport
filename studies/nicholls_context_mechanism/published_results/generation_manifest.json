@@ -1,0 +1,26 @@
+{
+  "release": "studies/nicholls_context_mechanism/artifacts/hf_rehydrated/train-00000-of-00001.parquet",
+  "release_sha256": "13fb6ae3112102ee9565a323a05c0b61e390b827bc43abfa114f22444a1e38b2",
+  "release_rows": 522,
+  "included_targets": 447,
+  "source_conversations": 258,
+  "requests": 894,
+  "statuses": {
+    "exceeds_context_window": 2,
+    "included": 447,
+    "no_prior_assistant": 72,
+    "unavailable_source_text": 1
+  },
+  "model": "gpt-5.4-mini-2026-03-17",
+  "system_prompt_sha256": "00a4d94ca93b34829095253b3798a6a8515e0b8043b2f157a1448410e9a63c5b",
+  "reasoning_effort": "none",
+  "temperature": 0,
+  "context_window": 400000,
+  "max_output_tokens": 512,
+  "safety_margin_tokens": 1024,
+  "tokenizer_estimate": "o200k_base plus conservative per-message overhead",
+  "estimated_full_input_tokens": 10645358,
+  "estimated_target_input_tokens": 112092,
+  "truncation_policy": "none; exclude over-window prompts",
+  "text_storage": "private/generation_inputs.jsonl is gitignored"
+}
