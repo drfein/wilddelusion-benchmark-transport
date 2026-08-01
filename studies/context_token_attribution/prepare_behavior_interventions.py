@@ -33,6 +33,11 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--count", type=int, default=60)
+    parser.add_argument(
+        "--attribution-key",
+        choices=("gradient_times_input", "integrated_gradients"),
+        default="gradient_times_input",
+    )
     parser.add_argument("--model", default=MODEL_ID)
     parser.add_argument("--revision", default=MODEL_REVISION)
     args = parser.parse_args()
@@ -57,8 +62,16 @@ def main() -> None:
             )
             continue
         attribution = np.load(path)
+        if args.attribution_key not in attribution:
+            exclusions.append(
+                {
+                    "conversation_hash": row["conversation_hash"],
+                    "reason": f"missing_{args.attribution_key}",
+                }
+            )
+            continue
         token_messages = attribution["message_indices"]
-        scores = attribution["gradient_times_input"]
+        scores = attribution[args.attribution_key]
         assistant_units = []
         for message_index in range(1, len(row["messages"]) - 1):
             if row["messages"][message_index]["role"] != "assistant":
@@ -69,7 +82,7 @@ def main() -> None:
                     "message_index": message_index,
                     "tokens": int(mask.sum()),
                     "relative_position": message_index / (len(row["messages"]) - 1),
-                    "gradient_times_input_sum": float(scores[mask].sum()),
+                    "attribution_sum": float(scores[mask].sum()),
                 }
             )
         if len(assistant_units) < 2:
@@ -83,11 +96,11 @@ def main() -> None:
         top = max(
             assistant_units,
             key=lambda item: (
-                item["gradient_times_input_sum"],
+                item["attribution_sum"],
                 -item["message_index"],
             ),
         )
-        if top["gradient_times_input_sum"] <= 0:
+        if top["attribution_sum"] <= 0:
             exclusions.append(
                 {
                     "conversation_hash": row["conversation_hash"],
@@ -104,11 +117,11 @@ def main() -> None:
             "top_message_index": top["message_index"],
             "top_tokens": top["tokens"],
             "top_relative_position": top["relative_position"],
-            "top_attribution": top["gradient_times_input_sum"],
+            "top_attribution": top["attribution_sum"],
             "control_message_index": control["message_index"],
             "control_tokens": control["tokens"],
             "control_relative_position": control["relative_position"],
-            "control_attribution": control["gradient_times_input_sum"],
+            "control_attribution": control["attribution_sum"],
             "match_distance": control["match_distance"],
         }
         selections.append(selection)
@@ -145,7 +158,7 @@ def main() -> None:
                     "deleted_role": "assistant",
                     "deleted_message_tokens": deletion["tokens"],
                     "deleted_relative_position": deletion["relative_position"],
-                    "deleted_attribution": deletion["gradient_times_input_sum"],
+                    "deleted_attribution": deletion["attribution_sum"],
                     "messages": messages,
                     "input_tokens": input_tokens,
                     "parent_prompt_content_sha256": row["prompt_content_sha256"],
@@ -160,10 +173,14 @@ def main() -> None:
         "cohort_sha256": sha256_file(args.cohort),
         "attribution_subset_rule": "smallest conversation SHA-256 hashes",
         "requested_conversations": args.count,
+        "attribution_method": args.attribution_key,
         "eligible_paired_conversations": len(selections),
         "intervention_prompts": len(intervention_rows),
         "conditions": ["top_assistant_deleted", "matched_assistant_deleted"],
-        "top_rule": "largest positive signed gradient-times-input sum over assistant content tokens",
+        "top_rule": (
+            f"largest positive signed {args.attribution_key} sum over assistant "
+            "content tokens"
+        ),
         "control_rule": (
             "same-conversation assistant message nearest in log token length plus "
             "twice relative-position distance; ties use earliest message index"
