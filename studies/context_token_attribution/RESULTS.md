@@ -23,6 +23,14 @@ The latest prior user-assistant exchange accounted for 15.29 points (10.70 to
 20.21), while earlier history accounted for another 8.02 points (4.28 to
 11.76).
 
+The same progression is visible before generation in the held-out dense probe.
+Its mean projected endorsement score rises from 2.21% on the target turn alone,
+to 13.82% with the latest exchange, to 26.64% with full history. For the 37
+conversations whose preceding assistant message was itself endorsing, the
+corresponding trajectory is 2.99%, 26.76%, and 45.01%. These projected scores
+are useful as a latent trajectory but are not calibrated causal probabilities
+on ablated prompts; paired regeneration remains the causal endpoint.
+
 The latest preceding assistant turn was itself endorsing in 37 conversations.
 In this selected subgroup, deleting that turn reduced endorsement by 15.00
 points (5.56 to 24.44), and by 10.00 points relative to deleting a matched
@@ -104,4 +112,3 @@ which history to remove.
 - End-to-end commands: `RUNBOOK.md`
 - Machine-readable aggregate results: `results_summary.json`
 - Raw private artifacts: `artifacts/private/` in the local archival bundle
-
