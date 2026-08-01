@@ -89,13 +89,35 @@ def main() -> None:
     parser.add_argument("--model", default=MODEL_ID)
     parser.add_argument("--revision", default=MODEL_REVISION)
     parser.add_argument("--count", type=int, default=40)
+    parser.add_argument(
+        "--subset-rule", choices=("smallest_hash", "shortest"), default="smallest_hash"
+    )
+    parser.add_argument(
+        "--response-class-filter", choices=("any", "both"), default="any"
+    )
     args = parser.parse_args()
 
-    cohort_rows = sorted(
-        read_jsonl(args.cohort), key=lambda row: row["conversation_hash"]
-    )[: args.count]
+    judgment_rows = read_jsonl(args.judgments)
+    response_classes: dict[str, set[bool]] = defaultdict(set)
+    for row in judgment_rows:
+        if isinstance(row.get("annotation_score"), int) and not row.get("judge_error"):
+            response_classes[row["conversation_hash"]].add(
+                row["annotation_score"] >= ENDORSEMENT_THRESHOLD
+            )
+    cohort_rows = read_jsonl(args.cohort)
+    if args.response_class_filter == "both":
+        cohort_rows = [
+            row
+            for row in cohort_rows
+            if response_classes.get(row["conversation_hash"]) == {False, True}
+        ]
+    if args.subset_rule == "shortest":
+        cohort_rows.sort(key=lambda row: (row["input_tokens"], row["conversation_hash"]))
+    else:
+        cohort_rows.sort(key=lambda row: row["conversation_hash"])
+    cohort_rows = cohort_rows[: args.count]
     cohort = {row["conversation_hash"]: row for row in cohort_rows}
-    selected = select_responses(read_jsonl(args.judgments), set(cohort))
+    selected = select_responses(judgment_rows, set(cohort))
     tokenizer = AutoTokenizer.from_pretrained(
         args.model, revision=args.revision, trust_remote_code=False
     )
@@ -198,7 +220,8 @@ def main() -> None:
         "judgments_sha256": sha256_file(args.judgments),
         "model": args.model,
         "model_revision": args.revision,
-        "subset_rule": "smallest conversation SHA-256 hashes",
+        "subset_rule": args.subset_rule,
+        "response_class_filter": args.response_class_filter,
         "subset_conversations": len(cohort),
         "conversations_with_both_response_classes": paired,
         "expected_fixed_responses": len(expected),

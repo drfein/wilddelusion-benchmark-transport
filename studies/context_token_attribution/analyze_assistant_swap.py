@@ -28,6 +28,7 @@ def main() -> None:
     parser.add_argument("--original-judgments", type=Path, required=True)
     parser.add_argument("--swap-judgments", type=Path, required=True)
     parser.add_argument("--selections", type=Path, required=True)
+    parser.add_argument("--deletion-rows", type=Path)
     parser.add_argument("--rows-output", type=Path, required=True)
     parser.add_argument("--summary", type=Path, required=True)
     parser.add_argument("--bootstrap", type=int, default=10_000)
@@ -35,6 +36,11 @@ def main() -> None:
     args = parser.parse_args()
 
     selections = {row["conversation_hash"]: row for row in read_jsonl(args.selections)}
+    deletion = (
+        {row["conversation_hash"]: row for row in read_jsonl(args.deletion_rows)}
+        if args.deletion_rows
+        else {}
+    )
     original: dict[str, dict[int, tuple[int, int]]] = defaultdict(dict)
     swapped: dict[str, dict[int, tuple[int, int]]] = defaultdict(dict)
     for row in valid(args.original_judgments):
@@ -77,6 +83,32 @@ def main() -> None:
                 "original_mean_score": original_score,
                 "swapped_mean_score": swapped_score,
                 "swap_minus_original_score": swapped_score - original_score,
+                **(
+                    {
+                        "latest_deleted_rate": deletion[conversation_hash][
+                            "top_deleted_rate"
+                        ],
+                        "latest_deletion_minus_original": deletion[conversation_hash][
+                            "top_minus_original"
+                        ],
+                        "latest_deletion_minus_swap": deletion[conversation_hash][
+                            "top_deleted_rate"
+                        ]
+                        - swapped_rate,
+                        "latest_deleted_mean_score": deletion[conversation_hash][
+                            "top_deleted_mean_score"
+                        ],
+                        "latest_deletion_minus_original_score": deletion[
+                            conversation_hash
+                        ]["top_minus_original_score"],
+                        "latest_deletion_minus_swap_score": deletion[
+                            conversation_hash
+                        ]["top_deleted_mean_score"]
+                        - swapped_score,
+                    }
+                    if conversation_hash in deletion
+                    else {}
+                ),
             }
         )
 
@@ -114,6 +146,45 @@ def main() -> None:
         }
 
     control_nonendorsing = [row for row in rows if not row["matched_earlier_endorses"]]
+    removal_vs_relocation = {}
+    if deletion and all("latest_deletion_minus_swap" in row for row in rows):
+        binary = np.asarray(
+            [row["latest_deletion_minus_swap"] for row in rows], dtype=np.float64
+        )
+        ordinal = np.asarray(
+            [row["latest_deletion_minus_swap_score"] for row in rows],
+            dtype=np.float64,
+        )
+        removal_vs_relocation = {
+            "latest_deleted_endorsement_rate": float(
+                np.mean([row["latest_deleted_rate"] for row in rows])
+            ),
+            "latest_deletion_minus_original": {
+                "mean": float(
+                    np.mean([row["latest_deletion_minus_original"] for row in rows])
+                ),
+                "bootstrap_95_ci_by_conversation": bootstrap(
+                    np.asarray(
+                        [row["latest_deletion_minus_original"] for row in rows]
+                    ),
+                    args.bootstrap,
+                ),
+            },
+            "latest_deletion_minus_relocation": {
+                "mean": float(binary.mean()),
+                "bootstrap_95_ci_by_conversation": bootstrap(binary, args.bootstrap),
+                "two_sided_cluster_sign_flip_p": sign_flip_p_value(
+                    binary, args.randomization_iterations
+                ),
+            },
+            "latest_deletion_minus_relocation_ordinal_score": {
+                "mean": float(ordinal.mean()),
+                "bootstrap_95_ci_by_conversation": bootstrap(ordinal, args.bootstrap),
+                "two_sided_cluster_sign_flip_p": sign_flip_p_value(
+                    ordinal, args.randomization_iterations
+                ),
+            },
+        }
     summary = {
         "original_judgments_sha256": sha256_file(args.original_judgments),
         "swap_judgments_sha256": sha256_file(args.swap_judgments),
@@ -127,6 +198,7 @@ def main() -> None:
         "matched_earlier_nonendorsing_pairs": summarize(control_nonendorsing),
         "matched_earlier_endorsing_conversations": len(rows)
         - len(control_nonendorsing),
+        "removal_vs_relocation": removal_vs_relocation,
     }
     write_jsonl(args.rows_output, rows)
     args.summary.parent.mkdir(parents=True, exist_ok=True)

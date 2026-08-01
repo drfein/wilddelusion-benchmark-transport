@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
@@ -46,16 +47,38 @@ def main() -> None:
     parser.add_argument("--revision", default=MODEL_REVISION)
     parser.add_argument("--count", type=int, default=40)
     parser.add_argument("--hops", type=int, default=1)
+    parser.add_argument(
+        "--subset-rule", choices=("smallest_hash", "shortest"), default="smallest_hash"
+    )
+    parser.add_argument(
+        "--response-class-filter", choices=("any", "both"), default="any"
+    )
     args = parser.parse_args()
 
     sys.path.insert(0, str(args.flashtrace_source.resolve()))
     from flashtrace import FlashTrace
 
-    cohort_rows = sorted(
-        read_jsonl(args.cohort), key=lambda row: row["conversation_hash"]
-    )[: args.count]
+    judgment_rows = read_jsonl(args.judgments)
+    response_classes: dict[str, set[bool]] = defaultdict(set)
+    for row in judgment_rows:
+        if isinstance(row.get("annotation_score"), int) and not row.get("judge_error"):
+            response_classes[row["conversation_hash"]].add(
+                row["annotation_score"] >= ENDORSEMENT_THRESHOLD
+            )
+    cohort_rows = read_jsonl(args.cohort)
+    if args.response_class_filter == "both":
+        cohort_rows = [
+            row
+            for row in cohort_rows
+            if response_classes.get(row["conversation_hash"]) == {False, True}
+        ]
+    if args.subset_rule == "shortest":
+        cohort_rows.sort(key=lambda row: (row["input_tokens"], row["conversation_hash"]))
+    else:
+        cohort_rows.sort(key=lambda row: row["conversation_hash"])
+    cohort_rows = cohort_rows[: args.count]
     cohort = {row["conversation_hash"]: row for row in cohort_rows}
-    selected = select_responses(read_jsonl(args.judgments), set(cohort))
+    selected = select_responses(judgment_rows, set(cohort))
     targets = [
         (conversation_hash, response)
         for conversation_hash in sorted(selected)
@@ -177,7 +200,8 @@ def main() -> None:
         "method": "FlashTrace span-wise recursive information-flow attribution",
         "attention_mode": "SDPA forward plus FlashTrace chunked recomputation",
         "hops": args.hops,
-        "subset_rule": "smallest conversation SHA-256 hashes",
+        "subset_rule": args.subset_rule,
+        "response_class_filter": args.response_class_filter,
         "subset_conversations": len(cohort),
         "expected_fixed_responses": len(expected),
         "successful_fixed_responses": len(successful & expected),
