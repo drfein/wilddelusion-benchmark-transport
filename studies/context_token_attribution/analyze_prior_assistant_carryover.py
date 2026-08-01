@@ -149,10 +149,30 @@ def main() -> None:
             summary["context_depth_by_prior_assistant_endorsement"][name] = {
                 "conversations": len(selected),
                 "endorsement_rates": rates,
-                "last_exchange_minus_target_only": (
-                    rates["last_exchange"] - rates["target_only"]
-                ),
-                "full_minus_last_exchange": rates["full"] - rates["last_exchange"],
+                "last_exchange_minus_target_only": {
+                    "mean": rates["last_exchange"] - rates["target_only"],
+                    "bootstrap_95_ci_by_conversation": bootstrap_mean(
+                        np.asarray(
+                            [
+                                row["last_exchange_minus_target_only_rate"]
+                                for row in selected_depth
+                            ]
+                        ),
+                        args.bootstrap,
+                    ),
+                },
+                "full_minus_last_exchange": {
+                    "mean": rates["full"] - rates["last_exchange"],
+                    "bootstrap_95_ci_by_conversation": bootstrap_mean(
+                        np.asarray(
+                            [
+                                row["full_minus_last_exchange_rate"]
+                                for row in selected_depth
+                            ]
+                        ),
+                        args.bootstrap,
+                    ),
+                },
             }
     write_jsonl(args.output, rows)
     args.summary.parent.mkdir(parents=True, exist_ok=True)
