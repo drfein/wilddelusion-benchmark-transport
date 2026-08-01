@@ -1,0 +1,10 @@
+HuggingFace-Hub>=0.34
+numpy>=2.0
+openai>=2.0
+pandas>=2.2
+pyarrow>=17
+requests>=2.32
+scipy>=1.13
+statsmodels>=0.14
+tiktoken>=0.11
+tqdm>=4.66

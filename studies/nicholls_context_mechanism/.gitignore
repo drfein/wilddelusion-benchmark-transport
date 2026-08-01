@@ -1,0 +1,5 @@
+artifacts/**/private/
+artifacts/api_raw/
+artifacts/hf_current/
+artifacts/hf_rehydrated/
+artifacts/reduced_history_invalid/
