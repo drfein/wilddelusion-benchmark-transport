@@ -1,0 +1,7 @@
+numpy
+openai>=2.44.0
+pandas
+python-dotenv
+scipy
+tqdm
+
