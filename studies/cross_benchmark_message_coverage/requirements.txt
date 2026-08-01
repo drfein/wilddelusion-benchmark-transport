@@ -1,7 +1,8 @@
 numpy
+matplotlib
 openai>=2.44.0
 pandas
 python-dotenv
+scikit-learn
 scipy
 tqdm
-

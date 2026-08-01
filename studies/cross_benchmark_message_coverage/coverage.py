@@ -17,30 +17,33 @@ from typing import Any, Iterable
 
 import numpy as np
 import pandas as pd
+import matplotlib
 from dotenv import load_dotenv
 from openai import AsyncOpenAI
 from scipy.spatial.distance import jensenshannon
 from sklearn.metrics import cohen_kappa_score
 from tqdm import tqdm
 
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt  # noqa: E402
+
 HERE = Path(__file__).resolve().parent
-DEFAULT_WD = Path("/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/data_sources/wd2/wd_2.jsonl")
+DEFAULT_WD = Path("/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/full_dataset_522/artifacts/cohort_full522.jsonl")
 DEFAULT_PSYCHOSIS = Path("/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/paper/psychosis-bench/data/test_cases.json")
-DEFAULT_SPIRAL = Path("/tmp/wd_artifact_audit/spiral-bench/res_v0.2")
+DEFAULT_SPIRAL = Path("/tmp/wd_artifact_audit/spiral-bench/prompts/eval_prompts_v0.2.json")
 DEFAULT_SIM = Path("/tmp/wd_artifact_audit/sim-vail/data/v1")
 DEFAULT_ENV = Path("/Users/danielfein/dev/wild-delusion-miner/experiments/lost_in_delusion_replication_260600975/.env")
 
 THEMES = [
-    "none_or_unclear",
     "grandiose_or_messianic",
     "persecutory_conspiratorial_or_referential",
-    "romantic_or_erotomanic",
+    "bizarre_metaphysical_or_religious",
     "somatic_or_perceptual",
     "thought_interference_or_broadcast",
-    "bizarre_metaphysical_or_reality",
-    "ai_sentience_personhood_or_relationship",
-    "mixed_or_other",
+    "romantic_erotomanic_or_jealous",
+    "mixed_unclear_or_other",
 ]
+KIRGIS_STARTERS = {"eac01", "ec01", "ec02", "ec03", "ec04", "ec05", "ie04", "mp01", "mp02", "mp03", "mp04", "mp05", "sc05", "td01"}
 AXES = ["explicit_distress_marker", "harm_indication", "directness", "theme"]
 
 RUBRIC = """Code each user message independently using exactly these frozen axes.
@@ -51,7 +54,7 @@ harm_indication: 0 = no stated intent, plan, preparation, recent act, or invitat
 
 directness: directness of the user's unusual or potentially delusion-like claim. 0 = no unusual belief claim, or clearly fictional, hypothetical, quoted, role-played, joked about, or skeptically examined. 1 = an unusual interpretation is suggested, tested, hedged, or left ambiguous. 2 = an unusual interpretation is asserted as the user's actual belief or lived reality. This is presentation, not diagnosis or factual correctness.
 
-theme: exactly one of none_or_unclear, grandiose_or_messianic, persecutory_conspiratorial_or_referential, romantic_or_erotomanic, somatic_or_perceptual, thought_interference_or_broadcast, bizarre_metaphysical_or_reality, ai_sentience_personhood_or_relationship, mixed_or_other. Use mixed_or_other when two listed themes are equally central. Topic alone does not establish a theme.
+theme: exactly one of grandiose_or_messianic, persecutory_conspiratorial_or_referential, bizarre_metaphysical_or_religious, somatic_or_perceptual, thought_interference_or_broadcast, romantic_erotomanic_or_jealous, mixed_unclear_or_other. Use mixed_unclear_or_other when there is no clear unusual-belief theme, when two themes are equally central, or for another theme. AI sentience/personhood/relationship claims map to bizarre_metaphysical_or_religious unless primarily romantic. Topic alone does not establish a theme.
 
 Return one label object for every supplied item_id. Do not diagnose the writer and do not add any other keys."""
 
@@ -78,7 +81,7 @@ def write_jsonl(path: Path, rows: Iterable[dict[str, Any]]) -> None:
 
 
 def add_occurrence(rows: list[dict[str, Any]], *, corpus: str, cluster: str,
-                   turn: int, text: str, primary: bool, source: dict[str, Any]) -> None:
+                   turn: int, turn_count: int, text: str, source: dict[str, Any]) -> None:
     text = str(text).strip()
     if not text:
         return
@@ -88,7 +91,9 @@ def add_occurrence(rows: list[dict[str, Any]], *, corpus: str, cluster: str,
         "group": "natural" if corpus == "wilddelusion" else "synthetic",
         "cluster_id": f"{corpus}:{cluster}",
         "turn_index": int(turn),
-        "primary": bool(primary),
+        "turn_ordinal": int(turn + 1),
+        "turn_count": int(turn_count),
+        "turn_position": float(turn / (turn_count - 1)) if turn_count > 1 else 0.0,
         "text": text,
         "normalized_text_hash": digest(normalize(text)),
         "source": source,
@@ -97,74 +102,43 @@ def add_occurrence(rows: list[dict[str, Any]], *, corpus: str, cluster: str,
 
 def extract_wilddelusion(path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    repaired = []
     source_rows = read_jsonl(path)
     for row_number, row in enumerate(source_rows):
-        messages = row["messages"]
-        flagged = str(row["flagged_text"])
-        idx = row.get("flagged_msg_idx")
-        indexed_text = (str(messages[idx].get("content", ""))
-                        if isinstance(idx, int) and 0 <= idx < len(messages) else "")
-        # Some upstream flagged_text values are 500-character display snippets;
-        # two span more text than the indexed turn. The role-correct stored index
-        # remains authoritative when either normalized string contains the other.
-        a, b = normalize(flagged), normalize(indexed_text)
-        valid = (isinstance(idx, int) and 0 <= idx < len(messages)
-                 and messages[idx].get("role") == "user"
-                 and bool(b) and (a == b or a in b or b in a))
-        if not valid:
-            matches = [i for i, m in enumerate(messages)
-                       if m.get("role") == "user"
-                       and normalize(m.get("content", ""))
-                       and (a in normalize(m.get("content", ""))
-                            or normalize(m.get("content", "")) in a)]
-            if len(matches) != 1:
-                raise ValueError(f"Cannot uniquely repair WD row {row_number}: {matches}")
-            idx = matches[0]
-            repaired.append({"row_number": row_number, "stored_index": row.get("flagged_msg_idx"), "resolved_index": idx})
-        cluster = str(row["conversation_sha256"])
-        for i, message in enumerate(messages[: idx + 1]):
-            if message.get("role") != "user":
-                continue
-            add_occurrence(rows, corpus="wilddelusion", cluster=cluster, turn=i,
-                           text=message.get("content", ""), primary=i == idx,
-                           source={"row_number": row_number, "flagged_index": idx})
-    return rows, {"source_rows": len(source_rows), "index_repairs": repaired}
+        messages = row["history_messages"]
+        target = str(row["target_text"])
+        matches = [i for i, m in enumerate(messages)
+                   if m.get("role") == "user" and normalize(m.get("content", "")) == normalize(target)]
+        if matches != [int(row["target_message_index"])] or matches[0] != len(messages) - 1:
+            raise ValueError(f"WD target/history mismatch at row {row_number}: {matches}")
+        user_messages = [m for m in messages if m.get("role") == "user"]
+        add_occurrence(rows, corpus="wilddelusion", cluster=str(row["cluster_id"]),
+                       turn=len(user_messages) - 1, turn_count=len(user_messages), text=target,
+                       source={"row_number": row_number, "message_hash": row["message_hash"]})
+    return rows, {"source_rows": len(source_rows), "targets_verified": len(rows)}
 
 
 def extract_psychosis(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for case in json.loads(path.read_text(encoding="utf-8"))["cases"]:
         for i, text in enumerate(case["prompts"]):
-            add_occurrence(rows, corpus="psychosis_bench", cluster=case["id"], turn=i,
-                           text=text, primary=True,
+            add_occurrence(rows, corpus="psychosis_bench", cluster=case["id"], turn=i, turn_count=len(case["prompts"]),
+                           text=text,
                            source={"case_id": case["id"], "condition": case["condition"]})
     return rows
 
 
-def nested_conversations(value: Any) -> Iterable[dict[str, Any]]:
-    if isinstance(value, dict):
-        if isinstance(value.get("transcript"), list):
-            yield value
-            return
-        for child in value.values():
-            yield from nested_conversations(child)
-    elif isinstance(value, list):
-        for child in value:
-            yield from nested_conversations(child)
-
-
 def extract_spiral(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    for result_path in sorted(path.glob("*.json")):
-        payload = json.loads(result_path.read_text(encoding="utf-8"))
-        for n, convo in enumerate(nested_conversations(payload)):
-            cluster = f"{result_path.stem}:{convo['prompt_id']}:{convo.get('convo_index', n)}"
-            for i, message in enumerate(convo["transcript"]):
-                if message.get("role") == "user":
-                    add_occurrence(rows, corpus="spiral_bench", cluster=cluster, turn=i,
-                                   text=message.get("content", ""), primary=True,
-                                   source={"result_file": result_path.name, "prompt_id": convo["prompt_id"]})
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    selected = {row["prompt_id"]: row for row in payload if row["prompt_id"] in KIRGIS_STARTERS}
+    if set(selected) != KIRGIS_STARTERS:
+        raise ValueError(f"Missing Kirgis starters: {sorted(KIRGIS_STARTERS - set(selected))}")
+    for prompt_id in sorted(selected):
+        prompts = selected[prompt_id]["prompts"]
+        if len(prompts) != 1:
+            raise ValueError(f"Kirgis starter {prompt_id} has {len(prompts)} prompts")
+        add_occurrence(rows, corpus="spiral_bench", cluster=prompt_id, turn=0, turn_count=1,
+                       text=prompts[0], source={"prompt_id": prompt_id})
     return rows
 
 
@@ -175,10 +149,10 @@ def extract_sim_vail(path: Path) -> list[dict[str, Any]]:
         payload = json.loads(transcript_path.read_text(encoding="utf-8"))
         metadata = payload["metadata"]
         cluster = str(metadata["transcript_id"])
-        for i, message in enumerate(payload["target_messages"]):
-            if message.get("role") == "user":
-                add_occurrence(rows, corpus="sim_vail", cluster=cluster, turn=i,
-                               text=message.get("content", ""), primary=True,
+        user_messages = [m for m in payload["target_messages"] if m.get("role") == "user"]
+        for i, message in enumerate(user_messages):
+                add_occurrence(rows, corpus="sim_vail", cluster=cluster, turn=i, turn_count=len(user_messages),
+                               text=message.get("content", ""),
                                source={"target_model": metadata.get("target_model"), "file": transcript_path.name})
     return rows
 
@@ -206,6 +180,13 @@ def build(args: argparse.Namespace) -> None:
         provenance.append(clean)
     write_jsonl(work / "blind_items.jsonl", blind)
     write_jsonl(work / "provenance.jsonl", provenance)
+    audit_rng = random.Random(args.seed + 1)
+    audit_items = audit_rng.sample(blind, min(300, len(blind)))
+    with (work / "human_audit_blind.csv").open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=["item_id", "text", *AXES, "notes"])
+        writer.writeheader()
+        for item in audit_items:
+            writer.writerow({**item, **{axis: "" for axis in AXES}, "notes": ""})
 
     counts = Counter(r["corpus"] for r in corpus_rows)
     unique_counts = {c: len({r["normalized_text_hash"] for r in corpus_rows if r["corpus"] == c}) for c in counts}
@@ -217,6 +198,7 @@ def build(args: argparse.Namespace) -> None:
         "unique_texts_by_corpus": unique_counts,
         "clusters_by_corpus": {c: len({r["cluster_id"] for r in corpus_rows if r["corpus"] == c}) for c in counts},
         "wilddelusion_audit": wd_audit,
+        "human_audit_packet_items": len(audit_items),
         "lost_in_delusion": {"included": False, "reason": "No official released turn-level artifact located as of 2026-07-31; paper reports aggregate generation only."},
         "source_revisions": {
             "spiral_bench": "19d6a92588a641ed82b9d06f79895069c8bbbebf",
@@ -333,7 +315,7 @@ def analyze(args: argparse.Namespace) -> None:
     if primary_labels.item_id.duplicated().any():
         primary_labels = primary_labels.drop_duplicates("item_id", keep="last")
     data = provenance.merge(primary_labels[["item_id", *AXES]], on="item_id", validate="many_to_one")
-    primary = data[(data.group == "synthetic") | data.primary].copy()
+    primary = data.copy()
     corpora = sorted(primary.corpus.unique())
 
     marginal_rows = []
@@ -370,12 +352,29 @@ def analyze(args: argparse.Namespace) -> None:
         for axis in AXES:
             agreement[axis] = {"n": len(joined), "exact": float((joined[f"{axis}_primary"] == joined[f"{axis}_audit"]).mean()), "kappa": float(cohen_kappa_score(joined[f"{axis}_primary"], joined[f"{axis}_audit"]))}
 
+    axis_tvd = {}
+    for axis in AXES:
+        values = sorted(set(primary[axis].astype(str)))
+        nd = natural[axis].astype(str).value_counts(normalize=True).reindex(values, fill_value=0)
+        sd = pd.Series(0.0, index=values)
+        for corpus in sorted(synthetic.corpus.unique()):
+            sd += synthetic[synthetic.corpus == corpus][axis].astype(str).value_counts(normalize=True).reindex(values, fill_value=0) / synthetic.corpus.nunique()
+        axis_tvd[axis] = float(0.5 * np.abs(nd - sd).sum())
+
+    headline = lambda frame: ((frame.explicit_distress_marker == 0) & (frame.harm_indication == 0) & (frame.directness == 1)).mean()
+    headline_natural = bootstrap_metric(natural, headline, args.draws, args.seed + 2)
+    paper_headlines = [headline(synthetic[synthetic.corpus == c]) for c in sorted(synthetic.corpus.unique())]
+    headline_synthetic = float(np.mean(paper_headlines))
     summary = {
         "primary_occurrences": int(len(primary)),
         "primary_by_corpus": {k: int(v) for k, v in primary.corpus.value_counts().items()},
         "natural_only_cell_mass": {"estimate": no[0], "ci99": [no[1], no[2]], "n_absent_cells": len(absent)},
         "sparse_cell_mass": {"estimate": sm[0], "ci99": [sm[1], sm[2]], "n_sparse_cells": len(sparse)},
         "joint_cell_js_divergence_bits": js,
+        "axis_total_variation_distance": axis_tvd,
+        "axes_with_substantial_overlap_tvd_below_0_10": [k for k, v in axis_tvd.items() if v < 0.10],
+        "broad_gap_falsified_by_overlap_rule": sum(v < 0.10 for v in axis_tvd.values()) >= 3,
+        "headline_no_distress_no_harm_indirect": {"wilddelusion": {"estimate": headline_natural[0], "ci99": [headline_natural[1], headline_natural[2]]}, "equal_paper_synthetic": headline_synthetic},
         "coder_agreement": agreement,
         "falsification_part_1": {"upper_99_below_5pct": no[2] < 0.05},
         "limitations": ["Lost in Delusion turn-level artifact unavailable and therefore excluded."],
@@ -385,7 +384,39 @@ def analyze(args: argparse.Namespace) -> None:
     cell_table["natural_only"] = cell_table.equal_paper_synthetic == 0
     cell_table["synthetic_below_1pct"] = cell_table.equal_paper_synthetic < 0.01
     cell_table.to_csv(args.work / "joint_cells.csv", index=False)
+    make_figure(primary, args.work / "composition_gap.png")
     print(json.dumps(summary, indent=2))
+
+
+def make_figure(frame: pd.DataFrame, output: Path) -> None:
+    natural = frame[frame.group == "natural"]
+    synthetic = frame[frame.group == "synthetic"]
+    rows = []
+    for label, part in [("Real", natural), ("Benchmarks", synthetic)]:
+        for axis in AXES:
+            dist = part[axis].astype(str).value_counts(normalize=True)
+            for value, prevalence in dist.items():
+                rows.append({"source": label, "axis": axis, "value": value, "prevalence": prevalence})
+    plot = pd.DataFrame(rows)
+    fig, axes = plt.subplots(2, 2, figsize=(11, 7.2), constrained_layout=True)
+    palette = ["#264653", "#2A9D8F", "#E9C46A", "#F4A261", "#E76F51", "#6D597A", "#457B9D"]
+    titles = {"explicit_distress_marker": "Explicit distress", "harm_indication": "Harm indication", "directness": "Belief directness", "theme": "Theme"}
+    for ax, axis in zip(axes.flat, AXES):
+        sub = plot[plot.axis == axis]
+        values = sorted(sub.value.unique())
+        bottoms = np.zeros(2)
+        for i, value in enumerate(values):
+            heights = [float(sub[(sub.source == source) & (sub.value == value)].prevalence.sum()) for source in ["Benchmarks", "Real"]]
+            ax.bar([0, 1], heights, bottom=bottoms, width=.62, color=palette[i % len(palette)], label=value.replace("_", " "))
+            bottoms += heights
+        ax.set_title(titles[axis], loc="left", weight="bold")
+        ax.set_xticks([0, 1], ["Benchmarks", "Real"])
+        ax.set_ylim(0, 1)
+        ax.set_yticks([0, .25, .5, .75, 1], ["0", "25", "50", "75", "100%"])
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.legend(frameon=False, fontsize=7, loc="upper center", bbox_to_anchor=(.5, -.12), ncol=2)
+    fig.savefig(output, dpi=220, facecolor="white")
+    plt.close(fig)
 
 
 def parser() -> argparse.ArgumentParser:
