@@ -36,6 +36,12 @@ SCHEMA = {
         "neutral": {"type": "string"},
     },
 }
+SINGLE_SCHEMA = {
+    "type": "object",
+    "additionalProperties": False,
+    "required": ["rewrite"],
+    "properties": {"rewrite": {"type": "string"}},
+}
 
 
 def prompt_hash(row: dict[str, Any]) -> str:
@@ -108,7 +114,7 @@ async def run(args: argparse.Namespace) -> None:
                         ],
                         reasoning={"effort": "none"},
                         temperature=0,
-                        max_output_tokens=min(12_000, max(1_500, words * 5 + 500)),
+                        max_output_tokens=min(30_000, max(1_500, words * 7 + 1_000)),
                         text={
                             "format": {
                                 "type": "json_schema",
@@ -144,6 +150,81 @@ async def run(args: argparse.Namespace) -> None:
                 last_error = repr(error)
                 if attempt < args.attempts:
                     await asyncio.sleep(min(2**attempt + random.random(), 30))
+        # Some long structured responses complete but violate the two-field JSON
+        # schema. Split the same frozen task into two one-field calls before failing.
+        try:
+            variants = {}
+            total_input = 0
+            total_output = 0
+            for key, instruction in (
+                (
+                    "agreement_preserving",
+                    "Return only the AGREEMENT_PRESERVING_PARAPHRASE as rewrite.",
+                ),
+                (
+                    "neutral",
+                    "Return only the EPISTEMICALLY_NEUTRAL_REWRITE as rewrite.",
+                ),
+            ):
+                async with semaphore:
+                    response = await client.responses.create(
+                        model=MODEL,
+                        input=[
+                            {
+                                "role": "system",
+                                "content": RUBRIC + "\n\n" + instruction,
+                            },
+                            {
+                                "role": "user",
+                                "content": json.dumps(
+                                    {
+                                        "preceding_user_message": row[
+                                            "previous_user_text"
+                                        ],
+                                        "assistant_message_to_rewrite": row[
+                                            "original_assistant_text"
+                                        ],
+                                    },
+                                    ensure_ascii=False,
+                                ),
+                            },
+                        ],
+                        reasoning={"effort": "none"},
+                        temperature=0,
+                        max_output_tokens=30_000,
+                        text={
+                            "format": {
+                                "type": "json_schema",
+                                "name": "single_agreement_rewrite",
+                                "strict": True,
+                                "schema": SINGLE_SCHEMA,
+                            }
+                        },
+                        store=False,
+                    )
+                parsed = json.loads(response.output_text)["rewrite"].strip()
+                if not parsed:
+                    raise ValueError("Empty fallback rewrite")
+                variants[key] = parsed
+                total_input += int(response.usage.input_tokens)
+                total_output += int(response.usage.output_tokens)
+            return {
+                "original_row_idx": row["original_row_idx"],
+                "conversation_hash": row["conversation_hash"],
+                "message_hash": row["message_hash"],
+                "model": MODEL,
+                "rewrite_prompt_sha256": expected[row["original_row_idx"]],
+                **variants,
+                "original_words": words,
+                "agreement_words": len(variants["agreement_preserving"].split()),
+                "neutral_words": len(variants["neutral"].split()),
+                "input_tokens": total_input,
+                "output_tokens": total_output,
+                "attempt": args.attempts + 1,
+                "fallback": "separate_single_field_calls",
+            }
+        except Exception as error:  # noqa: BLE001
+            last_error = f"primary={last_error}; fallback={error!r}"
         return {
             "original_row_idx": row["original_row_idx"],
             "model": MODEL,
