@@ -91,3 +91,24 @@ The paired rewrite contrasts are causal for these fixed prompts. The cohort is
 outcome-independent but enriched by WildDelusion's discovery and confirmation
 pipeline, so estimates describe this corpus rather than general user traffic.
 
+## Pre-outcome amendment 1: cumulative rewrite execution
+
+Added 2026-07-31 after 146/221 cumulative rewrites succeeded, but before any
+GPT-4.1-mini intervention response or outcome judgment was generated. The
+semantic intervention, cohort, and estimands are unchanged.
+
+The initial structured-output schema allowed any nonnegative message index and
+then rejected an entire response if the rewriter returned an ineligible index.
+This produced 47 failed rows, including ten conversations with no eligible
+earlier assistant message. One 266k-token transcript also exceeded the
+rewriter's context window and one structured response truncated. These are
+execution failures, not manipulation-check or target-model outcomes.
+
+For remaining rows, the JSON schema now enumerates only the exact eligible
+earlier assistant indices. Conversations with no earlier assistant message
+receive the deterministic empty cumulative intervention. Rewriter inputs above
+180k tokens are split into contiguous, role-preserving chunks of at most about
+120k content tokens; each earlier assistant index is eligible in exactly one
+chunk. The rewriter still never sees the later target or any outcome. All 146
+already valid full-prefix rewrites are retained, and every execution method is
+recorded per row and in the manifest.

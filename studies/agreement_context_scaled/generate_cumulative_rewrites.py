@@ -11,6 +11,7 @@ from typing import Any
 
 from api_utils import load_env, read_jsonl
 from openai import AsyncOpenAI
+import tiktoken
 from tqdm import tqdm
 
 MODEL = "gpt-5.4-mini-2026-03-17"
@@ -44,6 +45,8 @@ SCHEMA = {
         }
     },
 }
+MAX_FULL_INPUT_TOKENS = 180_000
+CHUNK_CONTENT_TOKENS = 120_000
 
 
 def stable_hash(value: Any) -> str:
@@ -58,6 +61,68 @@ def indexed_prefix(row: dict[str, Any]) -> list[dict[str, Any]]:
         {"message_index": index, "role": message["role"], "content": message["content"]}
         for index, message in enumerate(row["messages"][:-1])
     ]
+
+
+def schema_for_indices(indices: list[int]) -> dict[str, Any]:
+    schema = json.loads(json.dumps(SCHEMA))
+    schema["properties"]["rewrites"]["items"]["properties"]["message_index"] = {
+        "type": "integer",
+        "enum": indices,
+    }
+    return schema
+
+
+def payload_batches(row: dict[str, Any], encoding: Any) -> list[dict[str, Any]]:
+    eligible = {int(index) for index in row["earlier_assistant_indices"]}
+    prefix = indexed_prefix(row)
+    full = {
+        "protected_immediate_assistant_index": row["immediate_assistant_index"],
+        "eligible_earlier_assistant_indices": sorted(eligible),
+        "conversation_before_unseen_target": prefix,
+    }
+    full_tokens = len(encoding.encode(RUBRIC + json.dumps(full, ensure_ascii=False)))
+    if full_tokens <= MAX_FULL_INPUT_TOKENS:
+        return [full]
+
+    chunks: list[list[dict[str, Any]]] = []
+    current: list[dict[str, Any]] = []
+    current_tokens = 0
+    for message in prefix:
+        message_tokens = len(encoding.encode(json.dumps(message, ensure_ascii=False)))
+        if (
+            current
+            and current_tokens + message_tokens > CHUNK_CONTENT_TOKENS
+            and message["role"] == "user"
+        ):
+            chunks.append(current)
+            current = []
+            current_tokens = 0
+        current.append(message)
+        current_tokens += message_tokens
+    if current:
+        chunks.append(current)
+
+    batches = []
+    for chunk in chunks:
+        chunk_indices = sorted(
+            eligible & {int(message["message_index"]) for message in chunk}
+        )
+        if not chunk_indices:
+            continue
+        batches.append(
+            {
+                "protected_immediate_assistant_index": row["immediate_assistant_index"],
+                "eligible_earlier_assistant_indices": chunk_indices,
+                "conversation_chunk_before_unseen_target": chunk,
+                "chunking_note": (
+                    "This is a contiguous context-window chunk. Rewrite only the "
+                    "explicitly eligible indices in this chunk."
+                ),
+            }
+        )
+    if not batches:
+        raise ValueError("Chunking removed every eligible assistant message")
+    return batches
 
 
 def expected_hash(row: dict[str, Any]) -> str:
@@ -98,43 +163,62 @@ async def run(args: argparse.Namespace) -> None:
     client = AsyncOpenAI(timeout=args.timeout)
     semaphore = asyncio.Semaphore(args.concurrency)
     write_lock = asyncio.Lock()
+    encoding = tiktoken.get_encoding("o200k_base")
 
     async def rewrite(row: dict[str, Any]) -> dict[str, Any]:
         row_id = row["original_row_idx"]
         eligible = {int(index) for index in row["earlier_assistant_indices"]}
-        payload = {
-            "protected_immediate_assistant_index": row["immediate_assistant_index"],
-            "eligible_earlier_assistant_indices": sorted(eligible),
-            "conversation_before_unseen_target": indexed_prefix(row),
-        }
+        if not eligible:
+            return {
+                "original_row_idx": row_id,
+                "conversation_hash": row["conversation_hash"],
+                "message_hash": row["message_hash"],
+                "model": MODEL,
+                "rewrite_prompt_sha256": hashes[row_id],
+                "rewrites": [],
+                "changed_messages": 0,
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "attempt": 0,
+                "batches": 0,
+                "empty_eligible_set": True,
+            }
+        batches = payload_batches(row, encoding)
         last_error = ""
         for attempt in range(1, args.attempts + 1):
             try:
-                async with semaphore:
-                    response = await client.responses.create(
-                        model=MODEL,
-                        input=[
-                            {"role": "system", "content": RUBRIC},
-                            {
-                                "role": "user",
-                                "content": json.dumps(payload, ensure_ascii=False),
+                rewrites = []
+                total_input_tokens = 0
+                total_output_tokens = 0
+                for payload in batches:
+                    allowed = payload["eligible_earlier_assistant_indices"]
+                    async with semaphore:
+                        response = await client.responses.create(
+                            model=MODEL,
+                            input=[
+                                {"role": "system", "content": RUBRIC},
+                                {
+                                    "role": "user",
+                                    "content": json.dumps(payload, ensure_ascii=False),
+                                },
+                            ],
+                            reasoning={"effort": "none"},
+                            temperature=0,
+                            max_output_tokens=30_000,
+                            text={
+                                "format": {
+                                    "type": "json_schema",
+                                    "name": "cumulative_stance_rewrites",
+                                    "strict": True,
+                                    "schema": schema_for_indices(allowed),
+                                }
                             },
-                        ],
-                        reasoning={"effort": "none"},
-                        temperature=0,
-                        max_output_tokens=30_000,
-                        text={
-                            "format": {
-                                "type": "json_schema",
-                                "name": "cumulative_stance_rewrites",
-                                "strict": True,
-                                "schema": SCHEMA,
-                            }
-                        },
-                        store=False,
-                    )
-                parsed = json.loads(response.output_text)
-                rewrites = parsed["rewrites"]
+                            store=False,
+                        )
+                    parsed = json.loads(response.output_text)
+                    rewrites.extend(parsed["rewrites"])
+                    total_input_tokens += int(response.usage.input_tokens)
+                    total_output_tokens += int(response.usage.output_tokens)
                 indices = [int(item["message_index"]) for item in rewrites]
                 if len(indices) != len(set(indices)):
                     raise ValueError("Duplicate rewrite indices")
@@ -160,9 +244,10 @@ async def run(args: argparse.Namespace) -> None:
                     "rewrite_prompt_sha256": hashes[row_id],
                     "rewrites": rewrites,
                     "changed_messages": len(rewrites),
-                    "input_tokens": int(response.usage.input_tokens),
-                    "output_tokens": int(response.usage.output_tokens),
+                    "input_tokens": total_input_tokens,
+                    "output_tokens": total_output_tokens,
                     "attempt": attempt,
+                    "batches": len(batches),
                 }
             except Exception as error:  # noqa: BLE001
                 last_error = repr(error)
