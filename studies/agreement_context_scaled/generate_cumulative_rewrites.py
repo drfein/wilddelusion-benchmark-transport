@@ -9,9 +9,9 @@ import random
 from pathlib import Path
 from typing import Any
 
+import tiktoken
 from api_utils import load_env, read_jsonl
 from openai import AsyncOpenAI
-import tiktoken
 from tqdm import tqdm
 
 MODEL = "gpt-5.4-mini-2026-03-17"
@@ -47,6 +47,7 @@ SCHEMA = {
 }
 MAX_FULL_INPUT_TOKENS = 180_000
 CHUNK_CONTENT_TOKENS = 120_000
+MAX_ELIGIBLE_INDICES_PER_BATCH = 25
 
 
 def stable_hash(value: Any) -> str:
@@ -81,24 +82,33 @@ def payload_batches(row: dict[str, Any], encoding: Any) -> list[dict[str, Any]]:
         "conversation_before_unseen_target": prefix,
     }
     full_tokens = len(encoding.encode(RUBRIC + json.dumps(full, ensure_ascii=False)))
-    if full_tokens <= MAX_FULL_INPUT_TOKENS:
+    if (
+        full_tokens <= MAX_FULL_INPUT_TOKENS
+        and len(eligible) <= MAX_ELIGIBLE_INDICES_PER_BATCH
+    ):
         return [full]
 
     chunks: list[list[dict[str, Any]]] = []
     current: list[dict[str, Any]] = []
     current_tokens = 0
+    current_eligible = 0
     for message in prefix:
         message_tokens = len(encoding.encode(json.dumps(message, ensure_ascii=False)))
         if (
             current
-            and current_tokens + message_tokens > CHUNK_CONTENT_TOKENS
+            and (
+                current_tokens + message_tokens > CHUNK_CONTENT_TOKENS
+                or current_eligible >= MAX_ELIGIBLE_INDICES_PER_BATCH
+            )
             and message["role"] == "user"
         ):
             chunks.append(current)
             current = []
             current_tokens = 0
+            current_eligible = 0
         current.append(message)
         current_tokens += message_tokens
+        current_eligible += int(message["message_index"] in eligible)
     if current:
         chunks.append(current)
 
@@ -219,9 +229,15 @@ async def run(args: argparse.Namespace) -> None:
                     rewrites.extend(parsed["rewrites"])
                     total_input_tokens += int(response.usage.input_tokens)
                     total_output_tokens += int(response.usage.output_tokens)
+                duplicate_count = len(rewrites) - len(
+                    {int(item["message_index"]) for item in rewrites}
+                )
+                rewrites = list(
+                    {
+                        int(item["message_index"]): item for item in reversed(rewrites)
+                    }.values()
+                )
                 indices = [int(item["message_index"]) for item in rewrites]
-                if len(indices) != len(set(indices)):
-                    raise ValueError("Duplicate rewrite indices")
                 if any(index not in eligible for index in indices):
                     raise ValueError("Rewriter changed an ineligible message")
                 if any(not str(item["rewrite"]).strip() for item in rewrites):
@@ -248,6 +264,7 @@ async def run(args: argparse.Namespace) -> None:
                     "output_tokens": total_output_tokens,
                     "attempt": attempt,
                     "batches": len(batches),
+                    "dropped_duplicate_rewrites": duplicate_count,
                 }
             except Exception as error:  # noqa: BLE001
                 last_error = repr(error)
@@ -294,6 +311,10 @@ async def run(args: argparse.Namespace) -> None:
         "input_tokens": sum(int(row.get("input_tokens", 0)) for row in final),
         "output_tokens": sum(int(row.get("output_tokens", 0)) for row in final),
         "changed_messages": sum(int(row.get("changed_messages", 0)) for row in final),
+        "batched_targets": sum(int(row.get("batches", 0)) > 1 for row in final),
+        "dropped_duplicate_rewrites": sum(
+            int(row.get("dropped_duplicate_rewrites", 0)) for row in final
+        ),
         "target_visibility": "rewriter never receives the later target",
         "protected_immediate_message": True,
     }

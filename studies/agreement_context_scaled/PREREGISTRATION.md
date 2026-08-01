@@ -112,3 +112,11 @@ receive the deterministic empty cumulative intervention. Rewriter inputs above
 chunk. The rewriter still never sees the later target or any outcome. All 146
 already valid full-prefix rewrites are retained, and every execution method is
 recorded per row and in the manifest.
+
+Before target-model generation, the amended executor revealed two additional
+structured-output edge cases: 12 rows repeated a schema-valid message index,
+and one large multi-rewrite JSON response truncated. Repeated indices are now
+deduplicated deterministically, with the count recorded. In addition to the
+input-token limit above, each chunk is capped at 25 eligible assistant indices.
+This changes only execution granularity; eligible turns, rubric, model,
+intervention text requirements, cohort, and estimands remain frozen.
