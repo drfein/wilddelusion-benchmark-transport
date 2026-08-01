@@ -1,0 +1,21 @@
+{
+  "selection_frozen_before_new_outcomes": true,
+  "selection_uses_prior_model_outcomes": false,
+  "source_rows": 445,
+  "source_conversations": 256,
+  "excluded_pilot_conversations": 35,
+  "eligible_nonpilot_rows": 301,
+  "targets": 221,
+  "conversations": 221,
+  "one_target_per_conversation": true,
+  "selection_seed": 20260801,
+  "source_counts": {
+    "sharechat_chatgpt": 155,
+    "sharechat_claude": 2,
+    "sharechat_gemini": 4,
+    "sharechat_grok": 23,
+    "wildchat_full": 37
+  },
+  "private_cohort_sha256": "ca14d1a6fbab2d5c6d61448713c877714f9ff4b97febd427eb3af6d15850b9db",
+  "text_storage": "private/cohort.jsonl is gitignored"
+}
