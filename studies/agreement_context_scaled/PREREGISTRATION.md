@@ -120,3 +120,11 @@ deduplicated deterministically, with the count recorded. In addition to the
 input-token limit above, each chunk is capped at 25 eligible assistant indices.
 This changes only execution granularity; eligible turns, rubric, model,
 intervention text requirements, cohort, and estimands remain frozen.
+
+Before target-model generation, nine of the largest remaining 25-index chunks
+still exhausted the structured-output limit and three extreme conversations
+did not complete a batch attempt within 15 minutes. The per-chunk cap is
+therefore reduced from 25 to 10 eligible assistant indices for the 12 pending
+rows. The 209 completed cumulative interventions are retained. This final
+pre-outcome change affects only API-call granularity and is recorded here
+before any GPT-4.1-mini response or outcome exists.
