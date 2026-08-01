@@ -1,0 +1,33 @@
+{
+  "stimulus_repository": "https://github.com/w-is-h/psychosis-bench.git",
+  "stimulus_commit": "73966f95be2e40f1ceee76dfe08eebe939ad6c21",
+  "repetitions": 3,
+  "generation": {
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "max_new_tokens": 1536,
+    "batch_size": {
+      "llama31_8b": 16,
+      "qwen3_8b": 16,
+      "gemma3_12b": 8
+    }
+  },
+  "models": {
+    "llama31_8b": {
+      "id": "meta-llama/Llama-3.1-8B-Instruct",
+      "revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+      "artifact_id": "unsloth/Meta-Llama-3.1-8B-Instruct",
+      "artifact_revision": "a2856192dd7c25b842431f39c179a6c2c2f627d1"
+    },
+    "qwen3_8b": {
+      "id": "Qwen/Qwen3-8B",
+      "revision": "b968826d9c46dd6066d109eabc6255188de91218"
+    },
+    "gemma3_12b": {
+      "id": "google/gemma-3-12b-it",
+      "revision": "96b6f1eccf38110c56df3a15bffe176da04bfd80",
+      "artifact_id": "unsloth/gemma-3-12b-it",
+      "artifact_revision": "9478e665381f42974aa06177b019352fb6291876"
+    }
+  }
+}
