@@ -111,10 +111,11 @@ def extract_wilddelusion(path: Path) -> tuple[list[dict[str, Any]], dict[str, An
         a, b = normalize(flagged), normalize(indexed_text)
         valid = (isinstance(idx, int) and 0 <= idx < len(messages)
                  and messages[idx].get("role") == "user"
-                 and (a == b or a in b or b in a))
+                 and bool(b) and (a == b or a in b or b in a))
         if not valid:
             matches = [i for i, m in enumerate(messages)
                        if m.get("role") == "user"
+                       and normalize(m.get("content", ""))
                        and (a in normalize(m.get("content", ""))
                             or normalize(m.get("content", "")) in a)]
             if len(matches) != 1:
