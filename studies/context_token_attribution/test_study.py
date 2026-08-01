@@ -21,6 +21,7 @@ GENERATE = load("context_generate", "generate_open_model.py")
 FIXED = load("context_fixed", "attribute_fixed_response.py")
 TOKEN_ANALYSIS = load("context_token_analysis", "analyze_token_attributions.py")
 FLASHTRACE_RUNNER = load("context_flashtrace_runner", "run_flashtrace.py")
+CONTEXT_ABLATION = load("context_ablation", "prepare_context_ablation.py")
 
 
 def test_fold_assignment_is_stable_and_bounded() -> None:
@@ -93,3 +94,21 @@ def test_flashtrace_target_round_trip_strips_only_trailing_eos() -> None:
     assert text == "4,5"
     assert ids == [4, 5]
     assert ended is True
+
+
+def test_last_exchange_keeps_only_latest_complete_exchange() -> None:
+    messages = [
+        {"role": "system", "content": "s"},
+        {"role": "user", "content": "old user"},
+        {"role": "assistant", "content": "old assistant"},
+        {"role": "user", "content": "recent user"},
+        {"role": "assistant", "content": "recent assistant"},
+        {"role": "user", "content": "target"},
+    ]
+    retained = CONTEXT_ABLATION.retained_messages(messages, "last_exchange")
+    assert [message["content"] for message in retained] == [
+        "s",
+        "recent user",
+        "recent assistant",
+        "target",
+    ]
