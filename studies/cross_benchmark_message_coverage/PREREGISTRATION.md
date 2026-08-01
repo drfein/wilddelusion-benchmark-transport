@@ -1,5 +1,55 @@
 # Cross-benchmark message coverage: frozen analysis plan
 
+## Amendment 1: corrected units and separation from performance experiment
+
+Timestamp: 2026-07-31 America/Los_Angeles
+
+Status at amendment: corpus extraction exposed a mismatch between the original
+plan and the investigator's intended units. A first blinded LLM-coding process
+was stopped before any labels were joined to provenance or analyzed. Its
+outputs are quarantined as `ABORTED_wrong_units_*` and are ineligible for all
+results. No corrected-composition labels or results have been inspected.
+
+This amendment supersedes conflicting unit and theme definitions below:
+
+1. The natural corpus is the 522 validated target turns in
+   `cohort_full522.jsonl`, not the 453-conversation WD2 release. These are 522
+   unique messages nested in 321 source conversations.
+2. Spiral-Bench contributes only the 14 released starters used in its
+   human-grade analysis: `eac01`, `ec01`-`ec05`, `ie04`, `mp01`-`mp05`,
+   `sc05`, and `td01`. Dynamically simulated follow-up turns and repeated model
+   runs are excluded.
+3. Psychosis-Bench contributes all 16 x 12 fixed user turns. SIM-VAIL
+   contributes the phenotype-generated user turns in its primary v1 release.
+   Lost in Delusion contributes turns only if an official turn-level artifact
+   can be obtained; otherwise it is reported unavailable.
+4. Every row is one user message. Exact turn ordinal and normalized turn
+   position are derived from source metadata after coding and are never shown
+   to the coder.
+5. Theme uses seven mapped classes:
+   `grandiose_or_messianic`,
+   `persecutory_conspiratorial_or_referential`,
+   `bizarre_metaphysical_or_religious`,
+   `somatic_or_perceptual`,
+   `thought_interference_or_broadcast`,
+   `romantic_erotomanic_or_jealous`, and
+   `mixed_unclear_or_other`.
+6. The prespecified headline cell is distress `0`, harm `0`, directness `1`
+   (hedged, questioning, or oblique unusual belief). Its natural and pooled
+   synthetic prevalence and cluster-bootstrap confidence interval are always
+   reported.
+7. Marginal overlap is quantified by total-variation distance. An axis counts
+   as substantially overlapping when natural-versus-equal-paper synthetic TVD
+   is below 0.10. If at least three of four axes meet that criterion, the broad
+   composition-gap claim is reported as falsified. This amendment replaces the
+   conflicting broad-falsification rule below.
+
+The composition experiment contains no assistant-model generation or
+performance claim. A separate performance experiment may later compare
+human-written, human-verified minimal distress-cue edits with a matched
+paraphrase-null arm using paired model runs and a mixed-effects logistic model.
+No outputs from that performance experiment may be pooled into this study.
+
 Timestamp: 2026-07-31 America/Los_Angeles
 
 Status at freeze: no combined corpus has been constructed, no messages have
