@@ -57,6 +57,16 @@ python studies/sim_vail_real_intent_transport/reproduce.py analyze
 This study is additive to the original five-family locked claim registry; it
 does not silently alter that earlier selection procedure.
 
+[`studies/shimgekar_delusionscore_construct_transport`](studies/shimgekar_delusionscore_construct_transport)
+tests whether the MiniLM-plus-logistic DelusionScore construct transports from
+easy broad controls to natural context-resolved near misses. A source-matched
+broad-control model reached **0.979** out-of-fold AUC, then fell to **0.670**
+(clustered 95% CI **0.617-0.720**) with **84.5%** false positives on 207 held-out
+natural near misses. The apparent longitudinal rise was not significant before
+the retrieval-selected endpoint after length and conversation fixed effects
+(`p=0.162`). This is a construct stress test, not an exact rerun of the
+unreleased fitted classifier.
+
 ## Quick verification
 
 This verifies the packaged gates and hashes. It performs no network, API, or GPU
@@ -138,6 +148,7 @@ but an exact raw rerun requires a locally authorized control bundle via
 | [docs/METHODS.md](docs/METHODS.md) | Estimands and claim-specific workflows |
 | [DATA_LICENSE.md](DATA_LICENSE.md) | Dataset restrictions and sensitive-data boundary |
 | [studies/sim_vail_real_intent_transport](studies/sim_vail_real_intent_transport) | Complete SIM-VAIL intent-mechanism transport study and raw evidence |
+| [studies/shimgekar_delusionscore_construct_transport](studies/shimgekar_delusionscore_construct_transport) | Natural-control and longitudinal stress test of the DelusionScore construct |
 
 ## Reproducibility boundary
 

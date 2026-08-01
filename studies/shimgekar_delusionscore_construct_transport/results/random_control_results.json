@@ -1,0 +1,305 @@
+{
+  "broad_control_oof_metrics": {
+    "accuracy": 0.928246013667426,
+    "auc": 0.9791563970714141,
+    "balanced_accuracy": 0.928246013667426,
+    "f1": 0.9278350515463918,
+    "n": 878,
+    "precision": 0.9331797235023042,
+    "recall": 0.9225512528473804
+  },
+  "cohort": {
+    "natural_hard_controls": 207,
+    "positive_endpoints": 439,
+    "random_real_controls": 439
+  },
+  "design": {
+    "description": "Paper-analogous source-matched broad-control classifier",
+    "hard_controls_reserved_from_training": true,
+    "random_control_sampling": "Deterministic reservoir sample over max(10,000, 100 times requested n) eligible English user messages per source",
+    "random_controls_are_real": true,
+    "split_unit": "conversation_id"
+  },
+  "length_only_broad_control_oof_metrics": {
+    "accuracy": 0.7471526195899773,
+    "auc": 0.7982212628618572,
+    "balanced_accuracy": 0.7471526195899773,
+    "f1": 0.7454128440366973,
+    "n": 878,
+    "precision": 0.7505773672055427,
+    "recall": 0.7403189066059226
+  },
+  "length_only_natural_hard_control_auc": {
+    "accuracy": 0.6424148606811145,
+    "auc": 0.609774080309883,
+    "balanced_accuracy": 0.5875507576507873,
+    "f1": 0.7377979568671964,
+    "n": 646,
+    "precision": 0.7352941176470589,
+    "recall": 0.7403189066059226
+  },
+  "natural_hard_control_transport": {
+    "accuracy": 0.6764705882352942,
+    "auc": 0.6701000297117956,
+    "auc_cluster_bootstrap_ci95": [
+      0.6173735008555165,
+      0.7195832796318173
+    ],
+    "balanced_accuracy": 0.5385703124140283,
+    "by_exclusion": {
+      "fiction_or_story": {
+        "auc_vs_real_delusion_endpoints": 0.7237103889737896,
+        "false_positive_rate_at_0_5": 0.810126582278481,
+        "mean_score": 0.6703929305076599,
+        "n": 79
+      },
+      "joke_or_absurd": {
+        "auc_vs_real_delusion_endpoints": 0.6869508623494957,
+        "false_positive_rate_at_0_5": 0.8571428571428571,
+        "mean_score": 0.6820172071456909,
+        "n": 21
+      },
+      "roleplay": {
+        "auc_vs_real_delusion_endpoints": 0.6527656094854273,
+        "false_positive_rate_at_0_5": 0.8589743589743589,
+        "mean_score": 0.7120813131332397,
+        "n": 78
+      },
+      "third_party_or_quoted": {
+        "auc_vs_real_delusion_endpoints": 0.6178815489749431,
+        "false_positive_rate_at_0_5": 1.0,
+        "mean_score": 0.7511447668075562,
+        "n": 4
+      },
+      "translation_or_text_task": {
+        "auc_vs_real_delusion_endpoints": 0.5489749430523918,
+        "false_positive_rate_at_0_5": 0.88,
+        "mean_score": 0.7906202673912048,
+        "n": 25
+      }
+    },
+    "f1": 0.7948969578017664,
+    "false_positive_rate_at_0_5": 0.8454106280193237,
+    "n": 646,
+    "precision": 0.6982758620689655,
+    "recall": 0.9225512528473804,
+    "within_source_auc": {
+      "sharechat_chatgpt": {
+        "auc": 0.6017296313154301,
+        "negative_n": 39,
+        "positive_n": 338
+      },
+      "sharechat_gemini": {
+        "auc": 0.2,
+        "negative_n": 1,
+        "positive_n": 5
+      },
+      "sharechat_grok": {
+        "auc": 0.5787037037037037,
+        "negative_n": 6,
+        "positive_n": 36
+      },
+      "wildchat_full": {
+        "auc": 0.5822033898305086,
+        "negative_n": 60,
+        "positive_n": 59
+      }
+    }
+  },
+  "trajectory_cluster_bootstrap": {
+    "all_slope": {
+      "ci95": [
+        0.20646769814567076,
+        0.26779129920879774
+      ],
+      "estimate": 0.23703779580959028,
+      "n_clusters": 229
+    },
+    "first_to_last_prior": {
+      "ci95": [
+        0.099762893131701,
+        0.18543396379917917
+      ],
+      "estimate": 0.14191997112919977,
+      "n_clusters": 213
+    },
+    "first_to_target": {
+      "ci95": [
+        0.26677840519698404,
+        0.3375721975403552
+      ],
+      "estimate": 0.3027360367108529,
+      "n_clusters": 281
+    },
+    "minimum_history_sensitivity": {
+      "10": {
+        "all_slope": {
+          "ci95": [
+            0.1605373623802559,
+            0.2389940689444272
+          ],
+          "estimate": 0.19932984101085158,
+          "n_clusters": 134
+        },
+        "first_to_last_prior": {
+          "ci95": [
+            0.11566229325908808,
+            0.22832025116398383
+          ],
+          "estimate": 0.17166030971707033,
+          "n_clusters": 134
+        },
+        "prior_slope": {
+          "ci95": [
+            0.08151020136057824,
+            0.15902764244665873
+          ],
+          "estimate": 0.1201657807002693,
+          "n_clusters": 134
+        },
+        "target_jump": {
+          "ci95": [
+            0.20444596957917047,
+            0.2930027474718208
+          ],
+          "estimate": 0.24859249298637873,
+          "n_clusters": 134
+        }
+      },
+      "3": {
+        "all_slope": {
+          "ci95": [
+            0.21371445106249856,
+            0.2770645200968874
+          ],
+          "estimate": 0.24488348004564794,
+          "n_clusters": 213
+        },
+        "first_to_last_prior": {
+          "ci95": [
+            0.099762893131701,
+            0.18543396379917917
+          ],
+          "estimate": 0.14191997112919977,
+          "n_clusters": 213
+        },
+        "prior_slope": {
+          "ci95": [
+            0.08004610675363458,
+            0.14462548090237848
+          ],
+          "estimate": 0.11261950782594199,
+          "n_clusters": 213
+        },
+        "target_jump": {
+          "ci95": [
+            0.21036114460387279,
+            0.2841338479792234
+          ],
+          "estimate": 0.24698320637272153,
+          "n_clusters": 213
+        }
+      },
+      "5": {
+        "all_slope": {
+          "ci95": [
+            0.19730224031444482,
+            0.26621236910998985
+          ],
+          "estimate": 0.23182775547622325,
+          "n_clusters": 181
+        },
+        "first_to_last_prior": {
+          "ci95": [
+            0.11108896129894989,
+            0.2056653376710012
+          ],
+          "estimate": 0.15873579949462235,
+          "n_clusters": 181
+        },
+        "prior_slope": {
+          "ci95": [
+            0.08596580496702773,
+            0.1566916406226866
+          ],
+          "estimate": 0.12079159030803106,
+          "n_clusters": 181
+        },
+        "target_jump": {
+          "ci95": [
+            0.20801283546684765,
+            0.2837550992180983
+          ],
+          "estimate": 0.24543719343140852,
+          "n_clusters": 181
+        }
+      }
+    },
+    "prior_slope": {
+      "ci95": [
+        0.08004610675363458,
+        0.14462548090237848
+      ],
+      "estimate": 0.11261950782594199,
+      "n_clusters": 213
+    },
+    "target_jump": {
+      "ci95": [
+        0.2054708719135495,
+        0.27504091681426085
+      ],
+      "estimate": 0.23890867086256373,
+      "n_clusters": 229
+    }
+  },
+  "trajectory_cluster_robust_regressions": {
+    "all_turns_adjusted": {
+      "n_conversations": 281,
+      "n_rows": 9396,
+      "r_squared": 0.39752865071510846,
+      "relative_position_beta": 0.07031595093805362,
+      "relative_position_p": 0.0033064548948683156,
+      "relative_position_se": 0.023935628777918178
+    },
+    "all_turns_conversation_fe": {
+      "n_conversations": 281,
+      "n_rows": 9396,
+      "r_squared": 0.5073293570222637,
+      "relative_position_beta": 0.06034046034032058,
+      "relative_position_p": 0.008109668026468,
+      "relative_position_se": 0.022791749200978977
+    },
+    "all_turns_unadjusted": {
+      "n_conversations": 281,
+      "n_rows": 9396,
+      "r_squared": 0.021987331130537968,
+      "relative_position_beta": 0.14296581987473025,
+      "relative_position_p": 1.39196704852637e-06,
+      "relative_position_se": 0.02962315267988593
+    },
+    "prior_only_adjusted": {
+      "n_conversations": 229,
+      "n_rows": 8957,
+      "r_squared": 0.3911138083372645,
+      "relative_position_beta": 0.0299265551798405,
+      "relative_position_p": 0.16029220588263227,
+      "relative_position_se": 0.021313851864662017
+    },
+    "prior_only_conversation_fe": {
+      "n_conversations": 229,
+      "n_rows": 8957,
+      "r_squared": 0.49992555360692303,
+      "relative_position_beta": 0.029940909279118556,
+      "relative_position_p": 0.16233855071643366,
+      "relative_position_se": 0.02142846277464487
+    },
+    "prior_only_unadjusted": {
+      "n_conversations": 229,
+      "n_rows": 8957,
+      "r_squared": 0.00595105279505459,
+      "relative_position_beta": 0.0772332891123002,
+      "relative_position_p": 0.002653959286432298,
+      "relative_position_se": 0.02569978189912032
+    }
+  }
+}

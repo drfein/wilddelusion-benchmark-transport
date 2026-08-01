@@ -1,0 +1,13 @@
+{
+  "frozen_at": "2026-07-31",
+  "local_sources": {
+    "grounded_model_inputs.jsonl": "sha256:567238a6e14d2a5182ddbf841fd1cb3280c2c6d4062c748947cade3ce87d199a",
+    "high_confidence_strict_controls.jsonl": "sha256:e7953153a3788f017e99080a07888905e159b1deba40ea23873cb280f2a881f4",
+    "all_contextual_rejections.jsonl": "sha256:3ccab09e9aa886f532d9edc3abc47f1f2650ff4346ad98cadd78ee20ffd8db82"
+  },
+  "huggingface_sources": {
+    "sentence-transformers/all-MiniLM-L6-v2": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "tucnguyen/ShareChat": "a57c741e002684939f577594fdae1559832a584d",
+    "yuntian-deng/WildChat-4.8M-Full": "eedff4afb0239e69217ffd1c276e2ba45bbfdd45"
+  }
+}

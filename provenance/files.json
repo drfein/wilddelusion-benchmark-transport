@@ -42,8 +42,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 7537,
-      "sha256": "6f6e161f9e91cc062fc0b9d1d6796e11ccbc2664fe44cbcd53a53390c5582cf5"
+      "bytes": 8410,
+      "sha256": "9a40bb6e7fde2278c8dddb565190f4fd157c3c4ff796196130e94ab2cdbc61ca"
     },
     {
       "path": "configs/pipeline.toml",
@@ -1096,6 +1096,121 @@
       "sha256": "eceabc442c627dba7698f3ad6106ce53af7b51652f5d122f18f4203395567ca1"
     },
     {
+      "path": "studies/shimgekar_delusionscore_construct_transport/README.md",
+      "bytes": 1973,
+      "sha256": "c9c090d7ed97686c44da3e0726ff0b6f2f4e9b481e9aca1db7a376505800b54c"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/REPORT.md",
+      "bytes": 4124,
+      "sha256": "7cf09a4fd765e47d72256a1272f4c8a255b51a299140cf72638061a5af61607b"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/design.py",
+      "bytes": 527,
+      "sha256": "1910bfaa8b9f224c06f9bf8560082b02d7805d61fae017358b9b70e91f2c332e"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/export_public.py",
+      "bytes": 3221,
+      "sha256": "b633eea5bc8c7205f5a4e8c8364fca3b2f1ab33deeb437a7e180fce0581b7b01"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/plot_headline.py",
+      "bytes": 5014,
+      "sha256": "f5de2cb0b8cef0a43f73ad7ba9a2cb0f6f51c3dc30b482ce27662ff94c9a7673"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/prepare_data.py",
+      "bytes": 7382,
+      "sha256": "93dae3301506ca6a13df31bc1c6c63389563b087e284dd80b15e521c957f324d"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/provenance.json",
+      "bytes": 676,
+      "sha256": "2dcd8261fb06f53cd1b65090c75f0f833400d98537a97a4f670facefa127bac9"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/requirements.txt",
+      "bytes": 194,
+      "sha256": "f934b3ce09318f252a4e1f47456ee543f4b1a3ffb593b67d58fba30e4e79fce5"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/results/CHECKSUMS.sha256",
+      "bytes": 1053,
+      "sha256": "c5066ed3e103edcacb1e0204e1c984087183ca95d4f0e2476732f1eb2c5ace3b"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/results/headline_transport.png",
+      "bytes": 228455,
+      "sha256": "261997fcbd7147bc90a42ae38c045af673f8618c2c672b85ae959bc1ef521f6f"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/results/natural_hard_control_scores.csv",
+      "bytes": 42849,
+      "sha256": "f42d86b37c0ebdbcaf54fd805c5a37eca1fb1610e5fcd7922b3a86b76a38b648"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/results/paired_construct_results.json",
+      "bytes": 11597,
+      "sha256": "c89a29424d8c9ae95830fb499e5a9d262eb3f5b2beb023052bf91e26a597e0fa"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/results/paired_construct_trajectory_scores.csv",
+      "bytes": 1859380,
+      "sha256": "3accea28f5d4dbf7b745b9b2dc07065444e2e56c6d34ab1c8ae81b02b115f996"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/results/paired_endpoint_scores.csv",
+      "bytes": 182112,
+      "sha256": "79b4d7b2c086c337a7756464be5600a2ef3ba9763e548b1482799db8f6f06619"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/results/random_control_oof_scores.csv",
+      "bytes": 159773,
+      "sha256": "0bf4d52a3395b36bfc6e5838c812cd5acb78d90b1617693cd3fa6c7aaba9ba41"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/results/random_control_results.json",
+      "bytes": 8532,
+      "sha256": "4cd77cb618f9c356a3a7f0e03527c7be3e561bdf947ae9051d068d363de8c132"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/results/random_control_trajectory_case_summaries.csv",
+      "bytes": 107034,
+      "sha256": "3ea3b4572d9c93c7d802208044d86f4603bebc43fb197dea47996c631dbead3b"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/results/random_control_trajectory_scores.csv",
+      "bytes": 1859393,
+      "sha256": "204400f08dcc3fa0853b0ff674e1fd81c5bdc3ec21ccbfb9230659edba80bfe4"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/results/transport_summary.png",
+      "bytes": 193448,
+      "sha256": "f0d52600f167cb30fe0afab2f6c654197c8b9cb527b3db76a00b3bb159b9e31f"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/run_analysis.py",
+      "bytes": 18317,
+      "sha256": "cbd375b641363e961446b2a1b043242a65a91494e4ac1a4c2b73f66ec899064a"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/run_random_control_analysis.py",
+      "bytes": 6539,
+      "sha256": "18b68623deb9f7362eb18113c8e1f917b67e2db6746e0b8172a4ce972d392321"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/sample_random_controls.py",
+      "bytes": 3841,
+      "sha256": "38d5b2d3ee29a0a51f14eeee289ecd995214ed00129099bbbfeca0e07cef48c7"
+    },
+    {
+      "path": "studies/shimgekar_delusionscore_construct_transport/test_design.py",
+      "bytes": 394,
+      "sha256": "005a5c63df3a9d459888317e58b0b3d6197c482ebeeea8b16e051e8c57a67592"
+    },
+    {
       "path": "studies/sim_vail_real_intent_transport/README.md",
       "bytes": 6777,
       "sha256": "a182e474aa76b28d79fb748c84aa9460043bb2d76ecd39a2fa534bd666fa7f99"
@@ -1511,5 +1626,5 @@
       "sha256": "ef601d6188c892c0ccf11556ba266687e68ae24bebe12e5ac9e62e38257334cc"
     }
   ],
-  "count": 302
+  "count": 325
 }
