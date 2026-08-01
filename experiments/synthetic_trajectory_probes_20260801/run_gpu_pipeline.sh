@@ -97,7 +97,7 @@ wait_for_supervisor_exit download_llama
 wait_for_supervisor_exit download_gemma
 
 judge_and_fit qwen3_8b
-rollout llama31_8b "$LLAMA" 16
+rollout llama31_8b "$LLAMA" 12
 judge_and_fit llama31_8b
 rollout gemma3_12b "$GEMMA" 8
 judge_and_fit gemma3_12b
