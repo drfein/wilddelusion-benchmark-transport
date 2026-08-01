@@ -230,8 +230,10 @@ def main() -> None:
         if "integrated_gradients" in data:
             gradient = data["gradient_times_input"].astype(np.float64)
             integrated = data["integrated_gradients"].astype(np.float64)
-            content = message_indices >= 0
-            message_ids = sorted(set(message_indices[content].tolist()))
+            prior_context = (message_indices > 0) & (
+                message_indices < len(row["messages"]) - 1
+            )
+            message_ids = sorted(set(message_indices[prior_context].tolist()))
             gradient_messages = np.asarray(
                 [gradient[message_indices == value].sum() for value in message_ids]
             )
@@ -243,7 +245,9 @@ def main() -> None:
                     "conversation_hash": conversation_hash,
                     "input_tokens": int(row["input_tokens"]),
                     "token_spearman": float(
-                        spearmanr(gradient[content], integrated[content]).statistic
+                        spearmanr(
+                            gradient[prior_context], integrated[prior_context]
+                        ).statistic
                     ),
                     "message_sum_spearman": float(
                         spearmanr(gradient_messages, integrated_messages).statistic
