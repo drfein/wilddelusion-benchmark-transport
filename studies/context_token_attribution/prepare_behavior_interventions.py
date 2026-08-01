@@ -3,18 +3,15 @@ from __future__ import annotations
 import argparse
 import json
 import math
-import random
 from pathlib import Path
 
 import numpy as np
-from config import MODEL_ID, MODEL_REVISION, SEED, stable_hash
+from config import MODEL_ID, MODEL_REVISION, stable_hash
 from io_utils import read_jsonl, sha256_file, write_jsonl
 from transformers import AutoTokenizer
 
 
-def choose_matched_control(
-    candidates: list[dict], top: dict, conversation_hash: str
-) -> dict | None:
+def choose_matched_control(candidates: list[dict], top: dict) -> dict | None:
     alternatives = [
         item for item in candidates if item["message_index"] != top["message_index"]
     ]
@@ -24,11 +21,9 @@ def choose_matched_control(
         item["match_distance"] = abs(
             math.log1p(item["tokens"]) - math.log1p(top["tokens"])
         ) + 2 * abs(item["relative_position"] - top["relative_position"])
-    nearest = sorted(
+    return min(
         alternatives, key=lambda item: (item["match_distance"], item["message_index"])
-    )[:3]
-    seed = int(stable_hash([SEED, conversation_hash, "matched-control"])[:16], 16)
-    return random.Random(seed).choice(nearest)
+    )
 
 
 def main() -> None:
@@ -100,7 +95,7 @@ def main() -> None:
                 }
             )
             continue
-        control = choose_matched_control(assistant_units, top, row["conversation_hash"])
+        control = choose_matched_control(assistant_units, top)
         if control is None:
             raise RuntimeError("Control matching failed after eligibility check")
         selection = {
@@ -170,8 +165,8 @@ def main() -> None:
         "conditions": ["top_assistant_deleted", "matched_assistant_deleted"],
         "top_rule": "largest positive signed gradient-times-input sum over assistant content tokens",
         "control_rule": (
-            "seeded random choice among three same-conversation assistant messages "
-            "nearest in log token length plus twice relative-position distance"
+            "same-conversation assistant message nearest in log token length plus "
+            "twice relative-position distance; ties use earliest message index"
         ),
         "common_random_numbers": "generation seeds depend on conversation, not condition",
         "excluded": exclusions,
