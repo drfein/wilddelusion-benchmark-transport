@@ -74,7 +74,18 @@ def main() -> None:
     ).eval()
     model.requires_grad_(False)
     model_backbone = backbone(model)
+    selected_layer_numbers = {
+        int(str(np.load(path)["layer"].item()).rsplit("_", 1)[1])
+        for path in args.probe_dir.glob("outer_fold_*.npz")
+    }
+    if not selected_layer_numbers:
+        raise ValueError("No outer-fold probe checkpoints found")
+    max_probe_layer = max(selected_layer_numbers)
+    model_backbone.layers = torch.nn.ModuleList(
+        list(model_backbone.layers[:max_probe_layer])
+    )
     original_layers = model_backbone.layers
+    torch.cuda.empty_cache()
     completed = {
         row["conversation_hash"]
         for row in read_jsonl(args.output)
@@ -164,6 +175,10 @@ def main() -> None:
         "unit": "complete prior user or assistant message",
         "score": "held-out-fold probe logit",
         "contribution": "baseline logit minus logit after unit deletion",
+        "memory_optimization": (
+            f"model permanently truncated to maximum selected layer {max_probe_layer}; "
+            "each row is further truncated to its held-out-fold layer"
+        ),
     }
     args.manifest.parent.mkdir(parents=True, exist_ok=True)
     args.manifest.write_text(json.dumps(manifest, indent=2) + "\n")

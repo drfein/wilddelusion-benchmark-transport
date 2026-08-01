@@ -72,7 +72,6 @@ def probe_attribution(
     integrated_gradient_steps: int,
 ) -> tuple[np.ndarray, np.ndarray | None, float]:
     embeddings = model.get_input_embeddings()(input_ids).detach()
-    attention_mask = torch.ones_like(input_ids)
 
     def gradient_at(alpha: float) -> tuple[torch.Tensor, float]:
         scaled = (embeddings * alpha).detach().requires_grad_(True)
@@ -86,7 +85,6 @@ def probe_attribution(
         try:
             model(
                 inputs_embeds=scaled,
-                attention_mask=attention_mask,
                 use_cache=False,
                 return_dict=True,
                 logits_to_keep=1,
@@ -147,8 +145,22 @@ def main() -> None:
     model.gradient_checkpointing_enable(
         gradient_checkpointing_kwargs={"use_reentrant": False}
     )
+    if float(getattr(model.config, "attention_dropout", 0.0)) != 0.0:
+        raise ValueError("Gradient-checkpoint training mode requires zero dropout")
+    # Transformers applies decoder gradient checkpointing only while training.
+    # Qwen3 has no dropout, so this changes memory use but not the deterministic score.
+    model.train()
     backbone = backbone_layers(model)
+    selected_layer_numbers = {
+        int(str(np.load(path)["layer"].item()).rsplit("_", 1)[1])
+        for path in args.probe_dir.glob("outer_fold_*.npz")
+    }
+    if not selected_layer_numbers:
+        raise ValueError("No outer-fold probe checkpoints found")
+    max_probe_layer = max(selected_layer_numbers)
+    backbone.layers = torch.nn.ModuleList(list(backbone.layers[:max_probe_layer]))
     original_layers = backbone.layers
+    torch.cuda.empty_cache()
     prior = {
         row["conversation_hash"]
         for row in read_jsonl(args.index)
@@ -237,6 +249,12 @@ def main() -> None:
         "integrated_gradient_subset": len(ig_hashes),
         "integrated_gradient_subset_rule": "smallest conversation SHA-256 hashes",
         "probe_leakage_control": "each row uses the probe trained without its outer fold",
+        "memory_optimization": (
+            f"model permanently truncated to maximum selected layer {max_probe_layer}; "
+            "each row is further truncated to its held-out-fold layer; unpadded "
+            "single-sequence forwards omit the redundant all-ones attention mask; "
+            "zero-dropout training mode activates decoder gradient checkpointing"
+        ),
     }
     args.manifest.parent.mkdir(parents=True, exist_ok=True)
     args.manifest.write_text(json.dumps(manifest, indent=2) + "\n")
