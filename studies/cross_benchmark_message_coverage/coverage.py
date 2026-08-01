@@ -181,7 +181,21 @@ def build(args: argparse.Namespace) -> None:
     write_jsonl(work / "blind_items.jsonl", blind)
     write_jsonl(work / "provenance.jsonl", provenance)
     audit_rng = random.Random(args.seed + 1)
-    audit_items = audit_rng.sample(blind, min(300, len(blind)))
+    items_by_id = {item["item_id"]: item for item in blind}
+    ids_by_corpus = {
+        corpus: sorted({row["item_id"] for row in provenance if row["corpus"] == corpus})
+        for corpus in sorted({row["corpus"] for row in provenance})
+    }
+    quotas = {"spiral_bench": 14, "psychosis_bench": 95, "wilddelusion": 95, "sim_vail": 96}
+    audit_ids = []
+    for corpus, quota in quotas.items():
+        candidates = ids_by_corpus[corpus]
+        audit_ids.extend(candidates if len(candidates) <= quota else audit_rng.sample(candidates, quota))
+    if len(set(audit_ids)) != 300:
+        raise ValueError(f"Stratified audit did not yield 300 unique items: {len(set(audit_ids))}")
+    audit_rng.shuffle(audit_ids)
+    audit_items = [items_by_id[item_id] for item_id in audit_ids]
+    (work / "audit_item_ids.json").write_text(json.dumps(audit_ids, indent=2) + "\n", encoding="utf-8")
     with (work / "human_audit_blind.csv").open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=["item_id", "text", *AXES, "notes"])
         writer.writeheader()
@@ -224,8 +238,9 @@ async def code(args: argparse.Namespace) -> None:
     load_dotenv(args.env)
     items = read_jsonl(args.work / "blind_items.jsonl")
     if args.audit:
-        rng = random.Random(args.audit_seed)
-        items = rng.sample(items, min(args.audit_n, len(items)))
+        requested_ids = json.loads((args.work / "audit_item_ids.json").read_text(encoding="utf-8"))[:args.audit_n]
+        by_id = {item["item_id"]: item for item in items}
+        items = [by_id[item_id] for item_id in requested_ids]
     output = args.work / ("labels_audit.jsonl" if args.audit else "labels_primary.jsonl")
     existing = read_jsonl(output) if output.exists() else []
     completed = {r["item_id"] for r in existing if not r.get("error")}
@@ -296,17 +311,40 @@ def distribution(frame: pd.DataFrame, axes: list[str] = AXES) -> pd.Series:
     return cells.value_counts(normalize=True)
 
 
-def bootstrap_metric(frame: pd.DataFrame, function, draws: int, seed: int) -> tuple[float, float, float]:
-    point = float(function(frame))
-    groups = {key: value for key, value in frame.groupby("cluster_id", sort=False)}
-    keys = list(groups)
+def kappa(left: pd.Series, right: pd.Series) -> float | None:
+    if len(set(left).union(set(right))) < 2:
+        return None
+    value = float(cohen_kappa_score(left, right))
+    return value if np.isfinite(value) else None
+
+
+def cluster_bootstrap_mean(frame: pd.DataFrame, values: np.ndarray, draws: int, seed: int) -> tuple[float, float, float]:
+    work = pd.DataFrame({"cluster_id": frame["cluster_id"].to_numpy(), "value": np.asarray(values, dtype=float)})
+    grouped = work.groupby("cluster_id", sort=False).value.agg(["sum", "count"])
+    sums = grouped["sum"].to_numpy()
+    counts = grouped["count"].to_numpy()
     rng = np.random.default_rng(seed)
-    values = []
-    for _ in range(draws):
-        sampled = rng.choice(keys, len(keys), replace=True)
-        values.append(float(function(pd.concat([groups[x] for x in sampled], ignore_index=True))))
-    lo, hi = np.quantile(values, [0.005, 0.995])
-    return point, float(lo), float(hi)
+    sampled = rng.integers(0, len(grouped), size=(draws, len(grouped)))
+    estimates = sums[sampled].sum(axis=1) / counts[sampled].sum(axis=1)
+    lo, hi = np.quantile(estimates, [0.005, 0.995])
+    return float(np.asarray(values, dtype=float).mean()), float(lo), float(hi)
+
+
+def cluster_bootstrap_proportions(frame: pd.DataFrame, axis: str, values: list[str], draws: int, seed: int) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    encoded = frame.assign(_value=frame[axis].astype(str))
+    counts = pd.crosstab(encoded.cluster_id, encoded._value).reindex(columns=values, fill_value=0).to_numpy(dtype=float)
+    totals = counts.sum(axis=1)
+    point = counts.sum(axis=0) / totals.sum()
+    rng = np.random.default_rng(seed)
+    estimates = np.empty((draws, len(values)), dtype=float)
+    for start in range(0, draws, 250):
+        stop = min(start + 250, draws)
+        sampled = rng.integers(0, len(counts), size=(stop - start, len(counts)))
+        numerator = counts[sampled].sum(axis=1)
+        denominator = totals[sampled].sum(axis=1)[:, None]
+        estimates[start:stop] = numerator / denominator
+    low, high = np.quantile(estimates, [0.025, 0.975], axis=0)
+    return point, low, high, estimates
 
 
 def analyze(args: argparse.Namespace) -> None:
@@ -319,12 +357,34 @@ def analyze(args: argparse.Namespace) -> None:
     corpora = sorted(primary.corpus.unique())
 
     marginal_rows = []
-    for corpus in corpora:
+    for corpus_index, corpus in enumerate(corpora):
         part = primary[primary.corpus == corpus]
-        for axis in AXES:
-            for value, n in part[axis].value_counts().items():
-                marginal_rows.append({"corpus": corpus, "axis": axis, "value": value, "n": int(n), "prevalence": n / len(part)})
+        for axis_index, axis in enumerate(AXES):
+            values = sorted(primary[axis].astype(str).unique())
+            point, low, high, _ = cluster_bootstrap_proportions(part, axis, values, args.draws, args.seed + 100 * corpus_index + axis_index)
+            raw_counts = part[axis].astype(str).value_counts()
+            for i, value in enumerate(values):
+                marginal_rows.append({"corpus": corpus, "axis": axis, "value": value, "n": int(raw_counts.get(value, 0)), "prevalence": point[i], "ci95_low": low[i], "ci95_high": high[i]})
     pd.DataFrame(marginal_rows).to_csv(args.work / "marginals.csv", index=False)
+
+    pooled_rows = []
+    synthetic_for_pool = primary[primary.group == "synthetic"]
+    for axis_index, axis in enumerate(AXES):
+        values = sorted(primary[axis].astype(str).unique())
+        paper_points, paper_draws = [], []
+        for corpus_index, corpus in enumerate(sorted(synthetic_for_pool.corpus.unique())):
+            point, _, _, estimates = cluster_bootstrap_proportions(
+                synthetic_for_pool[synthetic_for_pool.corpus == corpus], axis, values,
+                args.draws, args.seed + 1000 + 100 * corpus_index + axis_index,
+            )
+            paper_points.append(point)
+            paper_draws.append(estimates)
+        point = np.mean(paper_points, axis=0)
+        pooled_draws = np.mean(paper_draws, axis=0)
+        low, high = np.quantile(pooled_draws, [0.025, 0.975], axis=0)
+        for i, value in enumerate(values):
+            pooled_rows.append({"corpus": "equal_paper_synthetic", "axis": axis, "value": value, "prevalence": point[i], "ci95_low": low[i], "ci95_high": high[i]})
+    pd.DataFrame(pooled_rows).to_csv(args.work / "pooled_marginals.csv", index=False)
 
     synthetic = primary[primary.group == "synthetic"]
     natural = primary[primary.group == "natural"]
@@ -337,20 +397,25 @@ def analyze(args: argparse.Namespace) -> None:
     absent = {cell for cell in all_cells if pooled[cell] == 0}
     sparse = {cell for cell in all_cells if pooled[cell] < 0.01}
 
-    def natural_only(frame: pd.DataFrame) -> float:
-        return distribution(frame).reindex(all_cells, fill_value=0).loc[list(absent)].sum() if absent else 0.0
-    def sparse_mass(frame: pd.DataFrame) -> float:
-        return distribution(frame).reindex(all_cells, fill_value=0).loc[list(sparse)].sum() if sparse else 0.0
-    no = bootstrap_metric(natural, natural_only, args.draws, args.seed)
-    sm = bootstrap_metric(natural, sparse_mass, args.draws, args.seed + 1)
+    natural_cells = natural[AXES].astype(str).agg("|".join, axis=1)
+    no = cluster_bootstrap_mean(natural, natural_cells.isin(absent).to_numpy(), args.draws, args.seed)
+    sm = cluster_bootstrap_mean(natural, natural_cells.isin(sparse).to_numpy(), args.draws, args.seed + 1)
     js = float(jensenshannon(natural_dist.values, pooled.values, base=2) ** 2)
 
     audit = pd.DataFrame([x for x in read_jsonl(args.work / "labels_audit.jsonl") if not x.get("error")]) if (args.work / "labels_audit.jsonl").exists() else pd.DataFrame()
     agreement = {}
+    agreement_by_corpus = {}
     if not audit.empty:
         joined = primary_labels.merge(audit, on="item_id", suffixes=("_primary", "_audit"))
         for axis in AXES:
-            agreement[axis] = {"n": len(joined), "exact": float((joined[f"{axis}_primary"] == joined[f"{axis}_audit"]).mean()), "kappa": float(cohen_kappa_score(joined[f"{axis}_primary"], joined[f"{axis}_audit"]))}
+            agreement[axis] = {"n": len(joined), "exact": float((joined[f"{axis}_primary"] == joined[f"{axis}_audit"]).mean()), "kappa": kappa(joined[f"{axis}_primary"], joined[f"{axis}_audit"])}
+        audit_provenance = provenance[["item_id", "corpus"]].drop_duplicates()
+        joined = joined.merge(audit_provenance, on="item_id", validate="one_to_one")
+        for corpus, part in joined.groupby("corpus"):
+            agreement_by_corpus[corpus] = {
+                axis: {"n": len(part), "exact": float((part[f"{axis}_primary"] == part[f"{axis}_audit"]).mean()), "kappa": kappa(part[f"{axis}_primary"], part[f"{axis}_audit"])}
+                for axis in AXES
+            }
 
     axis_tvd = {}
     for axis in AXES:
@@ -362,7 +427,8 @@ def analyze(args: argparse.Namespace) -> None:
         axis_tvd[axis] = float(0.5 * np.abs(nd - sd).sum())
 
     headline = lambda frame: ((frame.explicit_distress_marker == 0) & (frame.harm_indication == 0) & (frame.directness == 1)).mean()
-    headline_natural = bootstrap_metric(natural, headline, args.draws, args.seed + 2)
+    headline_values = ((natural.explicit_distress_marker == 0) & (natural.harm_indication == 0) & (natural.directness == 1)).to_numpy()
+    headline_natural = cluster_bootstrap_mean(natural, headline_values, args.draws, args.seed + 2)
     paper_headlines = [headline(synthetic[synthetic.corpus == c]) for c in sorted(synthetic.corpus.unique())]
     headline_synthetic = float(np.mean(paper_headlines))
     summary = {
@@ -376,7 +442,8 @@ def analyze(args: argparse.Namespace) -> None:
         "broad_gap_falsified_by_overlap_rule": sum(v < 0.10 for v in axis_tvd.values()) >= 3,
         "headline_no_distress_no_harm_indirect": {"wilddelusion": {"estimate": headline_natural[0], "ci99": [headline_natural[1], headline_natural[2]]}, "equal_paper_synthetic": headline_synthetic},
         "coder_agreement": agreement,
-        "falsification_part_1": {"upper_99_below_5pct": no[2] < 0.05},
+        "automated_coder_agreement_by_corpus": agreement_by_corpus,
+        "human_audit_status": "pending; see human_audit_blind.csv",
         "limitations": ["Lost in Delusion turn-level artifact unavailable and therefore excluded."],
     }
     (args.work / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
@@ -384,6 +451,24 @@ def analyze(args: argparse.Namespace) -> None:
     cell_table["natural_only"] = cell_table.equal_paper_synthetic == 0
     cell_table["synthetic_below_1pct"] = cell_table.equal_paper_synthetic < 0.01
     cell_table.to_csv(args.work / "joint_cells.csv", index=False)
+    turn_rows = []
+    subsets = {
+        "all_turns": synthetic,
+        "late_half": synthetic[synthetic.turn_position >= 0.5],
+        "final_turn": synthetic[synthetic.turn_ordinal == synthetic.turn_count],
+    }
+    for subset_name, subset in subsets.items():
+        for axis in AXES:
+            values = sorted(primary[axis].astype(str).unique())
+            natural_axis = natural[axis].astype(str).value_counts(normalize=True).reindex(values, fill_value=0)
+            pooled_axis = pd.Series(0.0, index=values)
+            present = sorted(subset.corpus.unique())
+            for corpus in present:
+                pooled_axis += subset[subset.corpus == corpus][axis].astype(str).value_counts(normalize=True).reindex(values, fill_value=0) / len(present)
+            for value in values:
+                turn_rows.append({"subset": subset_name, "axis": axis, "value": value, "equal_paper_synthetic": pooled_axis[value], "wilddelusion": natural_axis[value], "absolute_gap": abs(pooled_axis[value] - natural_axis[value])})
+            turn_rows.append({"subset": subset_name, "axis": axis, "value": "__TVD__", "equal_paper_synthetic": np.nan, "wilddelusion": np.nan, "absolute_gap": 0.5 * np.abs(pooled_axis - natural_axis).sum()})
+    pd.DataFrame(turn_rows).to_csv(args.work / "turn_position_sensitivity.csv", index=False)
     make_figure(primary, args.work / "composition_gap.png")
     print(json.dumps(summary, indent=2))
 
@@ -392,11 +477,16 @@ def make_figure(frame: pd.DataFrame, output: Path) -> None:
     natural = frame[frame.group == "natural"]
     synthetic = frame[frame.group == "synthetic"]
     rows = []
-    for label, part in [("Real", natural), ("Benchmarks", synthetic)]:
-        for axis in AXES:
-            dist = part[axis].astype(str).value_counts(normalize=True)
-            for value, prevalence in dist.items():
-                rows.append({"source": label, "axis": axis, "value": value, "prevalence": prevalence})
+    for axis in AXES:
+        natural_dist = natural[axis].astype(str).value_counts(normalize=True)
+        for value, prevalence in natural_dist.items():
+            rows.append({"source": "Real", "axis": axis, "value": value, "prevalence": prevalence})
+        values = sorted(synthetic[axis].astype(str).unique())
+        pooled = pd.Series(0.0, index=values)
+        for corpus in sorted(synthetic.corpus.unique()):
+            pooled += synthetic[synthetic.corpus == corpus][axis].astype(str).value_counts(normalize=True).reindex(values, fill_value=0) / synthetic.corpus.nunique()
+        for value, prevalence in pooled.items():
+            rows.append({"source": "Benchmarks", "axis": axis, "value": value, "prevalence": prevalence})
     plot = pd.DataFrame(rows)
     fig, axes = plt.subplots(2, 2, figsize=(11, 7.2), constrained_layout=True)
     palette = ["#264653", "#2A9D8F", "#E9C46A", "#F4A261", "#E76F51", "#6D597A", "#457B9D"]
@@ -407,7 +497,12 @@ def make_figure(frame: pd.DataFrame, output: Path) -> None:
         bottoms = np.zeros(2)
         for i, value in enumerate(values):
             heights = [float(sub[(sub.source == source) & (sub.value == value)].prevalence.sum()) for source in ["Benchmarks", "Real"]]
-            ax.bar([0, 1], heights, bottom=bottoms, width=.62, color=palette[i % len(palette)], label=value.replace("_", " "))
+            display = {
+                "explicit_distress_marker": {"0": "Absent", "1": "Present"},
+                "harm_indication": {"0": "None", "1": "Indirect", "2": "Direct"},
+                "directness": {"0": "No claim", "1": "Indirect", "2": "Direct"},
+            }.get(axis, {}).get(value, value.replace("_", " "))
+            ax.bar([0, 1], heights, bottom=bottoms, width=.62, color=palette[i % len(palette)], label=display)
             bottoms += heights
         ax.set_title(titles[axis], loc="left", weight="bold")
         ax.set_xticks([0, 1], ["Benchmarks", "Real"])

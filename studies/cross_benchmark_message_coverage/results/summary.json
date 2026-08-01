@@ -1,0 +1,162 @@
+{
+  "primary_occurrences": 7058,
+  "primary_by_corpus": {
+    "sim_vail": 6330,
+    "wilddelusion": 522,
+    "psychosis_bench": 192,
+    "spiral_bench": 14
+  },
+  "natural_only_cell_mass": {
+    "estimate": 0.007662835249042145,
+    "ci99": [
+      0.0,
+      0.019646601866619626
+    ],
+    "n_absent_cells": 2
+  },
+  "sparse_cell_mass": {
+    "estimate": 0.15134099616858238,
+    "ci99": [
+      0.11632229837119538,
+      0.1927717958447964
+    ],
+    "n_sparse_cells": 73
+  },
+  "joint_cell_js_divergence_bits": 0.5925932530944594,
+  "axis_total_variation_distance": {
+    "explicit_distress_marker": 0.06561200541119648,
+    "harm_indication": 0.13799771788107298,
+    "directness": 0.6402413637460214,
+    "theme": 0.6134276336780831
+  },
+  "axes_with_substantial_overlap_tvd_below_0_10": [
+    "explicit_distress_marker"
+  ],
+  "broad_gap_falsified_by_overlap_rule": false,
+  "headline_no_distress_no_harm_indirect": {
+    "wilddelusion": {
+      "estimate": 0.09386973180076628,
+      "ci99": [
+        0.061656966769604346,
+        0.12775580138545395
+      ]
+    },
+    "equal_paper_synthetic": 0.2912545606710299
+  },
+  "coder_agreement": {
+    "explicit_distress_marker": {
+      "n": 300,
+      "exact": 0.9066666666666666,
+      "kappa": 0.46558086270517873
+    },
+    "harm_indication": {
+      "n": 300,
+      "exact": 0.8433333333333334,
+      "kappa": 0.37137761925991974
+    },
+    "directness": {
+      "n": 300,
+      "exact": 0.61,
+      "kappa": 0.425287356321839
+    },
+    "theme": {
+      "n": 300,
+      "exact": 0.6566666666666666,
+      "kappa": 0.5586533929413109
+    }
+  },
+  "automated_coder_agreement_by_corpus": {
+    "psychosis_bench": {
+      "explicit_distress_marker": {
+        "n": 95,
+        "exact": 0.9789473684210527,
+        "kappa": -0.010638297872340496
+      },
+      "harm_indication": {
+        "n": 95,
+        "exact": 0.8421052631578947,
+        "kappa": 0.3421052631578948
+      },
+      "directness": {
+        "n": 95,
+        "exact": 0.5157894736842106,
+        "kappa": 0.3081063964534516
+      },
+      "theme": {
+        "n": 95,
+        "exact": 0.6105263157894737,
+        "kappa": 0.4682299546142208
+      }
+    },
+    "sim_vail": {
+      "explicit_distress_marker": {
+        "n": 96,
+        "exact": 0.8125,
+        "kappa": 0.4866310160427807
+      },
+      "harm_indication": {
+        "n": 96,
+        "exact": 0.7291666666666666,
+        "kappa": 0.2671755725190841
+      },
+      "directness": {
+        "n": 96,
+        "exact": 0.5208333333333334,
+        "kappa": 0.29501915708812265
+      },
+      "theme": {
+        "n": 96,
+        "exact": 0.7291666666666666,
+        "kappa": 0.5550008914244964
+      }
+    },
+    "spiral_bench": {
+      "explicit_distress_marker": {
+        "n": 14,
+        "exact": 1.0,
+        "kappa": null
+      },
+      "harm_indication": {
+        "n": 14,
+        "exact": 0.8571428571428571,
+        "kappa": 0.0
+      },
+      "directness": {
+        "n": 14,
+        "exact": 0.6428571428571429,
+        "kappa": 0.4117647058823529
+      },
+      "theme": {
+        "n": 14,
+        "exact": 0.35714285714285715,
+        "kappa": 0.19230769230769218
+      }
+    },
+    "wilddelusion": {
+      "explicit_distress_marker": {
+        "n": 95,
+        "exact": 0.9157894736842105,
+        "kappa": 0.16299559471365632
+      },
+      "harm_indication": {
+        "n": 95,
+        "exact": 0.9578947368421052,
+        "kappa": 0.6979332273449921
+      },
+      "directness": {
+        "n": 95,
+        "exact": 0.7894736842105263,
+        "kappa": 0.3585415259959487
+      },
+      "theme": {
+        "n": 95,
+        "exact": 0.6736842105263158,
+        "kappa": 0.4927661040303135
+      }
+    }
+  },
+  "human_audit_status": "pending; see human_audit_blind.csv",
+  "limitations": [
+    "Lost in Delusion turn-level artifact unavailable and therefore excluded."
+  ]
+}

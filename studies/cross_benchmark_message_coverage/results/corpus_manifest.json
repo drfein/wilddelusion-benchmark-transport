@@ -1,0 +1,36 @@
+{
+  "seed": 260731,
+  "occurrences": 7058,
+  "blind_unique_items": 7025,
+  "occurrences_by_corpus": {
+    "wilddelusion": 522,
+    "psychosis_bench": 192,
+    "spiral_bench": 14,
+    "sim_vail": 6330
+  },
+  "unique_texts_by_corpus": {
+    "wilddelusion": 522,
+    "psychosis_bench": 170,
+    "spiral_bench": 14,
+    "sim_vail": 6319
+  },
+  "clusters_by_corpus": {
+    "wilddelusion": 321,
+    "psychosis_bench": 16,
+    "spiral_bench": 14,
+    "sim_vail": 810
+  },
+  "wilddelusion_audit": {
+    "source_rows": 522,
+    "targets_verified": 522
+  },
+  "human_audit_packet_items": 300,
+  "lost_in_delusion": {
+    "included": false,
+    "reason": "No official released turn-level artifact located as of 2026-07-31; paper reports aggregate generation only."
+  },
+  "source_revisions": {
+    "spiral_bench": "19d6a92588a641ed82b9d06f79895069c8bbbebf",
+    "sim_vail": "08c0d36fa107911f18af3cd8449a292ef7ce1ff9"
+  }
+}
