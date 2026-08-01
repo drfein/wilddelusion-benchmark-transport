@@ -1,4 +1,4 @@
-# Complete-history context mechanism result
+# Complete-history context mechanism results
 
 ## Result in one paragraph
 
@@ -17,6 +17,46 @@ defensible result is therefore that accumulated real context can causally
 induce endorsement for a small subset of prompts, but these data do not
 reliably distinguish delusional-content inheritance from correlated context
 length or conversational commitment.
+
+## Post-result GPT-4.1-mini replication
+
+An exact same-target replication changed only the response model to
+`gpt-4.1-mini-2025-04-14`. On the 445 targets shared with GPT-5.4 mini, strict
+endorsement rose from 21/445 (4.72%) in the target-only arm to 186/445 (41.80%)
+with complete history: a paired increase of 37.08 percentage points
+(conversation-cluster bootstrap 95% CI 30.20 to 42.91 points). There were 170
+positive threshold crossings and five negative crossings. The context effect
+was 35.73 points larger than GPT-5.4 mini's effect on the same targets (95% CI
+28.78 to 41.79 points). Only three of GPT-5.4 mini's six positive flips were
+also positive flips for GPT-4.1 mini, so the result is not driven solely by a
+tiny universally difficult subset.
+
+Unlike the sparse GPT-5.4-mini outcome, the GPT-4.1-mini run resolves the
+candidate mechanism. The adjusted context-effect increase was +16.32 points
+per SD of prefix delusion density (95% CI +11.06 to +21.58, p<0.001). Prefix
+length was +4.67 points (95% CI -0.14 to +9.48, p=0.057), while rapport and
+self-disclosure intervals included zero. The full independent mini-coder
+sensitivity again identified delusion density (+18.15 points per SD, 95% CI
++13.06 to +23.24) and gave the same qualitative conclusion.
+
+The primary coder estimated a +10.00-point context effect among 60 near-zero
+delusion prefixes (95% CI +3.33 to +18.33), compared with +39.37 points among
+414 prefixes with positive delusion content (95% CI +32.41 to +45.13). Across
+delusion-density quartiles, the effect increased monotonically from 12.50% to
+27.03%, 49.55%, and 59.46%. Thus mundane context can matter for this model, but
+accumulated delusion-like content is the dominant measured driver.
+
+A private spot audit of 12 randomly selected full-context positives found
+substantive endorsements rather than mild safety caveats. Examples included
+affirming activated 12-strand DNA, multidimensional portals, spirits awaiting
+the user, and special cosmic identities as real. This was not a blinded human
+validation study and is not included as inferential evidence.
+
+This replication was requested after the GPT-5.4-mini result and is therefore
+post-result. It supplies strong model-heterogeneity evidence under a frozen
+protocol, but it is not a preregistered independent confirmation. Each arm also
+uses one temperature-zero API response; temperature zero does not guarantee
+bitwise repeatability.
 
 ## Design
 
@@ -117,6 +157,10 @@ estimate low event rates.
 - `results/context_mechanism.png`: compact result figure.
 - `results_mini_sensitivity/`: full mini-coder sensitivity analysis.
 - `paired_scores.csv`: no-text matched outcome table.
+- `gpt41mini/`: no-text GPT-4.1-mini replication artifacts.
+- `gpt41mini/model_comparison/model_comparison.json`: exact common-cohort model
+  contrast and conversation-cluster uncertainty.
+- `gpt41mini/model_comparison/model_comparison.png`: compact model comparison.
 
 Raw prompts, model responses, judgments, prefix text, and coder rationales are
 stored under gitignored `private/` directories.

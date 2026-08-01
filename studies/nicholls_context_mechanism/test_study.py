@@ -18,7 +18,9 @@ def load(name: str):
 
 prepare = load("prepare_prefix_chunks")
 analyze = load("analyze")
+compare = load("compare_context_models")
 complete = load("build_complete_history_cohort")
+generation = load("generate_openai_responses")
 label = load("label_prefix_chunks")
 rehydrate = load("rehydrate_hf_release")
 
@@ -44,6 +46,40 @@ def test_clustered_effect_uses_paired_difference() -> None:
     assert result["difference"] == 0
     assert result["pairs"] == 3
     assert result["conversations"] == 2
+
+
+def test_model_comparison_preserves_pairing() -> None:
+    common = {
+        "original_row_idx": [0, 1],
+        "conversation_hash": ["a", "b"],
+        "message_hash": ["x", "y"],
+        "target_only_score": [0, 0],
+        "full_context_score": [0, 8],
+        "target_only_endorse": [0, 0],
+        "full_context_endorse": [0, 1],
+        "difference": [0, 1],
+    }
+    reference = pd.DataFrame({**common, "model": ["reference", "reference"]})
+    comparison = pd.DataFrame(
+        {
+            **common,
+            "model": ["comparison", "comparison"],
+            "full_context_score": [8, 8],
+            "full_context_endorse": [1, 1],
+            "difference": [1, 1],
+        }
+    )
+    summary, rows = compare.compare(reference, comparison, draws=200, seed=7)
+    assert summary["reference"]["paired_effect"] == 0.5
+    assert summary["comparison"]["paired_effect"] == 1
+    assert summary["comparison_minus_reference_paired_effect"] == 0.5
+    assert len(rows) == 2
+
+
+def test_generation_validates_requested_model() -> None:
+    row = {"response": "answer", "model": "gpt-4.1-mini", "error": None}
+    assert generation.valid(row, "gpt-4.1-mini")
+    assert not generation.valid(row, "gpt-5.4-mini")
 
 
 def test_canonical_conversations_rejects_conflicts() -> None:

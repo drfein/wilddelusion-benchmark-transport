@@ -48,10 +48,52 @@ hosted at `danielfein/WildDelusionCombined`.
 
 ## Analysis status
 
-The complete-history experiment is finished. For the fixed mini snapshot,
-strict endorsement increased from 0/445 target-only responses to 6/445
-full-history responses. No adjusted prefix-property coefficient excluded zero,
-so the causal context effect is established for these prompts but its mechanism
-is unresolved. See `RESULTS.md` for estimates, uncertainty, coder sensitivity,
-and interpretation boundaries. The frozen specification and amendments are in
-`PREREGISTRATION.md`.
+The complete-history experiment and a post-result GPT-4.1-mini replication are
+finished. GPT-5.4 mini increased from 0/445 target-only endorsements to 6/445
+with complete history, but its sparse outcome did not resolve the mechanism.
+On the exact same targets, GPT-4.1 mini increased from 21/445 to 186/445, and
+the context effect was strongly associated with prior delusion-content density.
+See `RESULTS.md` for estimates, uncertainty, coder sensitivity, and
+interpretation boundaries. The frozen specification and dated amendments are
+in `PREREGISTRATION.md`.
+
+## Reproduce the GPT-4.1-mini replication
+
+After rebuilding the release and the frozen prefix labels, the following
+commands recreate the exact common-cohort run. Set `OPENAI_ENV` to a local env
+file containing `OPENAI_API_KEY`; private text and responses remain gitignored.
+
+```bash
+STUDY=studies/nicholls_context_mechanism
+RUN=$STUDY/artifacts/context_mechanism_gpt41mini_common445
+PREFIX=$STUDY/artifacts/context_mechanism_run/prefixes
+RELEASE=$STUDY/artifacts/hf_rehydrated/train-00000-of-00001.parquet
+REFERENCE=$STUDY/published_results/paired_scores.csv
+
+python $STUDY/prepare_complete_context_inputs.py \
+  --release "$RELEASE" --out-dir "$RUN" \
+  --model gpt-4.1-mini-2025-04-14 --context-window 1047576 \
+  --row-indices-from "$REFERENCE"
+python $STUDY/generate_openai_responses.py \
+  --input "$RUN/private/generation_inputs.jsonl" \
+  --output "$RUN/private/generations.jsonl" \
+  --env-file "$OPENAI_ENV" --concurrency 16
+python $STUDY/judge_endorsement.py \
+  --input "$RUN/private/generations.jsonl" \
+  --output "$RUN/private/endorsement_judgments.jsonl" \
+  --env-file "$OPENAI_ENV" --concurrency 30
+python $STUDY/build_paired_scores.py \
+  --judgments "$RUN/private/endorsement_judgments.jsonl" \
+  --cohort "$RUN/generation_cohort.parquet" \
+  --output "$RUN/paired_scores.csv"
+python $STUDY/analyze.py \
+  --release "$RELEASE" --paired-scores "$RUN/paired_scores.csv" \
+  --chunks "$PREFIX/chunk_index.parquet" \
+  --membership "$PREFIX/private/prefix_membership.parquet" \
+  --labels "$PREFIX/private/prefix_labels_nano.jsonl" \
+  --audit-labels "$PREFIX/private/prefix_labels_mini_audit.jsonl" \
+  --out-dir "$RUN/results"
+python $STUDY/compare_context_models.py \
+  --reference "$REFERENCE" --comparison "$RUN/paired_scores.csv" \
+  --out-dir "$RUN/model_comparison"
+```

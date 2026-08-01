@@ -1167,18 +1167,18 @@
     },
     {
       "path": "studies/nicholls_context_mechanism/PREREGISTRATION.md",
-      "bytes": 10269,
-      "sha256": "9dc78552feae521cbeee753844487ae9531546b992ee95669a51bd8b2757e152"
+      "bytes": 11361,
+      "sha256": "0193ff6f488d68f98578222588d4399888f76efca6c5e7827df5c623468ed30d"
     },
     {
       "path": "studies/nicholls_context_mechanism/README.md",
-      "bytes": 2745,
-      "sha256": "75ff36b8f9fc254007df47cddf1e5869266f093a6e8f21202c8267b6d925aca7"
+      "bytes": 4619,
+      "sha256": "821295435151b007c03c9d7026ee820bd7567b4ea94fff663289c1706c57533b"
     },
     {
       "path": "studies/nicholls_context_mechanism/RESULTS.md",
-      "bytes": 6159,
-      "sha256": "f111af88c1929ec7c9199fcca608161d68a4ec8f8e83f62e3634d548b391afc9"
+      "bytes": 8864,
+      "sha256": "ff749f9b4fa247eaf9e4d87f60c3edda9646ea2691ddf584801f93d6952848bb"
     },
     {
       "path": "studies/nicholls_context_mechanism/analyze.py",
@@ -1196,9 +1196,14 @@
       "sha256": "1264996967cd3e57831ef8f909f333870f1f9c83faff44be47acd8e3203de5c1"
     },
     {
+      "path": "studies/nicholls_context_mechanism/compare_context_models.py",
+      "bytes": 9404,
+      "sha256": "0aee4a7c283e074ffe195e3f5f0a8f6a8cf96dfc552dffe2cb3e913b15c26650"
+    },
+    {
       "path": "studies/nicholls_context_mechanism/generate_openai_responses.py",
-      "bytes": 5887,
-      "sha256": "48af81ff66d752a4f538f88b0eefa38ef120449776292674b32ba61be3a815f4"
+      "bytes": 6397,
+      "sha256": "aea1abbcdbea952d4216a329cebc9978daa3ab2dfed1d05f2d2c3bbe2b28e090"
     },
     {
       "path": "studies/nicholls_context_mechanism/judge_endorsement.py",
@@ -1212,8 +1217,8 @@
     },
     {
       "path": "studies/nicholls_context_mechanism/prepare_complete_context_inputs.py",
-      "bytes": 6830,
-      "sha256": "385bd94ac049f968c3de5845a8c6e43412b97a6661320ad749c89601a4998f84"
+      "bytes": 8262,
+      "sha256": "c88b5da3179cab314c92c81075e9cbc24dc3a792429f4daea3bdccaf6eb10df4"
     },
     {
       "path": "studies/nicholls_context_mechanism/prepare_prefix_chunks.py",
@@ -1222,13 +1227,148 @@
     },
     {
       "path": "studies/nicholls_context_mechanism/published_results/README.md",
-      "bytes": 610,
-      "sha256": "360d25d0fdf7065e978851981cac3cfc740eed064dd979c5ca8acdd26606b6ae"
+      "bytes": 798,
+      "sha256": "6b25dae673f100beb5ac4b243267697b4aed842620f456eeda919b0f926bf115"
     },
     {
       "path": "studies/nicholls_context_mechanism/published_results/generation_manifest.json",
       "bytes": 993,
       "sha256": "fabf38cc7cec5ebb8ee44439e71d1821e6a532adbec34342bdabd72ce82d699d"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/generation_execution_manifest.json",
+      "bytes": 400,
+      "sha256": "72d4ab878cb81cae99113761a065f8c60ebd4623673f1907c6e83cf302fa6640"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/input_manifest.json",
+      "bytes": 942,
+      "sha256": "621a3809b8c2242062b105bb3f001574dd15697d6d1fdff888a3f484ebebd34e"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/judge_execution_manifest.json",
+      "bytes": 477,
+      "sha256": "9458c3b817f51e389d1b84b9d7e381fab878177d28fcdbcdba1e6d44d2405f37"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/mini_coder_sensitivity/adjusted_regressions.csv",
+      "bytes": 1147,
+      "sha256": "7915ebf8a5aef9168e19e1d513dca41d27460f4fecf638ce4286f5715bbbbc00"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/mini_coder_sensitivity/context_effect_by_model_nonempty.csv",
+      "bytes": 404,
+      "sha256": "ac031813ab395c6078e64de487aa74fdf27d6b4edd421697b76bea9712daeca3"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/mini_coder_sensitivity/context_mechanism.pdf",
+      "bytes": 18471,
+      "sha256": "39fb71f974e94c9fd6b6d86be379f8ca37262611d228c8d96b1cb8da09772e37"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/mini_coder_sensitivity/context_mechanism.png",
+      "bytes": 129228,
+      "sha256": "11e2b3bcda28360a9a317be44449824b2ea18b7c763701a6f5e93820866d24bd"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/mini_coder_sensitivity/feature_quartile_effects.csv",
+      "bytes": 3481,
+      "sha256": "d9db439501d8f96067d1aca0c90f88dc8deda5f091672c9af0bc260449d43e5b"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/mini_coder_sensitivity/feature_spearman_correlations.csv",
+      "bytes": 393,
+      "sha256": "322b98c88ab1e00f171d276d21d1a966eef1fa6fa515107a59e0daec79a562a9"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/mini_coder_sensitivity/prefix_features_no_text.parquet",
+      "bytes": 52208,
+      "sha256": "a9f779dc4c6793f191c992f355de173b70cc5af08198246cc5aca4c0ac97909e"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/mini_coder_sensitivity/stratified_context_effects.csv",
+      "bytes": 1291,
+      "sha256": "49bc87dc0c901788d3bc529f428a6b1c35b531850d10ac216ae8b766178d49ff"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/mini_coder_sensitivity/summary.json",
+      "bytes": 6079,
+      "sha256": "e50e13fe23144920125bb8f75339ea7f88416cb40177d7055685ccdfae5181f1"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/model_comparison/matched_model_comparison.csv",
+      "bytes": 69726,
+      "sha256": "2932da85dc56b2129faa414da8a592e0d3429116167a1fac6a847af401dbea98"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/model_comparison/model_comparison.json",
+      "bytes": 1504,
+      "sha256": "179fed74c51017fecbeab31ae39b37be51a273675f7f7583d5df61f96ee93af5"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/model_comparison/model_comparison.pdf",
+      "bytes": 21612,
+      "sha256": "40efc28263fa4745e9f346a4916ad4258db12d44e72943aa2e63570691de6e8e"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/model_comparison/model_comparison.png",
+      "bytes": 62078,
+      "sha256": "f03c32e7a2a2b68948410045218117f97088eec89bb56e3207c46266630aa931"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/paired_scores.csv",
+      "bytes": 74852,
+      "sha256": "0dd07c4f199074942d6314717c8e8dfa5c2916d26b3a1fb2f6efc59abea61c52"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/paired_scores.manifest.json",
+      "bytes": 324,
+      "sha256": "fdf748e85e27c5b5a4ef153f4238a636ae0b9401a64a6b785c7e596a92464f30"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/primary/adjusted_regressions.csv",
+      "bytes": 1145,
+      "sha256": "1ad0693b2111b72e90d139c3cff50ab40ec1e1504cba65c9b80866139d308bab"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/primary/context_effect_by_model_nonempty.csv",
+      "bytes": 404,
+      "sha256": "ac031813ab395c6078e64de487aa74fdf27d6b4edd421697b76bea9712daeca3"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/primary/context_mechanism.pdf",
+      "bytes": 18494,
+      "sha256": "3d00cd6f35eade17f4edc68c55b0de26c6d41d46391571469328385309bef96d"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/primary/context_mechanism.png",
+      "bytes": 129191,
+      "sha256": "8a68243287b34c800e90add1ff5b68edb0da443167a7529f774d166231243990"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/primary/feature_quartile_effects.csv",
+      "bytes": 3270,
+      "sha256": "f92f3de485721610d6c022df4e4a2d40bbb8a74ee8969a9df6fb72d360cd1059"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/primary/feature_spearman_correlations.csv",
+      "bytes": 391,
+      "sha256": "b5dcd99e7ed4c2705374ddebda5afce6306164c2324c134e820ab91fa60bd34c"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/primary/prefix_features_no_text.parquet",
+      "bytes": 50560,
+      "sha256": "29775dc52f5e25a11d6c93ce7a12c142f44e55003a71715653c7099731fad34e"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/primary/stratified_context_effects.csv",
+      "bytes": 1253,
+      "sha256": "40932b7222126c9b5cc9ec3096294da5e9ccc029917dc193699cb65805841d68"
+    },
+    {
+      "path": "studies/nicholls_context_mechanism/published_results/gpt41mini/primary/summary.json",
+      "bytes": 5921,
+      "sha256": "66bd49fee79c7c4aa9337d7094956612280642052e9f42d2fd88a86dd97730ba"
     },
     {
       "path": "studies/nicholls_context_mechanism/published_results/mini_coder_sensitivity/adjusted_regressions.csv",
@@ -1347,8 +1487,8 @@
     },
     {
       "path": "studies/nicholls_context_mechanism/test_study.py",
-      "bytes": 3778,
-      "sha256": "0df97bcb477232a6fd281a653904d846ec5ff3c270c501417c0e84753223ce46"
+      "bytes": 5088,
+      "sha256": "8c163152009e07cd606be97543537b9b94be30dd34cbbc94f91a459a26b3b04d"
     },
     {
       "path": "studies/nicholls_context_mechanism/validate_rehydrated_release.py",
@@ -1886,5 +2026,5 @@
       "sha256": "ef601d6188c892c0ccf11556ba266687e68ae24bebe12e5ac9e62e38257334cc"
     }
   ],
-  "count": 377
+  "count": 405
 }

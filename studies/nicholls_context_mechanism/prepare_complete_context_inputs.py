@@ -50,14 +50,31 @@ def main() -> None:
     )
     parser.add_argument("--release", type=Path, required=True)
     parser.add_argument("--out-dir", type=Path, required=True)
+    parser.add_argument("--model", default=MODEL)
+    parser.add_argument("--context-window", type=int, default=CONTEXT_WINDOW)
+    parser.add_argument(
+        "--row-indices-from",
+        type=Path,
+        help="Optional CSV whose original_row_idx values define a common comparison cohort.",
+    )
     args = parser.parse_args()
 
     release = pd.read_parquet(args.release).reset_index(names="original_row_idx")
+    source_release_rows = len(release)
+    requested_ids: set[int] | None = None
+    if args.row_indices_from:
+        requested_ids = set(
+            pd.read_csv(args.row_indices_from)["original_row_idx"].astype(int)
+        )
+        available = set(release["original_row_idx"].astype(int))
+        if requested_ids - available:
+            raise ValueError("Requested comparison rows are absent from the release")
+        release = release[release["original_row_idx"].isin(requested_ids)].copy()
     encoding = tiktoken.get_encoding("o200k_base")
     private_rows: list[dict[str, Any]] = []
     public_rows: list[dict[str, Any]] = []
     statuses: Counter[str] = Counter()
-    max_input_tokens = CONTEXT_WINDOW - MAX_OUTPUT_TOKENS - SAFETY_MARGIN_TOKENS
+    max_input_tokens = args.context_window - MAX_OUTPUT_TOKENS - SAFETY_MARGIN_TOKENS
 
     for row in release.itertuples(index=False):
         target_index = int(row.target_message_index)
@@ -92,7 +109,7 @@ def main() -> None:
             "conversation_hash": conversation_hash,
             "message_hash": str(row.message_hash),
             "target_text": str(row.target_text),
-            "model": MODEL,
+            "model": args.model,
         }
         for arm, arm_messages, estimated_tokens in (
             ("full_context", messages, full_tokens),
@@ -100,10 +117,12 @@ def main() -> None:
         ):
             prompt_sha256 = stable_hash(
                 {
-                    "model": MODEL,
+                    "model": args.model,
                     "system": SYSTEM_PROMPT,
                     "messages": arm_messages,
-                    "reasoning_effort": "none",
+                    "reasoning_effort": "none"
+                    if args.model.startswith("gpt-5")
+                    else None,
                     "temperature": 0,
                     "max_output_tokens": MAX_OUTPUT_TOKENS,
                 }
@@ -133,9 +152,20 @@ def main() -> None:
         )
         statuses["included"] += 1
 
-    if len(public_rows) != 447 or len(private_rows) != 894:
+    if requested_ids is not None and len(public_rows) != len(requested_ids):
         raise ValueError(
-            f"Frozen cohort changed unexpectedly: targets={len(public_rows)}, requests={len(private_rows)}"
+            f"Requested cohort failed eligibility: requested={len(requested_ids)}, "
+            f"included={len(public_rows)}"
+        )
+    if (
+        requested_ids is None
+        and args.model == MODEL
+        and args.context_window == CONTEXT_WINDOW
+        and (len(public_rows) != 447 or len(private_rows) != 894)
+    ):
+        raise ValueError(
+            f"Frozen cohort changed unexpectedly: targets={len(public_rows)}, "
+            f"requests={len(private_rows)}"
         )
     args.out_dir.mkdir(parents=True, exist_ok=True)
     write_jsonl(args.out_dir / "private" / "generation_inputs.jsonl", private_rows)
@@ -145,18 +175,21 @@ def main() -> None:
     manifest = {
         "release": str(args.release),
         "release_sha256": hashlib.sha256(args.release.read_bytes()).hexdigest(),
-        "release_rows": len(release),
+        "release_rows": source_release_rows,
+        "requested_comparison_rows": len(release),
         "included_targets": len(public_rows),
         "source_conversations": len({row["conversation_hash"] for row in public_rows}),
         "requests": len(private_rows),
         "statuses": dict(sorted(statuses.items())),
-        "model": MODEL,
+        "model": args.model,
         "system_prompt_sha256": hashlib.sha256(
             SYSTEM_PROMPT.encode("utf-8")
         ).hexdigest(),
-        "reasoning_effort": "none",
+        "reasoning_effort": "none"
+        if args.model.startswith("gpt-5")
+        else "not_applicable",
         "temperature": 0,
-        "context_window": CONTEXT_WINDOW,
+        "context_window": args.context_window,
         "max_output_tokens": MAX_OUTPUT_TOKENS,
         "safety_margin_tokens": SAFETY_MARGIN_TOKENS,
         "tokenizer_estimate": "o200k_base plus conservative per-message overhead",

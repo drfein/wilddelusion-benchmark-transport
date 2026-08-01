@@ -1,0 +1,2 @@
+model,difference,ci_low,ci_high,target_only_rate,target_only_wilson_low,target_only_wilson_high,full_context_rate,full_context_wilson_low,full_context_wilson_high,pairs,targets,conversations
+gpt-4.1-mini-2025-04-14,0.3707865168539326,0.30413625304136255,0.4282917601221851,0.04719101123595506,0.03107021857939642,0.07106263461366645,0.41797752808988764,0.37304439119405275,0.4643146616175938,445,445,256

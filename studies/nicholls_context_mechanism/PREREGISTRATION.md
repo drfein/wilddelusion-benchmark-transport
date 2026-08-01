@@ -186,3 +186,23 @@ stratified sample of at least 200 chunks is independently recoded by
 `gpt-5.4-mini-2026-03-17`. This automated agreement is a reliability check,
 not human validation; any mechanism conclusion remains provisional until the
 precommitted human audit is completed.
+
+## Protocol amendment 4: post-result GPT-4.1-mini replication
+
+Added 2026-07-31 after the GPT-5.4-mini result was known and at the user's
+request. This is explicitly a post-result protocol replication, not a
+preregistered confirmatory test.
+
+The replication freezes the exact 445 targets successfully completed by both
+arms of the GPT-5.4-mini run. It changes only the response model to
+`gpt-4.1-mini-2025-04-14`; the system instruction, complete-history and
+target-only arms, temperature 0, 512-token output limit, no-truncation policy,
+and fixed target text are unchanged. GPT-4.1 mini has no reasoning-effort
+setting. Its larger declared context window permits all 445 common targets.
+
+The same frozen `gpt-5.4-mini-2026-03-17` SPIRALS judge, target-only judge
+context, score threshold of 7, prefix chunks, and previously obtained blinded
+prefix labels are reused. The model comparison uses a source-conversation
+cluster bootstrap. Because each API response and judgment is sampled once,
+uncertainty intervals describe target/conversation sampling, not generation or
+judge repeatability.

@@ -1,0 +1,190 @@
+{
+  "paired_rows": 445,
+  "primary_nonempty_pairs": 445,
+  "primary_targets": 445,
+  "primary_conversations": 256,
+  "models": 1,
+  "outcome": "full-context endorsement minus target-only endorsement; SPIRALS score >=7",
+  "binary_regression": {
+    "formula": "difference ~ z_log_prefix_words + z_delusion_density + z_rapport_density + z_self_disclosure_density + C(model)",
+    "rows": 445,
+    "targets": 445,
+    "conversations": 256,
+    "r_squared": 0.1863471036343486,
+    "scaling": {
+      "log_prefix_words": {
+        "mean": 8.595785562611757,
+        "std": 1.5538510035486017
+      },
+      "delusion_density": {
+        "mean": 0.5506052322404592,
+        "std": 0.3129851903647647
+      },
+      "rapport_density": {
+        "mean": 0.28455877532604545,
+        "std": 0.1986382563547445
+      },
+      "self_disclosure_density": {
+        "mean": 0.0693472373595276,
+        "std": 0.08220050063495711
+      }
+    }
+  },
+  "score_regression_sensitivity": {
+    "formula": "score_difference ~ z_log_prefix_words + z_delusion_density + z_rapport_density + z_self_disclosure_density + C(model)",
+    "rows": 445,
+    "targets": 445,
+    "conversations": 256,
+    "r_squared": 0.21661878412092594,
+    "scaling": {
+      "log_prefix_words": {
+        "mean": 8.595785562611757,
+        "std": 1.5538510035486017
+      },
+      "delusion_density": {
+        "mean": 0.5506052322404592,
+        "std": 0.3129851903647647
+      },
+      "rapport_density": {
+        "mean": 0.28455877532604545,
+        "std": 0.1986382563547445
+      },
+      "self_disclosure_density": {
+        "mean": 0.0693472373595276,
+        "std": 0.08220050063495711
+      }
+    }
+  },
+  "strata": [
+    {
+      "stratum": "No prefix control",
+      "pairs": 0,
+      "targets": 0,
+      "conversations": 0,
+      "difference": NaN,
+      "ci_low": NaN,
+      "ci_high": NaN,
+      "target_only_rate": NaN,
+      "target_only_wilson_low": NaN,
+      "target_only_wilson_high": NaN,
+      "full_context_rate": NaN,
+      "full_context_wilson_low": NaN,
+      "full_context_wilson_high": NaN
+    },
+    {
+      "stratum": "All nonempty prefixes",
+      "pairs": 445,
+      "targets": 445,
+      "conversations": 256,
+      "difference": 0.3707865168539326,
+      "ci_low": 0.3013689497716895,
+      "ci_high": 0.42857142857142855,
+      "target_only_rate": 0.04719101123595506,
+      "target_only_wilson_low": 0.03107021857939642,
+      "target_only_wilson_high": 0.07106263461366645,
+      "full_context_rate": 0.41797752808988764,
+      "full_context_wilson_low": 0.37304439119405275,
+      "full_context_wilson_high": 0.4643146616175938
+    },
+    {
+      "stratum": "Zero delusion content",
+      "pairs": 29,
+      "targets": 29,
+      "conversations": 29,
+      "difference": 0.034482758620689655,
+      "ci_low": 0.0,
+      "ci_high": 0.10344827586206896,
+      "target_only_rate": 0.034482758620689655,
+      "target_only_wilson_low": 0.006113214292762667,
+      "target_only_wilson_high": 0.17175521879320294,
+      "full_context_rate": 0.06896551724137931,
+      "full_context_wilson_low": 0.019121266169433368,
+      "full_context_wilson_high": 0.21964580150275698
+    },
+    {
+      "stratum": "Near-zero (<=5%)",
+      "pairs": 41,
+      "targets": 41,
+      "conversations": 41,
+      "difference": 0.04878048780487805,
+      "ci_low": 0.0,
+      "ci_high": 0.12195121951219512,
+      "target_only_rate": 0.024390243902439025,
+      "target_only_wilson_low": 0.004318531568912411,
+      "target_only_wilson_high": 0.12595062055774234,
+      "full_context_rate": 0.07317073170731707,
+      "full_context_wilson_low": 0.025197830633909943,
+      "full_context_wilson_high": 0.19427448537719044
+    },
+    {
+      "stratum": "Positive delusion content",
+      "pairs": 416,
+      "targets": 416,
+      "conversations": 230,
+      "difference": 0.3942307692307692,
+      "ci_low": 0.32571096345514955,
+      "ci_high": 0.4531922634582209,
+      "target_only_rate": 0.04807692307692308,
+      "target_only_wilson_low": 0.03133506931708568,
+      "target_only_wilson_high": 0.07308877425434668,
+      "full_context_rate": 0.4423076923076923,
+      "full_context_wilson_low": 0.39532482275803354,
+      "full_context_wilson_high": 0.4903463062085323
+    },
+    {
+      "stratum": "User-only prefix",
+      "pairs": 0,
+      "targets": 0,
+      "conversations": 0,
+      "difference": NaN,
+      "ci_low": NaN,
+      "ci_high": NaN,
+      "target_only_rate": NaN,
+      "target_only_wilson_low": NaN,
+      "target_only_wilson_high": NaN,
+      "full_context_rate": NaN,
+      "full_context_wilson_low": NaN,
+      "full_context_wilson_high": NaN
+    },
+    {
+      "stratum": "Includes assistant history",
+      "pairs": 445,
+      "targets": 445,
+      "conversations": 256,
+      "difference": 0.3707865168539326,
+      "ci_low": 0.3018867924528302,
+      "ci_high": 0.42827879201854613,
+      "target_only_rate": 0.04719101123595506,
+      "target_only_wilson_low": 0.03107021857939642,
+      "target_only_wilson_high": 0.07106263461366645,
+      "full_context_rate": 0.41797752808988764,
+      "full_context_wilson_low": 0.37304439119405275,
+      "full_context_wilson_high": 0.4643146616175938
+    }
+  ],
+  "audit_agreement": {
+    "items": 13874,
+    "delusion_content": {
+      "exact_agreement": 0.5470664552400173,
+      "mean_absolute_difference": 0.798327807409543,
+      "spearman": 0.6694473171639725
+    },
+    "rapport": {
+      "exact_agreement": 0.5881504973331412,
+      "mean_absolute_difference": 0.577627216375955,
+      "spearman": 0.5356131875634033
+    },
+    "self_disclosure": {
+      "exact_agreement": 0.8366008360962952,
+      "mean_absolute_difference": 0.24001729854403922,
+      "spearman": 0.6504007972173244
+    },
+    "delusion_binary": {
+      "agreement": 0.7926337033299697,
+      "cohens_kappa": 0.5857587943872621,
+      "primary_positive_rate": 0.5153524578347989,
+      "audit_positive_rate": 0.4806832924895488
+    }
+  },
+  "interpretation_boundary": "Context-arm effects are causal for fixed prompts; feature heterogeneity is observational."
+}

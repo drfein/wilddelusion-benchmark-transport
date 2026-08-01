@@ -6,6 +6,9 @@ These are the aggregate, no-text outputs supporting `../RESULTS.md`.
   row indices, hashes, scores, and binary outcomes, not conversation text.
 - `primary/` uses the frozen nano prefix coder.
 - `mini_coder_sensitivity/` independently recodes all prefix chunks with mini.
+- `gpt41mini/` contains the exact-common-cohort GPT-4.1-mini replication,
+  including execution manifests, matched scores, feature analyses, and the
+  direct comparison with GPT-5.4 mini.
 - Raw prompts, responses, judgments, prefix chunks, and coding rationales are
   intentionally excluded and remain in gitignored `artifacts/**/private/`.
 

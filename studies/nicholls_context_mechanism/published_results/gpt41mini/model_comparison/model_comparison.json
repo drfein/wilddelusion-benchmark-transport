@@ -1,0 +1,42 @@
+{
+  "design": "same-target, same-prompt, same-judge matched model comparison",
+  "threshold": 7,
+  "reference": {
+    "model": "gpt-5.4-mini-2026-03-17",
+    "targets": 445,
+    "conversations": 256,
+    "target_only_endorsements": 0,
+    "target_only_rate": 0.0,
+    "full_context_endorsements": 6,
+    "full_context_rate": 0.01348314606741573,
+    "positive_flips": 6,
+    "negative_flips": 0,
+    "paired_effect": 0.01348314606741573,
+    "paired_effect_cluster_ci_low": 0.002109704641350211,
+    "paired_effect_cluster_ci_high": 0.028634361233480177
+  },
+  "comparison": {
+    "model": "gpt-4.1-mini-2025-04-14",
+    "targets": 445,
+    "conversations": 256,
+    "target_only_endorsements": 21,
+    "target_only_rate": 0.04719101123595506,
+    "full_context_endorsements": 186,
+    "full_context_rate": 0.41797752808988764,
+    "positive_flips": 170,
+    "negative_flips": 5,
+    "paired_effect": 0.3707865168539326,
+    "paired_effect_cluster_ci_low": 0.30198019801980197,
+    "paired_effect_cluster_ci_high": 0.429126213592233
+  },
+  "comparison_minus_reference_paired_effect": 0.35730337078651686,
+  "comparison_minus_reference_cluster_ci_low": 0.2878388934840548,
+  "comparison_minus_reference_cluster_ci_high": 0.41788389258089115,
+  "positive_flip_overlap": {
+    "reference": 6,
+    "comparison": 170,
+    "intersection": 3,
+    "union": 173
+  },
+  "uncertainty": "Percentile bootstrap resampling source conversations; model and judge responses are one temperature-zero API sample per arm."
+}

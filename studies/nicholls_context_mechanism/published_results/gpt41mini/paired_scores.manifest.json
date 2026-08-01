@@ -1,0 +1,14 @@
+{
+  "pairs": 445,
+  "successful_judgments": 890,
+  "unmatched_targets_excluded": 0,
+  "targets": 445,
+  "conversations": 256,
+  "models": [
+    "gpt-4.1-mini-2025-04-14"
+  ],
+  "threshold": 7,
+  "target_only_rate": 0.04719101123595506,
+  "full_context_rate": 0.41797752808988764,
+  "paired_difference": 0.3707865168539326
+}

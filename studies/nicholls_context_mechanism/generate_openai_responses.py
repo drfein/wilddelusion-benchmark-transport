@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from openai import AsyncOpenAI
-from prepare_complete_context_inputs import MAX_OUTPUT_TOKENS, MODEL, SYSTEM_PROMPT
+from prepare_complete_context_inputs import MAX_OUTPUT_TOKENS, SYSTEM_PROMPT
 from tqdm import tqdm
 
 
@@ -34,9 +34,9 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
     ]
 
 
-def valid(row: dict[str, Any]) -> bool:
+def valid(row: dict[str, Any], model: str) -> bool:
     return (
-        bool(row.get("response")) and row.get("model") == MODEL and not row.get("error")
+        bool(row.get("response")) and row.get("model") == model and not row.get("error")
     )
 
 
@@ -45,8 +45,14 @@ async def run(args: argparse.Namespace) -> None:
     if not os.environ.get("OPENAI_API_KEY"):
         raise RuntimeError("OPENAI_API_KEY is not configured")
     inputs = read_jsonl(args.input)
+    models = {row["model"] for row in inputs}
+    if len(models) != 1:
+        raise ValueError(
+            f"Generation input must contain exactly one model, found {models}"
+        )
+    model = next(iter(models))
     prior = read_jsonl(args.output)
-    completed = {row["prompt_sha256"] for row in prior if valid(row)}
+    completed = {row["prompt_sha256"] for row in prior if valid(row, model)}
     pending = [row for row in inputs if row["prompt_sha256"] not in completed]
     if args.max_requests is not None:
         pending = pending[: args.max_requests]
@@ -60,17 +66,20 @@ async def run(args: argparse.Namespace) -> None:
         for attempt in range(1, args.attempts + 1):
             try:
                 async with semaphore:
-                    response = await client.responses.create(
-                        model=MODEL,
-                        input=[
+                    request: dict[str, Any] = {
+                        "model": model,
+                        "input": [
                             {"role": "system", "content": SYSTEM_PROMPT},
                             *row["messages"],
                         ],
-                        reasoning={"effort": "none"},
-                        temperature=0,
-                        max_output_tokens=MAX_OUTPUT_TOKENS,
-                        store=False,
-                    )
+                        "temperature": 0,
+                        "max_output_tokens": MAX_OUTPUT_TOKENS,
+                        "store": False,
+                        "truncation": "disabled",
+                    }
+                    if model.startswith("gpt-5"):
+                        request["reasoning"] = {"effort": "none"}
+                    response = await client.responses.create(**request)
                 text = response.output_text.strip()
                 if not text:
                     raise ValueError("Model returned an empty response")
@@ -107,11 +116,11 @@ async def run(args: argparse.Namespace) -> None:
         results.append(await task)
 
     final = read_jsonl(args.output)
-    successful = {row["prompt_sha256"] for row in final if valid(row)}
+    successful = {row["prompt_sha256"] for row in final if valid(row, model)}
     expected = {row["prompt_sha256"] for row in inputs}
     manifest = {
-        "model": MODEL,
-        "reasoning_effort": "none",
+        "model": model,
+        "reasoning_effort": "none" if model.startswith("gpt-5") else "not_applicable",
         "temperature": 0,
         "max_output_tokens": MAX_OUTPUT_TOKENS,
         "requested_rows": len(inputs),
@@ -120,10 +129,12 @@ async def run(args: argparse.Namespace) -> None:
         "missing_rows": len(expected - successful),
         "new_errors": sum(bool(row.get("error")) for row in results),
         "total_input_tokens": sum(
-            int(row.get("actual_input_tokens", 0)) for row in final if valid(row)
+            int(row.get("actual_input_tokens", 0)) for row in final if valid(row, model)
         ),
         "total_output_tokens": sum(
-            int(row.get("actual_output_tokens", 0)) for row in final if valid(row)
+            int(row.get("actual_output_tokens", 0))
+            for row in final
+            if valid(row, model)
         ),
         "output_sha256": hashlib.sha256(args.output.read_bytes()).hexdigest()
         if args.output.exists()
