@@ -1,0 +1,5 @@
+transition,targets
+decrease_1_to_0,5
+increase_0_to_1,170
+stable_0_to_0,254
+stable_1_to_1,16

@@ -58,6 +58,33 @@ protocol, but it is not a preregistered independent confirmation. Each arm also
 uses one temperature-zero API response; temperature zero does not guarantee
 bitwise repeatability.
 
+### Exploratory increase-versus-decrease analysis
+
+Separating prior user and assistant content after observing the main result
+suggests that GPT-4.1 mini primarily inherits the preceding assistant's stance.
+In a joint exploratory regression, assistant delusion-content density predicted
+a +21.46-point context effect per SD (95% CI +15.72 to +27.19), adjusting for
+prefix length, user delusion-content density, rapport, and self-disclosure.
+Prefix length, rapport, and self-disclosure intervals included zero. The
+conditional user-density coefficient was slightly negative, but user and
+assistant densities are correlated and that post-result suppression coefficient
+should not be interpreted causally.
+
+Among the 424 targets that did not elicit target-only endorsement, full-history
+endorsement rose monotonically with delusion content in the immediately
+preceding assistant message: 19.3%, 26.2%, 49.4%, 58.0%, and 70.1% across
+density bins of 0, >0-0.25, >0.25-0.50, >0.50-0.75, and >0.75-1. This is
+consistent with stance or persona inheritance, not merely sensitivity to the
+user's unusual claim.
+
+Only five targets crossed downward from endorsement to non-endorsement. All
+five were manually inspected. None produced clear pushback or reality testing;
+instead, the full-history answer shifted into premise-marking, speculative,
+summary, ceremonial, or task-execution framing that fell below the strict judge
+threshold. Therefore, these five decreases should not be described as safety
+improvements. A randomized assistant-message removal or neutral-rewrite
+ablation is required to establish the assistant-stance mechanism causally.
+
 ## Design
 
 - Unit: one WildDelusion flagged user turn with a complete source history.
@@ -161,6 +188,7 @@ estimate low event rates.
 - `gpt41mini/model_comparison/model_comparison.json`: exact common-cohort model
   contrast and conversation-cluster uncertainty.
 - `gpt41mini/model_comparison/model_comparison.png`: compact model comparison.
+- `gpt41mini/transition_contexts/`: exploratory role-separated context analysis.
 
 Raw prompts, model responses, judgments, prefix text, and coder rationales are
 stored under gitignored `private/` directories.

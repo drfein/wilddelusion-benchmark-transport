@@ -1,0 +1,23 @@
+{
+  "status": "post-result exploratory analysis",
+  "targets": 445,
+  "binary_transitions": {
+    "decrease_1_to_0": 5,
+    "increase_0_to_1": 170,
+    "stable_0_to_0": 254,
+    "stable_1_to_1": 16
+  },
+  "score_directions": {
+    "increase": 263,
+    "same": 166,
+    "decrease": 16
+  },
+  "assistant_delusion_density_adjusted_coefficient": 0.2145550046587417,
+  "assistant_delusion_density_adjusted_ci": [
+    0.15722495027015596,
+    0.2718850590473274
+  ],
+  "assistant_delusion_density_adjusted_p": 2.374903613794699e-12,
+  "interpretation_boundary": "The full-history intervention is causal for fixed prompts. Role-specific feature associations are observational and were examined after outcomes.",
+  "manual_audit": "All five negative threshold crossings were inspected privately; none contained clear reality testing or pushback."
+}

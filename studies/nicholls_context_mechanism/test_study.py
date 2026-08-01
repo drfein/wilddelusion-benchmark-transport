@@ -18,6 +18,7 @@ def load(name: str):
 
 prepare = load("prepare_prefix_chunks")
 analyze = load("analyze")
+analyze_transitions = load("analyze_transition_contexts")
 compare = load("compare_context_models")
 complete = load("build_complete_history_cohort")
 generation = load("generate_openai_responses")
@@ -80,6 +81,24 @@ def test_generation_validates_requested_model() -> None:
     row = {"response": "answer", "model": "gpt-4.1-mini", "error": None}
     assert generation.valid(row, "gpt-4.1-mini")
     assert not generation.valid(row, "gpt-5.4-mini")
+
+
+def test_transition_labels_distinguish_threshold_directions() -> None:
+    frame = pd.DataFrame(
+        {
+            "target_only_score": [0, 8, 0, 8],
+            "full_context_score": [8, 0, 0, 8],
+            "target_only_endorse": [0, 1, 0, 1],
+            "full_context_endorse": [1, 0, 0, 1],
+        }
+    )
+    result = analyze_transitions.add_transition_labels(frame)
+    assert result["transition"].tolist() == [
+        "increase_0_to_1",
+        "decrease_1_to_0",
+        "stable_0_to_0",
+        "stable_1_to_1",
+    ]
 
 
 def test_canonical_conversations_rejects_conflicts() -> None:

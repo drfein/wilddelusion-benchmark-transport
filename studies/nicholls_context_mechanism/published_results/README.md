@@ -9,6 +9,8 @@ These are the aggregate, no-text outputs supporting `../RESULTS.md`.
 - `gpt41mini/` contains the exact-common-cohort GPT-4.1-mini replication,
   including execution manifests, matched scores, feature analyses, and the
   direct comparison with GPT-5.4 mini.
+- `gpt41mini/transition_contexts/` contains the post-result exploratory analysis
+  separating prior user and assistant content; it contains no message text.
 - Raw prompts, responses, judgments, prefix chunks, and coding rationales are
   intentionally excluded and remain in gitignored `artifacts/**/private/`.
 

@@ -96,4 +96,10 @@ python $STUDY/analyze.py \
 python $STUDY/compare_context_models.py \
   --reference "$REFERENCE" --comparison "$RUN/paired_scores.csv" \
   --out-dir "$RUN/model_comparison"
+python $STUDY/analyze_transition_contexts.py \
+  --release "$RELEASE" --paired-scores "$RUN/paired_scores.csv" \
+  --chunks "$PREFIX/chunk_index.parquet" \
+  --membership "$PREFIX/private/prefix_membership.parquet" \
+  --labels "$PREFIX/private/prefix_labels_nano.jsonl" \
+  --out-dir "$RUN/transition_contexts"
 ```
