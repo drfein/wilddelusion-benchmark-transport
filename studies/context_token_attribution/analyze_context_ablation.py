@@ -37,7 +37,11 @@ def bootstrap_spearman(x: np.ndarray, y: np.ndarray, iterations: int) -> list[fl
     estimates = []
     for _ in range(iterations):
         sample = rng.integers(0, len(x), len(x))
-        value = spearmanr(x[sample], y[sample]).statistic
+        x_sample = x[sample]
+        y_sample = y[sample]
+        if len(np.unique(x_sample)) < 2 or len(np.unique(y_sample)) < 2:
+            continue
+        value = spearmanr(x_sample, y_sample).statistic
         if np.isfinite(value):
             estimates.append(value)
     return [float(np.quantile(estimates, 0.025)), float(np.quantile(estimates, 0.975))]
@@ -90,6 +94,7 @@ def main() -> None:
             {
                 "original_row_idx": source["original_row_idx"],
                 "conversation_hash": conversation_hash,
+                "source": source["source"],
                 "full_context_rate": full_rate,
                 "target_only_rate": target_rate,
                 "full_minus_target_only": full_rate - target_rate,
@@ -169,6 +174,38 @@ def main() -> None:
             "for accumulated content"
         ),
     }
+    source_groups: dict[str, list[dict]] = defaultdict(list)
+    for row in rows:
+        source_groups[row["source"]].append(row)
+    summary["source_stratified_sensitivity"] = {}
+    for source, source_rows in sorted(source_groups.items()):
+        source_effects = np.asarray(
+            [row["full_minus_target_only"] for row in source_rows]
+        )
+        source_lengths = np.asarray(
+            [row["input_tokens_full"] for row in source_rows], dtype=np.float64
+        )
+        result = {
+            "conversations": len(source_rows),
+            "full_context_rate": float(
+                np.mean([row["full_context_rate"] for row in source_rows])
+            ),
+            "target_only_rate": float(
+                np.mean([row["target_only_rate"] for row in source_rows])
+            ),
+            "full_minus_target_only": float(source_effects.mean()),
+            "bootstrap_95_ci_by_conversation": bootstrap_mean(
+                source_effects, args.bootstrap
+            ),
+        }
+        if len(source_rows) >= 10:
+            result["length_effect_spearman_r"] = float(
+                spearmanr(source_lengths, source_effects).statistic
+            )
+            result["length_effect_spearman_bootstrap_95_ci"] = bootstrap_spearman(
+                source_lengths, source_effects, args.bootstrap
+            )
+        summary["source_stratified_sensitivity"][source] = result
 
     if args.token_attribution_conversations:
         attribution = {
