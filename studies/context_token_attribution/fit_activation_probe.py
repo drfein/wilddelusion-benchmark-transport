@@ -7,6 +7,7 @@ from pathlib import Path
 import numpy as np
 from config import ENDORSEMENT_THRESHOLD, SEED
 from io_utils import read_jsonl, sha256_file, write_jsonl
+from scipy.stats import spearmanr
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     average_precision_score,
@@ -27,6 +28,7 @@ def fit_one(x: np.ndarray, y: np.ndarray, c_value: float):
         solver="liblinear",
         max_iter=2_000,
         random_state=SEED,
+        intercept_scaling=100.0,
     ).fit(scaler.transform(x), y)
     return scaler, model
 
@@ -219,6 +221,30 @@ def main() -> None:
 
     metrics = safe_metrics(y, predictions)
     baseline_metrics = safe_metrics(y, baseline_predictions)
+    conversation_truth = []
+    conversation_prediction = []
+    for group in unique_groups:
+        mask = groups == group
+        conversation_truth.append(float(y[mask].mean()))
+        conversation_prediction.append(float(predictions[mask].mean()))
+    conversation_truth_array = np.asarray(conversation_truth)
+    conversation_prediction_array = np.asarray(conversation_prediction)
+    residual_sum_squares = float(
+        np.square(conversation_truth_array - conversation_prediction_array).sum()
+    )
+    total_sum_squares = float(
+        np.square(conversation_truth_array - conversation_truth_array.mean()).sum()
+    )
+    propensity_metrics = {
+        "conversations": len(unique_groups),
+        "r_squared": 1 - residual_sum_squares / total_sum_squares,
+        "spearman_r": float(
+            spearmanr(conversation_truth_array, conversation_prediction_array).statistic
+        ),
+        "mean_squared_error": float(
+            np.square(conversation_truth_array - conversation_prediction_array).mean()
+        ),
+    }
     summary = {
         "design": "nested five-fold CV grouped by conversation hash",
         "judgments_sha256": sha256_file(args.judgments),
@@ -231,6 +257,7 @@ def main() -> None:
         "candidate_c": list(CANDIDATE_C),
         "outer_fold_selection": selected,
         "oof_metrics": metrics,
+        "oof_conversation_propensity_metrics": propensity_metrics,
         "fold_prevalence_baseline": baseline_metrics,
         "bootstrap_95_ci_by_conversation": bootstrap_metrics(
             y, predictions, groups, iterations=args.bootstrap
